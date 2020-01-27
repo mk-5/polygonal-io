@@ -1,0 +1,15 @@
+plugins {
+    id 'base'
+    id 'idea'
+}
+
+allprojects {
+    repositories {
+        mavenLocal()
+        jcenter()
+    }
+}
+
+subprojects {
+    apply from: new File(rootDir, '/gradle/dependencies.gradle')
+}

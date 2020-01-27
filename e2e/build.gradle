@@ -1,0 +1,42 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        jcenter()
+    }
+    dependencies {
+        classpath 'pl.mk5.polygonal:polygonal-architecture:1.0.0-SNAPSHOT'
+    }
+}
+
+apply plugin: 'java'
+try{
+    apply plugin: 'pl.mk5.polygonal-architecture'
+
+    polygonalArchitecture {
+        sourcesDir = file('src/main/java')
+        basePackage = 'pl.mk5.polygonal.e2e'
+
+        polygon {
+            packageDef {
+                name = ''
+                packagePrivateScope = -1
+            }
+            packageDef {
+                name = 'events'
+                publicScope = -1
+            }
+            packageDef {
+                name = 'models'
+                publicScope = -1
+            }
+            packageDef {
+                name = 'ports'
+                publicScope = -1
+            }
+        }
+    }
+
+    checkPolygons.dependsOn(':plugin-gradle:publishToMavenLocal')
+}catch(Exception e){
+    getLogger().log(LogLevel.ERROR, e.getLocalizedMessage(), e)
+}

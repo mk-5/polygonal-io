@@ -1,0 +1,20 @@
+## Gradle
+.gradle
+gradle-app.setting
+build/
+
+## Java
+*.class
+*.war
+*.ear
+hs_err_pid*
+
+## OS Specific
+.DS_Store
+
+## Idea
+.idea/
+*.ipr
+*.iws
+*.iml
+out/

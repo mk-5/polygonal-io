@@ -1,0 +1,63 @@
+apply plugin: 'java-gradle-plugin'
+apply plugin: 'groovy'
+apply plugin: 'com.gradle.plugin-publish'
+apply plugin: 'maven-publish'
+
+group = 'pl.mk5.polygonal'
+version = '1.0.0-SNAPSHOT'
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+javadoc {
+    if (JavaVersion.current().isJava9Compatible()) {
+        options.addBooleanOption('html5', true)
+    }
+}
+
+pluginBundle {
+    website = 'https://github.com/mk-5/polygonal-architecture'
+    vcsUrl = 'https://github.com/mk-5/polygonal-architecture'
+    tags = ['java', 'gradle', 'architecture', 'polygonal architecture', 'groovy']
+}
+
+gradlePlugin {
+    plugins {
+        polygonalPlugin {
+            id = 'pl.mk5.polygonal-architecture'
+            displayName = 'Polygonal Architecture plugin'
+            description = 'A plugin that helps you to provide polygonal architecture inside your app!'
+            implementationClass = 'pl.mk5.polygonal.PolygonalArchitecturePlugin'
+        }
+    }
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+            artifactId = 'polygonal-architecture'
+
+            pom {
+                name = "Polygonal Architecture"
+                description = "A plugin that helps you to provide polygonal architecture inside your app!"
+                url = "https://github.com/mk-5/polygonal-architecture"
+                licenses {
+                    license {
+                        name = "The Apache License, Version 2.0"
+                        url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+                    }
+                }
+                developers {
+                    developer {
+                        id = "mk-5"
+                        name = "mk-5"
+                        email = "mateusz@mk5.pl"
+                    }
+                }
+            }
+        }
+    }
+}

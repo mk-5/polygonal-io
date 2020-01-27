@@ -1,0 +1,17 @@
+plugins {
+    id 'groovy'
+    id 'java-gradle-plugin'
+    id 'com.gradle.plugin-publish' version '0.10.1'
+}
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+
+dependencies {
+    implementation libs.ymlSnake
+    testImplementation libs.spock
+    testImplementation libs.cglib
+    testImplementation libs.objenesis
+}
+
+apply from: '../gradle/tests.gradle'
+apply from: '../gradle/publication.gradle'
