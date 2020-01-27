@@ -2,6 +2,8 @@
 
 Plug-in which helps you implement clean architecture in your application.
 
+[![Build Status](https://travis-ci.org/mk-5/polygonal-architecture.svg?branch=master)](https://travis-ci.org/mk-5/polygonal-architecture)
+
 ## Getting started
 
 Because you are here I suppose that you would like to keep clean codebase architecture, wouldn't you? I'm here to help you!  

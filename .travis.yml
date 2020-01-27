@@ -24,6 +24,7 @@ cache:
 build:
   stage: build
   script:
+    - ./gradlew publishToMavenLocal
     - ./gradlew build --scan -s
 
 release:
