@@ -11,6 +11,7 @@ stages:
 
 before_script:
   - chmod +x gradlew
+  - ./gradlew publishToMavenLocal
 
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
