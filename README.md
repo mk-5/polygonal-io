@@ -9,7 +9,7 @@ To make the magic happen, you need following gradle configuration:
 
 ``` gradle
 plugins {
-  id 'pl.mk5.polygonal'
+  id 'pl.mk5.polygonal-architecture'
 }
 
 // or 
@@ -23,7 +23,7 @@ buildscript {
     }
 }
 
-apply plugin: 'pl.mk5.polygonal'
+apply plugin: 'pl.mk5.polygonal-architecture'
 
 ```
 
