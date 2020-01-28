@@ -33,7 +33,7 @@ apply plugin: 'pl.mk5.polygonal-architecture'
 
 ## What does polygonal mean?
 
-Let assume that every application is built with blocks. From architecture perspective the very basic block/brick in Java app is a package, right? Now imagine that  you are going to build a wall from bricks, the only way that bricks will match with each other is that they have the same shape, and the same amount of edges. What if the same rule can be applied to the software? Haven't you seen the projects where packaging looks more like delicious spaghetti than a good peace of software? Projects where each package has own freaky structure, are really common. Everybody was there, yep? Let stop this! I'd like to show you easy way to keep your architecture clean as a baby ass.
+Let assume that every application is built with blocks. From architecture perspective the very basic block/brick in Java app is a package, right? Now imagine that  you are going to build a wall from bricks, the only way that bricks will match with each other is that they have the same shape, and the same amount of edges. What if the same rule can be applied to the software? Haven't you seen the projects where packaging looks more like delicious spaghetti than a good peace of software? This kind of freaky packaing structure projects are really common. Everybody was there, yep? Let stop this! I'd like to show you easy way to keep your architecture clean as a baby ass.
 
 Example: 
 
@@ -50,7 +50,7 @@ org.example
     App.java
 ```
 
-Maybe you heard about "hexagonal architecture" , "ports&adapters", today I'd like to make your point of view a little bit easier. Polygon - you can ask why it's called "polygon" 🤔? because, to build something using polygons, every peace should match, right? Whatever polygons you choose -> they can be triangles, quarters, hexagons, doesn't meter, but they need to match with other polygons. In software development language it means that each polygon package (domain package) should have the same shape as other domain packages.
+Maybe you heard about "hexagonal architecture" , "ports&adapters", today I'd like to make the things a little bit more straightforward. Polygon - what is the "polygon" 🤔? To build something using polygons, every peace should match, right? Whatever polygons you choose -> they can be triangles, quarters, hexagons, doesn't meter, but they need to match with other polygons. In software development language it means that each domain package (polygon) should have the same shape as other domain packages, and the same amount of entrance/communication points (edges).
 
 ## Plug-in configuration
 
