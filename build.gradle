@@ -1,12 +1,16 @@
 plugins {
     id 'base'
     id 'idea'
+    id 'com.jfrog.bintray' version "1.8.4"
 }
+
+group = 'pl.mk5.polygonal'
+version = (project.hasProperty("version") && project.getProperty("version") != "unspecified") ? project.getProperty("version") : 'latest'
 
 allprojects {
     repositories {
-        mavenLocal()
         jcenter()
+        mavenLocal()
     }
 }
 
