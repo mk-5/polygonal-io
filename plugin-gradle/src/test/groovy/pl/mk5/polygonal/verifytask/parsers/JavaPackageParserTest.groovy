@@ -1,10 +1,7 @@
 package pl.mk5.polygonal.verifytask.parsers
 
-import pl.mk5.polygonal.verifytask.parsers.JavaPackageParser
 import spock.lang.Specification
-
-import java.nio.file.Files
-import java.nio.file.Paths
+import spock.lang.Unroll
 
 class JavaPackageParserTest extends Specification {
 
@@ -20,9 +17,14 @@ class JavaPackageParserTest extends Specification {
         }
     }
 
-    def "should get package information"(String testFile, int publicObjects, int packagePrivateObjects, int protectedObjects, int classes, int abstractClasses, int interfaces, int enums) {
+    @Unroll
+    def "should get package information #testFile"(String testFile, int publicObjects, int packagePrivateObjects, int protectedObjects, int classes, int abstractClasses, int interfaces, int enums) {
         given:
-        def fileContent = Files.readString(Paths.get(getClass().classLoader.getResource("java/${testFile}").toURI()))
+        def fileWithTestData = new File(getClass()
+                .getClassLoader()
+                .getResource("java/${testFile}")
+                .toURI())
+        def fileContent = fileWithTestData.text
         file.text >> fileContent
 
         when:

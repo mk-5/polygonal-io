@@ -7,11 +7,11 @@ jdk: oraclejdk8
 
 stages:
   - build
+  - test
   - deploy
 
-before_script:
+before_install:
   - chmod +x gradlew
-  - ./gradlew publishToMavenLocal
 
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
@@ -25,10 +25,24 @@ cache:
 build:
   stage: build
   script:
-    - ./gradlew publishToMavenLocal
-    - ./gradlew build --scan -s
+    - ./gradlew build --scan -s --stacktrace
+
+e2e_test:
+  stage: test
+  script:
+    - cd e2e
+    - ./gradlew build
+
+#release_snapshot:
+#  stage: deploy
+#  if: branch = master && pull_request = "false"
+#  script:
+#    - ./gradlew build publishPlugins -Pversion="$TRAVIS_BUILD.SNAPSHOT" -Dgradle.publish.key=$GRADLE_PUBLISH_KEY -Dgradle.publish.secret=$GRADLE_PUBLISH_SECRET
 
 release:
   stage: deploy
+  if: branch =~ /^\d+\.\d+(\.\d+)?$/
   script:
-    - ./gradlew publishPlugins
+    - ./gradlew build -Pversion=$TRAVIS_BRANCH
+    - ./gradlew bintrayUpload -Pversion=$TRAVIS_BRANCH
+    - ./gradlew publishPlugins -Pversion=$TRAVIS_BRANCH -Dgradle.publish.key=$GRADLE_PUBLISH_KEY -Dgradle.publish.secret=$GRADLE_PUBLISH_SECRET
