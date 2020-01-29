@@ -17,15 +17,17 @@ plugins {
 // or 
 
 buildscript {
-    repositories {
-        jcenter()
+  repositories {
+    maven {
+      url "https://plugins.gradle.org/m2/"
     }
-    dependencies {
-        classpath 'pl.mk5.polygonal:polygonal-architecture:$currentVersion'
-    }
+  }
+  dependencies {
+    classpath "pl.mk5.polygonal:plugin-gradle:$currentVersion"
+  }
 }
 
-apply plugin: 'pl.mk5.polygonal-architecture'
+apply plugin: "pl.mk5.polygonal-architecture"
 
 ```
 
