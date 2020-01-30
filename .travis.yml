@@ -9,8 +9,10 @@ stages:
   - check
   - build
   - test
-  - deploy
-  - release
+  - name: release
+    if: branch = master && pull_request = "false"
+  - name: deploy
+    if: branch =~ /^\d+\.\d+(\.\d+)?$/
 
 before_install:
   - chmod +x gradlew
@@ -32,12 +34,10 @@ jobs:
       script: ./gradlew build --scan -s --stacktrace
     - stage: release
       script: chmod +x next-version.sh && ./next-version.sh
-      if: branch = master && pull_request = "false"
     - stage: deploy
       script: ./gradlew build -Pversion=$TRAVIS_BRANCH
     - script: ./gradlew bintrayUpload -Pversion=$TRAVIS_BRANCH
     - script: ./gradlew publishPlugins -Pversion=$TRAVIS_BRANCH -Dgradle.publish.key=$GRADLE_PUBLISH_KEY -Dgradle.publish.secret=$GRADLE_PUBLISH_SECRET
-      if: branch =~ /^\d+\.\d+(\.\d+)?$/
 
 
 #e2e_test:
