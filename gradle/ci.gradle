@@ -1,0 +1,34 @@
+apply plugin: 'base'
+
+def PATCH_KEYWORD = '[PATCH]'
+def MINOR_KEYWORD = '[MINOR]'
+def MAJOR_KEYWORD = '[MAJOR]'
+
+task checkCi() {
+    doLast {
+        def cm = System.getenv('TRAVIS_COMMIT_MESSAGE')
+        assert cm != null && (cm.contains(PATCH_KEYWORD) || cm.contains(MINOR_KEYWORD) || cm.contains(MAJOR_KEYWORD)): "Versioning informationis missing. Please provide one of ${PATCH_KEYWORD}/${MINOR_KEYWORD}/${MAJOR_KEYWORD}"
+    }
+}
+
+task nextVersion() {
+    doLast {
+        def cm = System.getenv('TRAVIS_COMMIT_MESSAGE')
+        def latestVersion = System.getenv('PLUGIN_LATEST_VERSION')
+        assert cm != null
+        assert latestVersion != null && latestVersion =~ /\d+\.\d+\.+d*/
+        def semanticLatestVersion = latestVersion.replaceAll("-SNAPSHOT", "")
+        def versionParts = semanticLatestVersion.split("\\.")
+        if (cm.contains(PATCH_KEYWORD)) {
+            versionParts[2]++
+        } else if (cm.contains(MINOR_KEYWORD)) {
+            versionParts[2] = 0
+            versionParts[1]++
+        } else {
+            versionParts[2] = 0
+            versionParts[1] = 0
+            versionParts[0]++
+        }
+        println(versionParts.join("."))
+    }
+}

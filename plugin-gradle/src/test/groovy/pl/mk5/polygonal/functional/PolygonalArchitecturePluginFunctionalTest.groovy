@@ -54,7 +54,7 @@ class PolygonalArchitecturePluginFunctionalTest extends Specification {
         def runner = GradleRunner.create()
         runner.forwardOutput()
         runner.withPluginClasspath()
-        runner.withArguments("check")
+        runner.withArguments("verifyPolygons")
         runner.withProjectDir(projectDir)
         def result = runner.build()
 

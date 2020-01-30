@@ -4,6 +4,9 @@ apply plugin: 'com.gradle.plugin-publish'
 apply plugin: 'maven-publish'
 apply plugin: 'com.jfrog.bintray'
 
+group = 'pl.mk5.polygonal'
+version = project.version && project.version != 'unspecified' ? project.version : 'latest'
+
 java {
     withJavadocJar()
     withSourcesJar()

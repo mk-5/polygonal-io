@@ -4,7 +4,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'pl.mk5.polygonal:polygonal-architecture:1.0.0-SNAPSHOT'
+        classpath 'pl.mk5.polygonal:polygonal-architecture:latest'
     }
 }
 
@@ -36,7 +36,7 @@ try{
         }
     }
 
-    checkPolygons.dependsOn(':plugin-gradle:publishToMavenLocal')
+    verifyPolygons.dependsOn(':plugin-gradle:publishToMavenLocal')
 }catch(Exception e){
     getLogger().log(LogLevel.ERROR, e.getLocalizedMessage(), e)
 }

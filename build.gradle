@@ -4,9 +4,6 @@ plugins {
     id 'com.jfrog.bintray' version "1.8.4"
 }
 
-group = 'pl.mk5.polygonal'
-version = (project.hasProperty("version") && project.getProperty("version") != "unspecified") ? project.getProperty("version") : 'latest'
-
 allprojects {
     repositories {
         jcenter()
@@ -17,3 +14,5 @@ allprojects {
 subprojects {
     apply from: new File(rootDir, '/gradle/dependencies.gradle')
 }
+
+apply from: new File(rootDir, '/gradle/ci.gradle')

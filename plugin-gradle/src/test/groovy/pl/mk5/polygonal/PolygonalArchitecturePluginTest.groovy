@@ -17,6 +17,6 @@ class PolygonalArchitecturePluginTest extends Specification {
         project.plugins.apply("pl.mk5.polygonal-architecture")
 
         then:
-        project.tasks.findByName("checkPolygons") != null
+        project.tasks.findByName("verifyPolygons") != null
     }
 }

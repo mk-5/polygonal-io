@@ -114,7 +114,7 @@ polygonalArchitecture {
       types = ['interface']
     }
   }
- 
+} 
 ```
 #### Attributes
 |DSL atribute|Description|Default|
@@ -175,13 +175,27 @@ Mixing of gradle DSL, and yaml configuration is allowed. The one rules here is t
 
 ## Usage
 
-All you need to check your architecture is this:
+To check your polygons you need to execute below gradle task:
 
 ```bash
 $ ./gradlew verifyPolygons
 ```
 
-Your polygons would be check automatically within `check` step. 
+In case of any problems plugin will tell you, where is the problem. Example output:
+
+```gradle
+Checking polygons for project polygonal-architecture
+-- polygon droids is going to be checked
+-- polygon universe is going to be checked
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':verifyPolygons'.
+> 0 public scope objects are allowed in 'models' package
+```
+
+
 
 ## What's next?
 

@@ -6,6 +6,7 @@ dist: trusty
 jdk: oraclejdk8
 
 stages:
+  - check
   - build
   - test
   - deploy
@@ -22,22 +23,32 @@ cache:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
 
+check_versioning_information:
+  stage: check
+  script:
+    - ./gradlew checkCi
+
 build:
   stage: build
   script:
     - ./gradlew build --scan -s --stacktrace
 
-e2e_test:
-  stage: test
-  script:
-    - cd e2e
-    - ./gradlew build
-
-#release_snapshot:
-#  stage: deploy
-#  if: branch = master && pull_request = "false"
+#e2e_test:
+#  stage: test
 #  script:
-#    - ./gradlew build publishPlugins -Pversion="$TRAVIS_BUILD.SNAPSHOT" -Dgradle.publish.key=$GRADLE_PUBLISH_KEY -Dgradle.publish.secret=$GRADLE_PUBLISH_SECRET
+#    - cd e2e
+#    - ./gradlew build
+
+next_version:
+  stage: deploy
+  if: branch = master && pull_request = "false"
+  script:
+    - export PLUGIN_LATEST_VERSION=$(curl -s https://plugins.gradle.org/m2/pl/mk5/polygonal-architecture/pl.mk5.polygonal-architecture.gradle.plugin/maven-metadata.xml | grep -Po '(?<=<version>)([0-9\.]+(-SNAPSHOT)?)' | sort --version-sort -r | head -n 1)
+    - export NEXT_VERSION=$(./gradlew -q nextVersion)
+    - git config user.name "Travis CI"
+    - git config user.email "builds@travis-ci.com"
+    - git tag $NEXT_VERSION
+    - git push https://$TRAVIS_GITHUB_KEY@github.com/mk-5/polygonal-architecture.git --tags
 
 release:
   stage: deploy
