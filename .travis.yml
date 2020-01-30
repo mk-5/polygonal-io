@@ -10,6 +10,7 @@ stages:
   - build
   - test
   - deploy
+  - release
 
 before_install:
   - chmod +x gradlew
@@ -28,11 +29,9 @@ jobs:
     - stage: check
       script: ./gradlew checkCi
     - stage: build
-      script:
-        - ./gradlew build --scan -s --stacktrace
-    - stage: deploy
-      script:
-        - chmod +x next-version.sh && ./next-version.sh
+      script: ./gradlew build --scan -s --stacktrace
+    - stage: release
+      script: chmod +x next-version.sh && ./next-version.sh
       if: branch = master && pull_request = "false"
     - stage: deploy
       script: ./gradlew build -Pversion=$TRAVIS_BRANCH
