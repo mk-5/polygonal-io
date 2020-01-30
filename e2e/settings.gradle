@@ -1,0 +1,2 @@
+rootProject.name = 'polygonal-architecture'
+include 'plugin-gradle'
