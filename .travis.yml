@@ -23,37 +23,26 @@ cache:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
 
-check_versioning_information:
-  stage: check
-  script:
-    - ./gradlew checkCi
+jobs:
+  include:
+    - stage: check
+      script: ./gradlew checkCi
+    - stage: build
+      script:
+        - ./gradlew build --scan -s --stacktrace
+    - stage: deploy
+      script:
+        - chmod +x next-version.sh && ./next-version.sh
+      if: branch = master && pull_request = "false"
+    - stage: deploy
+      script: ./gradlew build -Pversion=$TRAVIS_BRANCH
+    - script: ./gradlew bintrayUpload -Pversion=$TRAVIS_BRANCH
+    - script: ./gradlew publishPlugins -Pversion=$TRAVIS_BRANCH -Dgradle.publish.key=$GRADLE_PUBLISH_KEY -Dgradle.publish.secret=$GRADLE_PUBLISH_SECRET
+      if: branch =~ /^\d+\.\d+(\.\d+)?$/
 
-build:
-  stage: build
-  script:
-    - ./gradlew build --scan -s --stacktrace
 
 #e2e_test:
 #  stage: test
 #  script:
 #    - cd e2e
 #    - ./gradlew build
-
-next_version:
-  stage: deploy
-  if: branch = master && pull_request = "false"
-  script:
-    - export PLUGIN_LATEST_VERSION=$(curl -s https://plugins.gradle.org/m2/pl/mk5/polygonal-architecture/pl.mk5.polygonal-architecture.gradle.plugin/maven-metadata.xml | grep -Po '(?<=<version>)([0-9\.]+(-SNAPSHOT)?)' | sort --version-sort -r | head -n 1)
-    - export NEXT_VERSION=$(./gradlew -q nextVersion)
-    - git config user.name "Travis CI"
-    - git config user.email "builds@travis-ci.com"
-    - git tag $NEXT_VERSION
-    - git push https://$TRAVIS_GITHUB_KEY@github.com/mk-5/polygonal-architecture.git --tags
-
-release:
-  stage: deploy
-  if: branch =~ /^\d+\.\d+(\.\d+)?$/
-  script:
-    - ./gradlew build -Pversion=$TRAVIS_BRANCH
-    - ./gradlew bintrayUpload -Pversion=$TRAVIS_BRANCH
-    - ./gradlew publishPlugins -Pversion=$TRAVIS_BRANCH -Dgradle.publish.key=$GRADLE_PUBLISH_KEY -Dgradle.publish.secret=$GRADLE_PUBLISH_SECRET
