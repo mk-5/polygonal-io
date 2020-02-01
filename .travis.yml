@@ -31,7 +31,7 @@ jobs:
     - stage: check
       script: ./gradlew checkCi
     - stage: build
-      script: ./gradlew build --scan -s --stacktrace
+      script: ./gradlew build --stacktrace
     - stage: release
       script: chmod +x next-version.sh && ./next-version.sh
     - stage: deploy
