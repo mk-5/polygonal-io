@@ -10,7 +10,7 @@ stages:
   - build
   - test
   - name: release
-    if: branch = master && pull_request = "false"
+    if: branch = master
   - name: deploy
     if: branch =~ /^\d+\.\d+(\.\d+)?$/
 
@@ -29,15 +29,19 @@ cache:
 jobs:
   include:
     - stage: check
-      script: ./gradlew checkCi
+      script:
+        - ./gradlew checkCi
     - stage: build
-      script: ./gradlew build --stacktrace
+      script:
+        - ./gradlew build --stacktrace
     - stage: release
-      script: chmod +x next-version.sh && ./next-version.sh
+      script:
+        - chmod +x next-version.sh && ./next-version.sh
     - stage: deploy
-      script: ./gradlew build -Pversion=$TRAVIS_BRANCH
-    - script: ./gradlew bintrayUpload -Pversion=$TRAVIS_BRANCH
-    - script: ./gradlew publishPlugins -Pversion=$TRAVIS_BRANCH -Dgradle.publish.key=$GRADLE_PUBLISH_KEY -Dgradle.publish.secret=$GRADLE_PUBLISH_SECRET
+      script:
+        - ./gradlew build -Pversion=$TRAVIS_BRANCH
+        - ./gradlew bintrayUpload -Pversion=$TRAVIS_BRANCH
+        - ./gradlew publishPlugins -Pversion=$TRAVIS_BRANCH -Dgradle.publish.key=$GRADLE_PUBLISH_KEY -Dgradle.publish.secret=$GRADLE_PUBLISH_SECRET
 
 
 #e2e_test:
