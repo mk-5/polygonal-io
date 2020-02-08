@@ -138,6 +138,8 @@ You'd like to keep configurations in YML files? no problem. Polygon definition c
 
 ```groovy
 polygonalArchitecture {
+  sourcesDir = file('src/main/java')
+  basePackage = 'org.example'
   polygonTemplate = file('src/resources/polygon.yml')
 }
 ```
