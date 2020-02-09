@@ -19,7 +19,7 @@ javadoc {
 }
 
 pluginBundle {
-    website = 'https://github.com/mk-5/polygonal-architecture'
+    website = 'https://polygonal.io'
     vcsUrl = 'https://github.com/mk-5/polygonal-architecture'
     tags = ['java', 'gradle', 'architecture', 'polygonal architecture', 'groovy', 'clean architecture']
 }
@@ -44,7 +44,7 @@ publishing {
             pom {
                 name = "Polygonal Architecture"
                 description = "A plugin that helps you to provide polygonal architecture inside your app!"
-                url = "https://github.com/mk-5/polygonal-architecture"
+                url = "https://polygonal.io"
                 licenses {
                     license {
                         name = "The Apache License, Version 2.0"
@@ -72,7 +72,7 @@ bintray {
         repo = 'maven'
         name = 'polygonal-architecture'
         desc = 'A plugin that helps you to provide polygonal architecture inside your app!'
-        websiteUrl = 'https://github.com/mk-5/polygonal-architecture'
+        websiteUrl = 'https://polygonal.io'
         vcsUrl = 'https://github.com/mk-5/polygonal-architecture'
         issueTrackerUrl = 'https://github.com/mk-5/polygonal-architecture/issues'
         licenses = ["Apache-2.0"]
