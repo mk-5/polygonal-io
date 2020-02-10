@@ -8,7 +8,7 @@ jdk: oraclejdk8
 stages:
   - check
   - build
-  - test
+  - e2e
   - name: release
     if: branch = master
   - name: deploy
@@ -34,6 +34,12 @@ jobs:
     - stage: build
       script:
         - ./gradlew build --stacktrace
+    - stage: e2e
+      script:
+        - export POLYGONAL_PLUGIN_VERSION=$TRAVIS_BUILD_ID
+        - ./gradlew publishToMavenLocal -Pversion=$TRAVIS_BUILD_ID
+        - cd e2e
+        - chmod +x gradlew && ./gradlew verifyPolygons
     - stage: release
       script:
         - chmod +x next-version.sh && ./next-version.sh
@@ -42,10 +48,3 @@ jobs:
         - ./gradlew build -Pversion=$TRAVIS_BRANCH
         #        - ./gradlew bintrayUpload -Pversion=$TRAVIS_BRANCH
         - ./gradlew publishPlugins -Pversion=$TRAVIS_BRANCH -Dgradle.publish.key=$GRADLE_PUBLISH_KEY -Dgradle.publish.secret=$GRADLE_PUBLISH_SECRET
-
-
-#e2e_test:
-#  stage: test
-#  script:
-#    - cd e2e
-#    - ./gradlew build
