@@ -21,7 +21,7 @@ enum Message {
     TEMPLATE_PACKAGES_SHOULD_CONTAIN_PACKAGES_DEFINITIONS("'packages' field should contain packages definitions"),
     // Console
     CHECKING_POLYGONS("Checking polygons for project %s"),
-    CHECK_POLYGON("-- polygon %s is going to be checked");
+    CHECK_POLYGON("-- verifying polygon %s");
 
     String msg;
 

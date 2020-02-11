@@ -11,11 +11,10 @@ import java.util.stream.Collectors
 @PackageScope
 class MapToPackageDefConverter {
 
-    private final List<PackageDefExtension> buffer = new ArrayList<>()
-
     List<PackageDefExtension> convert(Map<String, Object> defsMap, Map<String, String> keywordsMap) {
+        def buffer = new ArrayList<PackageDefExtension>()
         defsMap.keySet().each { packageName ->
-            processPackageDef(packageName, defsMap[packageName] as Map, keywordsMap)
+            processPackageDef(packageName, defsMap[packageName] as Map, keywordsMap, buffer)
         }
         def result = new ArrayList<PackageDefExtension>(buffer)
         buffer.clear()
@@ -27,7 +26,7 @@ class MapToPackageDefConverter {
         return convert(defsMap, packageDefFields.stream().collect(Collectors.toMap({ p -> p }, { p -> p })) as Map)
     }
 
-    private void processPackageDef(String name, Map<String, Object> extension, Map<String, String> keywordsMap) {
+    private void processPackageDef(String name, Map<String, Object> extension, Map<String, String> keywordsMap, List<PackageDefExtension> buffer) {
         def packageDefFields = new PackageDefExtension().properties.keySet()
         def packageDef = new PackageDefExtension()
         extension.put("name", name)
@@ -43,7 +42,7 @@ class MapToPackageDefConverter {
             void accept(String key, Object o) {
                 if (!keywordsMap.containsKey(key)) {
                     assert o instanceof Map: Message.NOT_KEYWORD_FIELD_SHOULD_BE_MAP.withArgs(key)
-                    processPackageDef([name, key].join(".").replaceAll("^\\.", ""), o, keywordsMap)
+                    processPackageDef([name, key].join(".").replaceAll("^\\.", ""), o, keywordsMap, buffer)
                 }
             }
         })
