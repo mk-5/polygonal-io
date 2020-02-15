@@ -1,7 +1,7 @@
 package pl.mk5.polygonal.verifytask
 
-import pl.mk5.polygonal.polygons.PackageDefExtension
-import pl.mk5.polygonal.polygons.PolygonExtension
+import pl.mk5.polygonal.plugin.PackageDefExtension
+import pl.mk5.polygonal.plugin.PolygonExtension
 import spock.lang.Specification
 
 class PolygonExtensionsMergerTest extends Specification {

@@ -1,2 +1,2 @@
 rootProject.name = 'polygonal-architecture'
-include 'plugin-gradle'
+include 'java-e2e', 'java-yml-e2e', 'kotlin-e2e'

@@ -1,13 +1,12 @@
 package pl.mk5.polygonal.verifytask
 
-
 import groovy.transform.PackageScope
 import org.gradle.api.DefaultTask
 import org.gradle.api.Project
 import org.gradle.api.tasks.TaskAction
 import pl.mk5.polygonal.Message
-import pl.mk5.polygonal.polygons.PolygonalArchitectureExtension
-import pl.mk5.polygonal.verifytask.parsers.PackageParserFactory
+import pl.mk5.polygonal.plugin.PolygonExtension
+import pl.mk5.polygonal.plugin.PolygonalArchitectureExtension
 
 import javax.inject.Inject
 import java.util.stream.Stream
@@ -25,7 +24,8 @@ class VerifyPolygonsDefaultTask extends DefaultTask implements VerifyPolygonsTas
     PolygonalArchitectureExtension extension
 
     @Inject
-    VerifyPolygonsDefaultTask(Project project, PolygonalArchitectureExtension polygonalArchitectureExtension) {
+    VerifyPolygonsDefaultTask(Project project,
+                              PolygonalArchitectureExtension polygonalArchitectureExtension) {
         this.project = project
         this.extension = polygonalArchitectureExtension
     }
@@ -35,19 +35,19 @@ class VerifyPolygonsDefaultTask extends DefaultTask implements VerifyPolygonsTas
         if (extension.polygon == null && extension.polygonTemplate == null) {
             throw new IllegalStateException(Message.POLYGON_OR_TEMPLATE_REQUIRED.toString())
         }
-        getLogger().quiet(Message.CHECKING_POLYGONS.withArgs(project.name))
+        getLogger().info(Message.CHECKING_POLYGONS.withArgs(project.name))
         def baseDir = new File(extension.sourcesDir, extension.basePackage.replace('.', File.separator))
-        def packageParser = new PackageParserFactory().forLanguage(PackageParserFactory.JAVA)
-        def packageDefsVerifier = new PackagesVerifier(packageParser)
+        def packagesVerifier = new PackagesVerifier(project)
+        def polygonDef = extension.polygon
         if (extension.polygonTemplate != null) {
             def ymlParser = new PackagesYmlParser()
-            def polygonExtension = ymlParser.parseYml(extension.polygonTemplate)
+            polygonDef = PolygonExtensionsMerger.merge(ymlParser.parseYml(extension.polygonTemplate), extension.polygon ? extension.polygon : new PolygonExtension())
         }
         Stream.of(baseDir.listFiles({ file -> file.isDirectory() } as FileFilter))
                 .parallel()
                 .map({ dir ->
-                    getLogger().quiet(Message.CHECK_POLYGON.withArgs(dir.name))
-                    packageDefsVerifier.verify(dir, extension.polygon.packagesDefs)
+                    getLogger().info(Message.CHECK_POLYGON.withArgs(dir.name))
+                    packagesVerifier.verify(dir, polygonDef.packagesDefs)
                     return dir
                 }).forEach({})
     }

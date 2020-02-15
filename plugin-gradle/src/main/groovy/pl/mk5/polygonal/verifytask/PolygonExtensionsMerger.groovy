@@ -2,7 +2,7 @@ package pl.mk5.polygonal.verifytask
 
 import groovy.transform.PackageScope
 import org.codehaus.groovy.runtime.InvokerHelper
-import pl.mk5.polygonal.polygons.PolygonExtension
+import pl.mk5.polygonal.plugin.PolygonExtension
 
 @PackageScope
 class PolygonExtensionsMerger {

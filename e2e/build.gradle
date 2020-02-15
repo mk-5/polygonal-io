@@ -8,33 +8,80 @@ buildscript {
     }
 }
 
-apply plugin: 'java'
-try {
-    apply plugin: 'pl.mk5.polygonal-architecture'
+project(":java-e2e") {
+    try {
+        apply plugin: 'pl.mk5.polygonal-architecture'
 
-    polygonalArchitecture {
-        sourcesDir = file('src/main/java')
-        basePackage = 'pl.mk5.polygonal.e2e'
+        polygonalArchitecture {
+            sourcesDir = file('src/main/java')
+            basePackage = 'pl.mk5.polygonal.e2e'
 
-        polygon {
-            packageDef {
-                name = ''
-                packagePrivateScope = -1
-            }
-            packageDef {
-                name = 'events'
-                publicScope = -1
-            }
-            packageDef {
-                name = 'models'
-                publicScope = -1
-            }
-            packageDef {
-                name = 'ports'
-                publicScope = -1
+            polygon {
+                packageDef {
+                    name = ''
+                    packagePrivateScope = -1
+                }
+                packageDef {
+                    name = 'events'
+                    publicScope = -1
+                }
+                packageDef {
+                    name = 'models'
+                    publicScope = -1
+                }
+                packageDef {
+                    name = 'ports'
+                    publicScope = -1
+                }
             }
         }
+    } catch (Exception e) {
+        getLogger().log(LogLevel.ERROR, e.getLocalizedMessage(), e)
     }
-} catch (Exception e) {
-    getLogger().log(LogLevel.ERROR, e.getLocalizedMessage(), e)
+}
+
+project(":java-yml-e2e") {
+    try {
+        apply plugin: 'pl.mk5.polygonal-architecture'
+
+        polygonalArchitecture {
+            sourcesDir = file('src/main/java')
+            basePackage = 'pl.mk5.polygonal.e2e'
+            polygonTemplate = file('src/main/resources/polygon.yml')
+        }
+    } catch (Exception e) {
+        getLogger().log(LogLevel.ERROR, e.getLocalizedMessage(), e)
+    }
+}
+
+project(":kotlin-e2e") {
+    try {
+        apply plugin: 'pl.mk5.polygonal-architecture'
+
+        polygonalArchitecture {
+            basePackage = 'pl.mk5.polygonal.e2e'
+
+            polygon {
+                packageDef {
+                    name = ''
+                    internalScope = -1
+                }
+                packageDef {
+                    name = 'dto'
+                    types = ['data class']
+                    publicScope = -1
+                }
+                packageDef {
+                    name = 'queries'
+                    internalScope = -1
+                }
+                packageDef {
+                    name = 'commands'
+                    internalScope = -1
+                }
+            }
+        }
+    } catch (Exception e) {
+        getLogger().log(LogLevel.ERROR, e.getLocalizedMessage(), e)
+    }
 }

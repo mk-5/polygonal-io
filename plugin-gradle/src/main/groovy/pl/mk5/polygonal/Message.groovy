@@ -9,8 +9,11 @@ enum Message {
     PUBLIC_OBJECTS_ERROR("%d public scope objects are allowed in '%s' package"),
     PACKAGE_PRIVATE_OBJECTS_ERROR("%d package-private scope objects are allowed in '%s' package"),
     PROTECTED_OBJECTS_ERROR("%d protected scope objects are allowed in '%s' package"),
+    INTERNAL_OBJECTS_ERROR("%d internal scope objects are allowed in '%s' package"),
     INTERFACES_ERROR("interfaces are not allowed in '%s' package"),
     CLASSES_ERROR("classes are not allowed in '%s' package"),
+    DATA_CLASSES_ERROR("data classes are not allowed in '%s' package"),
+    OPEN_CLASSES_ERROR("open classes are not allowed in '%s' package"),
     ABSTRACT_CLASSES_ERROR("abstract classes are not allowed in '%s' package"),
     ENUMS_ERROR("enums are not allowed in '%s' package"),
     CHECK_TASK_NOT_FOUND("'check' task have not been found for module %s"),
@@ -19,9 +22,10 @@ enum Message {
     TEMPLATE_IS_NOT_YML_FILE("Given template '%s' is not a yml file"),
     TEMPLATE_CANNOT_FIND_POLYGON("Cannot find '%s' definition in '%s'"),
     TEMPLATE_PACKAGES_SHOULD_CONTAIN_PACKAGES_DEFINITIONS("'packages' field should contain packages definitions"),
+    CANNOT_RECOGNIZE_LANGUAGE("JVM language for module %s couldn't be recognize for. Please check if Java, or Kotlin plugin has been applied."),
     // Console
-    CHECKING_POLYGONS("Checking polygons for project %s"),
-    CHECK_POLYGON("-- verifying polygon %s");
+    CHECKING_POLYGONS("> checking polygons for project %s"),
+    CHECK_POLYGON("> analyzing polygon %s");
 
     String msg;
 

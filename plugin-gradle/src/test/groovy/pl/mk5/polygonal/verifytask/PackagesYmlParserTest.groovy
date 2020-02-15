@@ -1,6 +1,6 @@
 package pl.mk5.polygonal.verifytask
 
-import pl.mk5.polygonal.polygons.PackageDefExtension
+import pl.mk5.polygonal.plugin.PackageDefExtension
 import spock.lang.Specification
 
 import java.util.stream.Collectors
@@ -46,7 +46,7 @@ class PackagesYmlParserTest extends Specification {
         map['abc2'].packagePrivateScope == DEFAULT_PACKAGE_PRIVATE
         map['abc2'].types == Collections.singleton('interface')
         map['abc2.cccc'].publicScope == 1
-        map['abc2.cccc'].packagePrivateScope == DEFAULT_PACKAGE_PRIVATE
+        map['abc2.cccc'].packagePrivateScope == -1
         map['abc2.cccc'].types == DEFAULT_TYPES
     }
 }
