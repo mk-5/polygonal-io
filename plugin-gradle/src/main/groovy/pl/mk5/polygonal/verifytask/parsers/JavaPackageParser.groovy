@@ -11,37 +11,56 @@ class JavaPackageParser implements PackageParser {
     static final String ALL_TYPES = "(class|interface|abstract class|enum)\\s*"
     static final String ALL_SCOPES = "(public|protected|[a]*)"
 
-    static final Pattern PUBLIC_OBJECTS_PATTERN = Pattern.compile("^public ${ALL_TYPES}", Pattern.MULTILINE)
-    static final Pattern PROTECTED_OBJECTS_PATTERN = Pattern.compile("^protected ${ALL_TYPES}", Pattern.MULTILINE)
-    static final Pattern CLASSES_PATTERN = Pattern.compile("^${ALL_SCOPES}\\s*class", Pattern.MULTILINE)
-    static final Pattern INTERFACES_PATTERN = Pattern.compile("^${ALL_SCOPES}\\s*interface", Pattern.MULTILINE)
-    static final Pattern ABSTRACT_CLASS_PATTERN = Pattern.compile("^${ALL_SCOPES}\\s*abstract class", Pattern.MULTILINE)
-    static final Pattern ENUM_PATTERN = Pattern.compile("^${ALL_SCOPES}\\s*enum", Pattern.MULTILINE)
+    static final Pattern PUBLIC_OBJECTS_PATTERN = Pattern.compile("^public ${ALL_TYPES}")
+    static final Pattern PROTECTED_OBJECTS_PATTERN = Pattern.compile("^protected ${ALL_TYPES}")
+    static final Pattern CLASSES_PATTERN = Pattern.compile("^${ALL_SCOPES}\\s*class")
+    static final Pattern INTERFACES_PATTERN = Pattern.compile("^${ALL_SCOPES}\\s*interface")
+    static final Pattern ABSTRACT_CLASS_PATTERN = Pattern.compile("^${ALL_SCOPES}\\s*abstract class")
+    static final Pattern ENUM_PATTERN = Pattern.compile("^${ALL_SCOPES}\\s*enum")
 
     @Override
     PackageInformation parse(File packageDir) {
         def information = new PackageInformation()
         packageDir.eachFile(FileType.FILES, { file ->
-            def text = file.text.trim()
-            if (PUBLIC_OBJECTS_PATTERN.matcher(text).find()) {
-                information.publicObjects++
-            } else if (PROTECTED_OBJECTS_PATTERN.matcher(text).find()) {
-                information.protectedObjects++
-            } else {
-                information.packagePrivateObjects++
+            file.withReader { reader ->
+                def text = '', scopeFound = false, typeFound = false;
+                while ((text = reader.readLine()) != null) {
+                    if (!scopeFound) {
+                        if (PUBLIC_OBJECTS_PATTERN.matcher(text).find()) {
+                            information.publicObjects++
+                            scopeFound = true
+                        } else if (PROTECTED_OBJECTS_PATTERN.matcher(text).find()) {
+                            information.protectedObjects++
+                            scopeFound = true
+                        } else if (typeFound) {
+                            information.packagePrivateObjects++
+                            scopeFound = true
+                        }
+                    }
+                    if (!typeFound) {
+                        if (CLASSES_PATTERN.matcher(text).find()) {
+                            information.classes++
+                            typeFound = true
+                        }
+                        if (INTERFACES_PATTERN.matcher(text).find()) {
+                            information.interfaces++
+                            typeFound = true
+                        }
+                        if (ABSTRACT_CLASS_PATTERN.matcher(text).find()) {
+                            information.abstractClasses++
+                            typeFound = true
+                        }
+                        if (ENUM_PATTERN.matcher(text).find()) {
+                            information.enums++
+                            typeFound = true
+                        }
+                    }
+                    if (scopeFound && typeFound) {
+                        break;
+                    }
+                }
             }
-            if (CLASSES_PATTERN.matcher(text).find()) {
-                information.classes++
-            }
-            if (INTERFACES_PATTERN.matcher(text).find()) {
-                information.interfaces++
-            }
-            if (ABSTRACT_CLASS_PATTERN.matcher(text).find()) {
-                information.abstractClasses++
-            }
-            if (ENUM_PATTERN.matcher(text).find()) {
-                information.enums++
-            }
+            return;
         })
         return information
     }

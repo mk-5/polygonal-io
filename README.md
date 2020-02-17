@@ -119,7 +119,7 @@ polygonalArchitecture {
 #### Attributes
 |DSL atribute|Description|Default|
 |--|--|--|
-|`sourcesDir`| Relative path to the sources. Required | `file('src/main/java')` |
+|`sourcesDir`| Relative path to the sources. Required | `file('src/main/java')` or `file('src/main/kotlin')` |
 |`basePackage`| The level0 / package where polygons are stored. Your polygonal architecture starts here. Required | `` |
 |`strictMode`| If true, only defined packages are allowed. | `false` |
 |`polygonTemplate`| Template file -> if you'd like to keep polygon definition in .yml file. Required if polygon dsl is not defined | `null` |
@@ -130,7 +130,8 @@ polygonalArchitecture {
 |`polygon.packageDef.publicScope`| How many public scope objects are allowed. `-1` unlimited, `0` not allowed, `n` n allowed | `0` |
 |`polygon.packageDef.packagePrivateScope`| How many public scope objects are allowed. `-1` unlimited, `0` not allowed, `n` n allowed | `0` |
 |`polygon.packageDef.protectedScope`| How many public scope objects are allowed. `-1` unlimited, `0` not allowed, `n` n allowed | `0` |
-|`polygon.packageDef.types`| What types are allowed. Possible values are `['interface', 'class', 'enum', 'abstract class']` | `['interface', 'class', 'enum', 'abstract class']` |
+|`polygon.packageDef.internalScope`| How many internal scope objects are allowed. `-1` unlimited, `0` not allowed, `n` n allowed | `0` |
+|`polygon.packageDef.types`| What types are allowed. Available values are `['interface', 'class', 'enum', 'abstract class', 'data class', 'open class']` | `['interface', 'class', 'enum', 'abstract class']` |
 
 ### YML configuration
 
@@ -166,10 +167,11 @@ polygon:
 |Element|Description|
 |--|--|
 |`polygon`| The root element. Required |
-|`polygon.public`| How many public scope objects are allowed. `-1` unlimited, `0` not allowed, `n` n allowed | `0` |
-|`polygon.packagePrivate`| How many public scope objects are allowed. `-1` unlimited, `0` not allowed, `n` n allowed | `0` |
-|`polygon.protected`| How many public scope objects are allowed. `-1` unlimited, `0` not allowed, `n` n allowed | `0` |
-|`polygon.types`| What types are allowed. Possible values are `['interface', 'class', 'enum', 'abstract class']` | `['interface', 'class', 'enum', 'abstract class']` |
+|`polygon.public`| How many public scope objects are allowed. `-1` unlimited, `0` not allowed, `n` n allowed |
+|`polygon.packagePrivate`| How many public scope objects are allowed. `-1` unlimited, `0` not allowed, `n` n allowed |
+|`polygon.protected`| How many public scope objects are allowed. `-1` unlimited, `0` not allowed, `n` n allowed |
+|`polygon.internal`| *Kotlin only.* How many internal scope object are allowed. `-1` unlimited, `0` not allowed, `n` n allowed |
+|`polygon.types`| What types are allowed. Available values are `['interface', 'class', 'enum', 'abstract class', 'data class', 'open class']` |
 |`polygon.packages`| All packages definitions goes here. |
 
 ##### YML+Gradle mix
@@ -177,7 +179,7 @@ Mixing of gradle DSL, and yaml configuration is allowed. The one rules here is t
 
 ## Usage
 
-To check your polygons you need to execute below gradle task:
+Polygons analyzing is plug into default build task. If you'd like to check your polygons explicitly you should use the following task:
 
 ```bash
 $ ./gradlew verifyPolygons
@@ -186,9 +188,7 @@ $ ./gradlew verifyPolygons
 In case of any problems plugin will tell you, where is the problem. Example output:
 
 ```gradle
-Checking polygons for project polygonal-architecture
--- polygon droids is going to be checked
--- polygon universe is going to be checked
+> Task :kotlin-e2e:verifyPolygons
 
 FAILURE: Build failed with an exception.
 
@@ -202,7 +202,7 @@ Execution failed for task ':verifyPolygons'.
 ## What's next?
 
 - package definition inheritance
-- groovy, kotlin support
+- groovy support
 - maven plug-in
 
 ## License

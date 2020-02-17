@@ -10,8 +10,7 @@ class JavaPackageParserTest extends Specification {
     def file = null as File
 
     void setup() {
-        file = GroovyMock(File, constructorArgs: ["./d.txt"])
-        rootFile = GroovyMock(File, constructorArgs: ["./d.txt"])
+        rootFile = GroovyMock(File, constructorArgs: ["./"])
         rootFile.eachFile(_, _) >> { args ->
             args[1](file)
         }
@@ -20,12 +19,10 @@ class JavaPackageParserTest extends Specification {
     @Unroll
     def "should get package information #testFile"(String testFile, int publicObjects, int packagePrivateObjects, int protectedObjects, int classes, int abstractClasses, int interfaces, int enums) {
         given:
-        def fileWithTestData = new File(getClass()
+        file = new File(getClass()
                 .getClassLoader()
                 .getResource("java/${testFile}")
                 .toURI())
-        def fileContent = fileWithTestData.text
-        file.text >> fileContent
 
         when:
         def information = parser.parse(rootFile)

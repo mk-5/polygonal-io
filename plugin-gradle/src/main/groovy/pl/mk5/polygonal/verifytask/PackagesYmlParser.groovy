@@ -1,11 +1,10 @@
 package pl.mk5.polygonal.verifytask
 
 import groovy.transform.PackageScope
-import org.codehaus.groovy.runtime.InvokerHelper
 import org.yaml.snakeyaml.Yaml
 import pl.mk5.polygonal.Message
-import pl.mk5.polygonal.polygons.PackageDefExtension
-import pl.mk5.polygonal.polygons.PolygonExtension
+import pl.mk5.polygonal.plugin.PackageDefExtension
+import pl.mk5.polygonal.plugin.PolygonExtension
 
 import java.nio.file.Files
 
@@ -19,6 +18,7 @@ class PackagesYmlParser {
             "public"        : "publicScope",
             "packagePrivate": "packagePrivateScope",
             "protected"     : "protectedScope",
+            "internal"      : "internalScope",
             "types"         : "types",
             "required"      : "required",
             "name"          : "name"
@@ -38,7 +38,11 @@ class PackagesYmlParser {
             Conditions.check(ymlMap.containsKey(POLYGON_EXTENSION), Message.TEMPLATE_CANNOT_FIND_POLYGON.withArgs(POLYGON_EXTENSION, file.name))
             def polygonMap = ymlMap.get(POLYGON_EXTENSION)
             def rootPackageDef = new PackageDefExtension('')
-            InvokerHelper.setProperties(rootPackageDef, polygonMap)
+            polygonMap.entrySet().forEach { entry ->
+                if (keywordsMap.containsKey(entry.key)) {
+                    rootPackageDef.setProperty(keywordsMap.get(entry.key), entry.value)
+                }
+            }
             TypesValidator.validate(rootPackageDef.types)
             extensions.add(rootPackageDef)
             if (polygonMap.containsKey(PACKAGES)) {

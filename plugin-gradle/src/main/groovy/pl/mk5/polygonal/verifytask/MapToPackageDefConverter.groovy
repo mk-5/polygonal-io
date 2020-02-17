@@ -3,7 +3,7 @@ package pl.mk5.polygonal.verifytask
 import groovy.transform.PackageScope
 import org.codehaus.groovy.runtime.InvokerHelper
 import pl.mk5.polygonal.Message
-import pl.mk5.polygonal.polygons.PackageDefExtension
+import pl.mk5.polygonal.plugin.PackageDefExtension
 
 import java.util.function.BiConsumer
 import java.util.stream.Collectors

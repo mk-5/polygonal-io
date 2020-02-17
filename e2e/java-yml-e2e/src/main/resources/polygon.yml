@@ -1,0 +1,10 @@
+polygon:
+  packagePrivate: -1
+  packages:
+    events:
+      public: -1
+    models:
+      public: -1
+    ports:
+      public: -1
+      types: ['interface']

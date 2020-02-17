@@ -30,7 +30,7 @@ gradlePlugin {
             id = 'pl.mk5.polygonal-architecture'
             displayName = 'Polygonal Architecture plugin'
             description = 'A plugin that helps you to provide polygonal architecture inside your app!'
-            implementationClass = 'pl.mk5.polygonal.PolygonalArchitecturePlugin'
+            implementationClass = 'pl.mk5.polygonal.plugin.PolygonalArchitecturePlugin'
         }
     }
 }

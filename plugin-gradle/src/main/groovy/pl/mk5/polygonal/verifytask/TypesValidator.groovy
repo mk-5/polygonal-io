@@ -2,7 +2,7 @@ package pl.mk5.polygonal.verifytask
 
 import groovy.transform.PackageScope
 import pl.mk5.polygonal.Message
-import pl.mk5.polygonal.polygons.PackageDefExtension
+import pl.mk5.polygonal.plugin.PackageDefExtension
 
 @PackageScope
 class TypesValidator {
