@@ -39,12 +39,15 @@ jobs:
         - export POLYGONAL_PLUGIN_VERSION=$TRAVIS_BUILD_ID
         - ./gradlew publishToMavenLocal -Pversion=$TRAVIS_BUILD_ID
         - cd e2e
-        - chmod +x gradlew && ./gradlew verifyPolygons
+        - chmod +x gradlew && ./gradlew verifyPolygons --info
+        - cd ..
+        - cd e2e-mvn
+        - chmod +x mvnw && ./mvnw polygonal-architecture:verifyPolygons -e -f pom.xml -DpluginVersion=$POLYGONAL_PLUGIN_VERSION
     - stage: release
       script:
         - chmod +x next-version.sh && ./next-version.sh
     - stage: deploy
       script:
         - ./gradlew build -Pversion=$TRAVIS_BRANCH
-        #        - ./gradlew bintrayUpload -Pversion=$TRAVIS_BRANCH
         - ./gradlew publishPlugins -Pversion=$TRAVIS_BRANCH -Dgradle.publish.key=$GRADLE_PUBLISH_KEY -Dgradle.publish.secret=$GRADLE_PUBLISH_SECRET
+        - ./gradlew bintrayUpload -Pversion=$TRAVIS_BRANCH

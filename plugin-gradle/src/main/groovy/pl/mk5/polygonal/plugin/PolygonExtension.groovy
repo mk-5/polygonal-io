@@ -3,10 +3,8 @@ package pl.mk5.polygonal.plugin
 
 import org.gradle.util.ConfigureUtil
 
-class PolygonExtension {
-    List<PackageDefExtension> packagesDefs = []
-
+class PolygonExtension extends Polygon {
     void packageDef(Closure closure) {
-        packagesDefs.add(ConfigureUtil.configure(closure, new PackageDefExtension()))
+        packagesDefs.add(ConfigureUtil.configure(closure, new PackageDef()))
     }
 }

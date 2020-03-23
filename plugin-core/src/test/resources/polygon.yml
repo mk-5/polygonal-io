@@ -1,0 +1,19 @@
+polygon:
+  public: 0
+  packagePrivate: -1
+  protected: 0
+  types: ['interface', 'class', 'abstract class', 'enum']
+  packages:
+    abc:
+      public: -1
+      types: ['class']
+      defg:
+        protected: 5
+        hijk:
+          types: ['abstract class']
+    abc2:
+      public: -1
+      types: ['interface']
+      cccc:
+        public: 1
+        packagePrivate: -1

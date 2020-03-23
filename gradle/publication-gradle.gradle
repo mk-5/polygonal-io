@@ -1,0 +1,75 @@
+apply plugin: 'java-gradle-plugin'
+apply plugin: 'groovy'
+apply plugin: 'maven-publish'
+
+ext {
+    artifactId = 'polygonal-architecture'
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+javadoc {
+    if (JavaVersion.current().isJava9Compatible()) {
+        options.addBooleanOption('html5', true)
+    }
+}
+
+jar {
+    from sourceSets.main.output
+    from project.findProject(':plugin-core').sourceSets.main.output
+}
+
+sourcesJar {
+    from sourceSets.main.allSource
+    from project.findProject(':plugin-core').sourceSets.main.allSource
+}
+pluginBundle {
+    website = 'https://polygonal.io'
+    vcsUrl = 'https://github.com/mk-5/polygonal-architecture'
+    tags = ['java', 'gradle', 'architecture', 'polygonal architecture', 'groovy', 'clean architecture']
+}
+
+gradlePlugin {
+    plugins {
+        polygonalPlugin {
+            id = 'pl.mk5.polygonal-architecture'
+            artifactId = 'polygonal-architecture'
+            displayName = 'Polygonal Architecture plugin'
+            description = 'A plugin that helps you to provide polygonal architecture inside your app!'
+            implementationClass = 'pl.mk5.polygonal.plugin.PolygonalArchitecturePlugin'
+        }
+    }
+}
+
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+            artifactId = 'polygonal-architecture'
+            version = project.version
+
+            pom {
+                name = "Polygonal Architecture"
+                description = "A plugin that helps you to provide polygonal architecture inside your app!"
+                url = "https://polygonal.io"
+                licenses {
+                    license {
+                        name = "The Apache License, Version 2.0"
+                        url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+                    }
+                }
+                developers {
+                    developer {
+                        id = "mk-5"
+                        name = "mk-5"
+                        email = "mateusz@mk5.pl"
+                    }
+                }
+            }
+        }
+    }
+}

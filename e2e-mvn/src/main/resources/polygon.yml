@@ -1,0 +1,6 @@
+polygon:
+  packagePrivate: -1
+  packages:
+    dto:
+      public: -1
+      types: ['class']

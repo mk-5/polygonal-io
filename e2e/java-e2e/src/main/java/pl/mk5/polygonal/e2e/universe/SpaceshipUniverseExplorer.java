@@ -5,7 +5,7 @@ import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import pl.mk5.polygonal.e2e.universe.models.Planet;
+import pl.mk5.polygonal.e2e.universe.dto.Planet;
 import pl.mk5.polygonal.e2e.universe.ports.UniverseExplorer;
 
 class SpaceshipUniverseExplorer implements UniverseExplorer {

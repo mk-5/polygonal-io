@@ -12,6 +12,9 @@ allprojects {
 }
 
 subprojects {
+    group = 'pl.mk5.polygonal'
+    version = project.version && project.version != 'unspecified' ? project.version : 'latest'
+
     apply from: new File(rootDir, '/gradle/dependencies.gradle')
 }
 

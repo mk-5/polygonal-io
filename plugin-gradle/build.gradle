@@ -2,11 +2,16 @@ plugins {
     id 'groovy'
     id 'java-gradle-plugin'
     id 'com.gradle.plugin-publish' version '0.10.1'
+    id 'maven'
 }
 
+targetCompatibility = JavaVersion.VERSION_1_8
 sourceCompatibility = JavaVersion.VERSION_1_8
 
 dependencies {
+    implementation files('../plugin-core/build/libs/plugin-core.jar')
+
+    implementation localGroovy()
     implementation libs.ymlSnake
     testImplementation libs.spock
     testImplementation libs.cglib
@@ -14,4 +19,6 @@ dependencies {
 }
 
 apply from: '../gradle/tests.gradle'
-apply from: '../gradle/publication.gradle'
+apply from: '../gradle/publication-gradle.gradle'
+
+classes.dependsOn(project.findProject(':plugin-core').tasks.getByName('build'))
