@@ -26,7 +26,7 @@ project(":java-e2e") {
                     publicScope = -1
                 }
                 packageDef {
-                    name = 'models'
+                    name = 'dto'
                     publicScope = -1
                 }
                 packageDef {

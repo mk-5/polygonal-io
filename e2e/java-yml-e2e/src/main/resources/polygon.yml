@@ -3,7 +3,7 @@ polygon:
   packages:
     events:
       public: -1
-    models:
+    dto:
       public: -1
     ports:
       public: -1

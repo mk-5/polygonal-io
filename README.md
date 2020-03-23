@@ -2,9 +2,9 @@
 
 Plug-in which helps you implement clean architecture in your application.
 
-[![Build Status](https://travis-ci.org/mk-5/polygonal-architecture.svg?branch=master)](https://travis-ci.org/mk-5/polygonal-architecture)
+[![Build Status](https://travis-ci.org/mk-5/polygonal-architecture.svg?branch=master)](https://travis-ci.org/mk-5/polygonal-architecture) [ ![Download Maven](https://api.bintray.com/packages/mk-5/maven/polygonal-architecture/images/download.svg) ](https://bintray.com/mk-5/maven/polygonal-architecture/_latestVersion)
 
-## Getting started
+## Getting started | gradle
 
 Because you are here I suppose that you would like to keep clean codebase architecture, wouldn't you? I'm here to help you!  
 To make the magic happen, you need following gradle configuration:
@@ -31,7 +31,35 @@ apply plugin: "pl.mk5.polygonal-architecture"
 
 ```
 
-🤞 - only gradle is supported right now, but there is a plan to implement maven plugin as well. The github stars are my fuel 🔥🔥🔥🔥 then I know that my work is valuable for the universe 😂
+## Getting started | maven
+
+The maven configuration looks as standard maven plugin configuration. Currently, the plugin is available only via bintray repository.
+
+```xml
+<pluginRepositories>
+    <pluginRepository>
+        <snapshots>
+            <enabled>false</enabled>
+        </snapshots>
+        <id>bintray-mk-5-maven</id>
+        <name>bintray-plugins</name>
+        <url>https://dl.bintray.com/mk-5/maven</url>
+    </pluginRepository>
+</pluginRepositories>
+
+<build>
+    <plugins>
+        <plugin>
+            <groupId>pl.mk5.polygonal</groupId>
+            <artifactId>polygonal-architecture-maven-plugin</artifactId>
+            <version>latest</version>
+            <configuration>
+                <basePackage>org.example</basePackage>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+```
 
 ## What does polygonal mean?
 

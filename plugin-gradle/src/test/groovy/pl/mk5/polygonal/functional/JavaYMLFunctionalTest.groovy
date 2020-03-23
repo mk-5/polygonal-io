@@ -12,11 +12,11 @@ class JavaYMLFunctionalTest extends Specification {
         def projectDir = new File("build/e2eTest")
         projectDir.deleteDir()
         projectDir.mkdirs()
-        new File(projectDir, "code/java/org/example").mkdirs()
-        new File(projectDir, "code/java/org/example/domain1/dto").mkdirs()
-        new File(projectDir, "code/java/org/example/domain2/abc/defg").mkdirs()
-        new File(projectDir, "code/java/org/example/domain2/abc/defg/Foo.java").write("public class Foo { }")
-        new File(projectDir, "code/java/org/example/domain2/dto").mkdirs()
+        new File(projectDir, "code/java/org/b/example").mkdirs()
+        new File(projectDir, "code/java/org/b/example/domain1/dto").mkdirs()
+        new File(projectDir, "code/java/org/b/example/domain2/abc/defg").mkdirs()
+        new File(projectDir, "code/java/org/b/example/domain2/abc/defg/Foo.java").write("public class Foo { }")
+        new File(projectDir, "code/java/org/b/example/domain2/dto").mkdirs()
         new File(projectDir, "settings.gradle") << ""
         new File(projectDir, "polygon.yml") << """
 polygon:
@@ -37,7 +37,7 @@ polygon:
             
             polygonalArchitecture {
                 sourcesDir = file('code/java')
-                basePackage = 'org.example'
+                basePackage = 'org.b.example'
                 polygonTemplate = file('polygon.yml')
             }
         """

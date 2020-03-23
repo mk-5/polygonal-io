@@ -1,6 +1,7 @@
 ## Gradle
 .gradle
 gradle-app.setting
+local.properties
 build/
 
 ## Java

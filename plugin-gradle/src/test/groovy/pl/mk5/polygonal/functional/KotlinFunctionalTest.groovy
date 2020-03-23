@@ -12,12 +12,12 @@ class KotlinFunctionalTest extends Specification {
         def projectDir = new File("build/e2eTest")
         projectDir.deleteDir()
         projectDir.mkdirs()
-        new File(projectDir, "code/kotlin/org/example").mkdirs()
-        new File(projectDir, "code/kotlin/org/example/domain1/dto").mkdirs()
-        new File(projectDir, "code/kotlin/org/example/domain2/abc/defg").mkdirs()
-        new File(projectDir, "code/kotlin/org/example/domain2/abc/defg").mkdirs()
-        new File(projectDir, "code/kotlin/org/example/domain2/abc/Bar.kt").write("internal class Foo { }")
-        new File(projectDir, "code/kotlin/org/example/domain2/dto").mkdirs()
+        new File(projectDir, "code/kotlin/org/example/c").mkdirs()
+        new File(projectDir, "code/kotlin/org/example/c/domain1/dto").mkdirs()
+        new File(projectDir, "code/kotlin/org/example/c/domain2/abc/defg").mkdirs()
+        new File(projectDir, "code/kotlin/org/example/c/domain2/abc/defg").mkdirs()
+        new File(projectDir, "code/kotlin/org/example/c/domain2/abc/Bar.kt").write("internal class Foo { }")
+        new File(projectDir, "code/kotlin/org/example/c/domain2/dto").mkdirs()
         new File(projectDir, "settings.gradle") << ""
         new File(projectDir, "build.gradle") << """
             plugins {
@@ -28,7 +28,7 @@ class KotlinFunctionalTest extends Specification {
             
             polygonalArchitecture {
                 sourcesDir = file('code/kotlin')
-                basePackage = 'org.example'
+                basePackage = 'org.example.c'
                 
                 polygon {
                   packageDef {

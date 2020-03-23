@@ -1,0 +1,5 @@
+private val abc: Int = 2;
+
+internal abstract class Foo {
+
+}

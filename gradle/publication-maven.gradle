@@ -1,0 +1,50 @@
+apply plugin: 'java'
+apply plugin: 'maven-publish'
+apply plugin: 'com.jfrog.bintray'
+
+ext {
+    artifactId = 'polygonal-architecture-maven-plugin'
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+javadoc {
+    if (JavaVersion.current().isJava9Compatible()) {
+        options.addBooleanOption('html5', true)
+    }
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from project.components.java
+            groupId = group
+            artifactId = project.artifactId
+            version = project.version
+
+            pom {
+                name = "Polygonal Architecture Maven Plugin"
+                description = "A plugin that helps you to provide polygonal architecture inside your app!"
+                url = "https://polygonal.io"
+                licenses {
+                    license {
+                        name = "The Apache License, Version 2.0"
+                        url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+                    }
+                }
+                developers {
+                    developer {
+                        id = "mk-5"
+                        name = "mk-5"
+                        email = "mateusz@mk5.pl"
+                    }
+                }
+            }
+        }
+    }
+}
+
+apply from: file('../gradle/bintray-maven.gradle')

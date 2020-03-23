@@ -5,6 +5,7 @@ import groovy.transform.TupleConstructor
 import org.gradle.api.Project
 import org.gradle.api.Task
 import pl.mk5.polygonal.LanguageRecognizer
+import pl.mk5.polygonal.verifytask.VerifyPolygonsDefaultTask
 import pl.mk5.polygonal.verifytask.VerifyPolygonsTask
 
 @PackageScope
@@ -16,8 +17,8 @@ class ProjectDispatcher {
 
     ProjectDispatcher(Project project) {
         this.project = project
-        this.extension = project.extensions.create(Const.ROOT_EXTENSION_NAME, PolygonalArchitectureExtension, project)
-        this.task = project.tasks.create(Const.TASK_CHECK_ARCHITECTURE, VerifyPolygonsTask.type as Class, project, extension)
+        this.extension = project.extensions.create("polygonalArchitecture", PolygonalArchitectureExtension, project)
+        this.task = project.tasks.create("verifyPolygons", VerifyPolygonsDefaultTask, project, extension)
     }
 
     VerifyPolygonsTask dispatch() {

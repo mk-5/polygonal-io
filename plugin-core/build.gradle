@@ -1,0 +1,23 @@
+plugins {
+    id 'java'
+}
+
+targetCompatibility = JavaVersion.VERSION_1_8
+sourceCompatibility = JavaVersion.VERSION_1_8
+
+jar {
+    archiveName = 'plugin-core.jar'
+}
+
+dependencies {
+    compileOnly libs.lombok
+    annotationProcessor libs.lombok
+    implementation libs.ymlSnake
+
+    testImplementation libs.spock
+    testImplementation libs.cglib
+    testImplementation libs.objenesis
+
+    testCompileOnly libs.lombok
+    testAnnotationProcessor libs.lombok
+}
