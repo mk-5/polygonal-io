@@ -49,5 +49,5 @@ jobs:
     - stage: deploy
       script:
         - ./gradlew build -Pversion=$TRAVIS_BRANCH
-        - ./gradlew publishPlugins -Pversion=$TRAVIS_BRANCH -Dgradle.publish.key=$GRADLE_PUBLISH_KEY -Dgradle.publish.secret=$GRADLE_PUBLISH_SECRET
-        - ./gradlew bintrayUpload -Pversion=$TRAVIS_BRANCH --stacktrace
+        - ./gradlew :plugin-gradle:publishPlugins -Pversion=$TRAVIS_BRANCH -Dgradle.publish.key=$GRADLE_PUBLISH_KEY -Dgradle.publish.secret=$GRADLE_PUBLISH_SECRET
+        - ./gradlew :plugin-maven:bintrayUpload -Pversion=$TRAVIS_BRANCH --stacktrace
