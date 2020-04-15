@@ -1,9 +1,17 @@
-apply plugin: 'java-gradle-plugin'
+apply plugin: 'groovy'
+
+dependencies {
+    testRuntimeOnly "org.junit.vintage:junit-vintage-engine:5.3.0"
+}
+
+test {
+    useJUnitPlatform {
+        includeEngines 'junit-vintage'
+    }
+}
 
 sourceSets {
     test {
-        groovy {
-            srcDirs = ['src/test/groovy']
-        }
+        compileClasspath += project.findProject(':plugin-core').sourceSets.main.runtimeClasspath
     }
 }

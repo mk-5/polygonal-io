@@ -9,16 +9,28 @@ targetCompatibility = JavaVersion.VERSION_1_8
 sourceCompatibility = JavaVersion.VERSION_1_8
 
 dependencies {
-    implementation files('../plugin-core/build/libs/plugin-core.jar')
+    implementation project.findProject(':plugin-core').sourceSets.main.output
 
     implementation localGroovy()
     implementation libs.ymlSnake
+    implementation libs.gson
     testImplementation libs.spock
     testImplementation libs.cglib
     testImplementation libs.objenesis
+    testRuntimeOnly "org.junit.vintage:junit-vintage-engine:5.3.0"
 }
 
-apply from: '../gradle/tests.gradle'
-apply from: '../gradle/publication-gradle.gradle'
+test {
+    useJUnitPlatform {
+        includeEngines 'junit-vintage'
+    }
+}
 
-classes.dependsOn(project.findProject(':plugin-core').tasks.getByName('build'))
+sourceSets {
+    test {
+        runtimeClasspath += project.findProject(':plugin-core').sourceSets.main.runtimeClasspath
+        compileClasspath += project.findProject(':plugin-core').sourceSets.main.compileClasspath
+    }
+}
+
+apply from: '../gradle/publication-gradle.gradle'

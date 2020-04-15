@@ -4,6 +4,7 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.Project
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.TaskAction
+import org.gradle.workers.WorkerExecutor
 import pl.mk5.polygonal.Message
 import pl.mk5.polygonal.plugin.PolygonExtension
 import pl.mk5.polygonal.plugin.PolygonalArchitectureExtension
@@ -17,11 +18,17 @@ class VerifyPolygonsDefaultTask extends DefaultTask implements VerifyPolygonsTas
     @Input
     PolygonalArchitectureExtension extension
 
+    private final WorkerExecutor workerExecutor
+
     @Inject
     VerifyPolygonsDefaultTask(Project project,
-                              PolygonalArchitectureExtension polygonalArchitectureExtension) {
+                              PolygonalArchitectureExtension polygonalArchitectureExtension,
+                              WorkerExecutor workerExecutor
+    ) {
+        super();
         this.project = project
         this.extension = polygonalArchitectureExtension
+        this.workerExecutor = workerExecutor
         super.setGroup('verification')
     }
 
@@ -40,6 +47,6 @@ class VerifyPolygonsDefaultTask extends DefaultTask implements VerifyPolygonsTas
             def ymlParser = new PackagesYmlParser()
             polygonDef = PolygonExtensionsMerger.merge(ymlParser.parseYml(extension.polygonTemplate), extension.polygon ? extension.polygon : new PolygonExtension())
         }
-        PolygonVerifyWalker.walkAndVerify(polygonDef, extension)
+        new PolygonsVerifier(workerExecutor).verifyAllPolygons(polygonDef, extension)
     }
 }

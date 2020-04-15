@@ -21,7 +21,7 @@ public class VerifyTaskAction implements BiConsumer<PolygonalArchitecture, Maven
         Polygon polygon = packagesYmlParser.parseYml(polygonalArchitecture.getPolygonTemplate());
         File baseDir = new File(polygonalArchitecture.getSourcesDir(),
                 polygonalArchitecture.getBasePackage().replace(".", File.separator));
-        PackagesVerifier packagesVerifier = new PackagesVerifier(LanguageRecognizer.recognize(mavenProject));
+        RecursivePackagesVerifier packagesVerifier = new RecursivePackagesVerifier(LanguageRecognizer.recognize(mavenProject));
         SystemStreamLog log = new SystemStreamLog();
         Stream.of(Objects.requireNonNull(baseDir.listFiles(File::isDirectory)))
                 .parallel()

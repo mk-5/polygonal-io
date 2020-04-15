@@ -4,7 +4,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath "pl.mk5.polygonal:polygonal-architecture:${System.getenv('POLYGONAL_PLUGIN_VERSION') ? System.getenv('POLYGONAL_PLUGIN_VERSION') : 'latest'}"
+        classpath "pl.mk5.polygonal:plugin-gradle:${System.getenv('POLYGONAL_PLUGIN_VERSION') ? System.getenv('POLYGONAL_PLUGIN_VERSION') : 'latest'}"
     }
 }
 

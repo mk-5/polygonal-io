@@ -11,12 +11,12 @@ import pl.mk5.polygonal.plugin.PackageDef;
 import pl.mk5.polygonal.verifytask.verifiers.PackageVerifier;
 import pl.mk5.polygonal.verifytask.verifiers.PackageVerifierFactory;
 
-class PackagesVerifier {
+class RecursivePackagesVerifier {
 
     private static final DefaultDataDecorator defaultDataDecorator = new DefaultDataDecorator();
     private final String language;
 
-    PackagesVerifier(String language) {
+    RecursivePackagesVerifier(String language) {
         this.language = language;
     }
 
