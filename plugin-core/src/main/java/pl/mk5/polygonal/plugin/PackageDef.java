@@ -30,7 +30,7 @@ public class PackageDef {
      * How many public scope object are allowed.
      * -1      | unlimited
      * 0      | 0 objects are allowed
-     * n > 0  | n objects are allowed
+     * n &gt; 0  | n objects are allowed
      */
     long publicScope = 0;
 
@@ -38,7 +38,7 @@ public class PackageDef {
      * How many package-private scope object are allowed. Unlimited by default.
      * -1      | unlimited
      * 0      | 0 objects are allowed
-     * n > 0  | n objects are allowed
+     * n &gt; 0  | n objects are allowed
      */
     long packagePrivateScope = 0;
 
@@ -46,7 +46,7 @@ public class PackageDef {
      * How many protected scope object are allowed.
      * -1      | unlimited
      * 0      | 0 objects are allowed
-     * n > 0  | n objects are allowed
+     * n &gt; 0  | n objects are allowed
      */
     long protectedScope = 0;
 
@@ -54,7 +54,7 @@ public class PackageDef {
      * How many internal scope object are allowed. (kotlin)
      * -1      | unlimited
      * 0      | 0 objects are allowed
-     * n > 0  | n objects are allowed
+     * n &gt; 0  | n objects are allowed
      */
     long internalScope = 0;
 

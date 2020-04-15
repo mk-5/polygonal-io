@@ -41,7 +41,6 @@ class PackagesYmlParser {
         } else if (!file.getName().endsWith(YML_EXTENSION)) {
             throw new IllegalArgumentException(Message.TEMPLATE_IS_NOT_YML_FILE.withArgs(file.getName()));
         }
-
         List<PackageDef> extensions = new ArrayList<>();
         MapToPackageDefConverter mapConverter = new MapToPackageDefConverter();
         Yaml yaml = new Yaml();

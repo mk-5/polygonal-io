@@ -14,7 +14,7 @@ jar {
 apply from: '../gradle/publication-maven.gradle'
 
 dependencies {
-    implementation files('../plugin-core/build/libs/plugin-core.jar')
+    implementation project.findProject(':plugin-core').sourceSets.main.output
 
     compileOnly libs.lombok
     annotationProcessor libs.lombok
@@ -61,4 +61,3 @@ task pluginDescriptor(type: MavenExec) {
 }
 
 jar.dependsOn(pluginDescriptor)
-classes.dependsOn(project.findProject(':plugin-core').tasks.getByName('build'))

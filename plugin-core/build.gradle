@@ -1,9 +1,15 @@
 plugins {
     id 'java'
+    id 'groovy'
 }
 
 targetCompatibility = JavaVersion.VERSION_1_8
 sourceCompatibility = JavaVersion.VERSION_1_8
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
 
 jar {
     archiveName = 'plugin-core.jar'

@@ -4,6 +4,7 @@
 package pl.mk5.polygonal.functional
 
 import org.gradle.testkit.runner.GradleRunner
+import org.gradle.testkit.runner.UnexpectedBuildFailure
 import spock.lang.Specification
 
 class JavaYMLFunctionalTest extends Specification {
@@ -52,6 +53,62 @@ polygon:
 
         then:
         result.output.contains("Task :verifyPolygons")
-        !result.output.contains("ConditionException")
+
+        cleanup:
+        projectDir.deleteDir()
+    }
+
+    def "should not allow invalid polygon"() {
+        given:
+        def projectDir = new File("build/e2eTest")
+        projectDir.deleteDir()
+        projectDir.mkdirs()
+        new File(projectDir, "code/java/org/x/example").mkdirs()
+        new File(projectDir, "code/java/org/x/example/domain1/dto").mkdirs()
+        new File(projectDir, "code/java/org/x/example/domain2/abc/defg").mkdirs()
+        new File(projectDir, "code/java/org/x/example/domain2/abc/defg/Example.java").write("class Example { }")
+        new File(projectDir, "code/java/org/x/example/domain2/dto").mkdirs()
+        new File(projectDir, "code/java/org/x/example/domain3/abc/defg").mkdirs()
+        new File(projectDir, "code/java/org/x/example/domain3/abc/defg/Foo.java").write("public class Foo { }")
+        new File(projectDir, "code/java/org/x/example/domain3/Bar.java").write("public enum Bar { }")
+        new File(projectDir, "settings.gradle") << ""
+        new File(projectDir, "polygon.yml") << """
+polygon:
+  public: -1
+  types: ['class']
+  packages:
+    abc:
+      required: true
+      defg:
+        public: -1
+    dto:
+      required: true
+"""
+        new File(projectDir, "build.gradle") << """
+            plugins {
+                id('java')
+                id('pl.mk5.polygonal-architecture')
+            }
+            
+            polygonalArchitecture {
+                sourcesDir = file('code/java')
+                basePackage = 'org.b.example'
+                polygonTemplate = file('polygon.yml')
+            }
+        """
+
+        when:
+        def runner = GradleRunner.create()
+        runner.forwardOutput()
+        runner.withPluginClasspath()
+        runner.withArguments("verifyPolygons")
+        runner.withProjectDir(projectDir)
+        def result = runner.build()
+
+        then:
+        thrown(UnexpectedBuildFailure)
+
+        cleanup:
+        projectDir.deleteDir()
     }
 }

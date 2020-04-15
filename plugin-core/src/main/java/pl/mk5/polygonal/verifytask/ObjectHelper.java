@@ -20,7 +20,6 @@ class ObjectHelper {
                 targetField.setAccessible(true);
                 targetField.set(target, value);
             } catch (NoSuchFieldException e) {
-
             }
         }
         return target;

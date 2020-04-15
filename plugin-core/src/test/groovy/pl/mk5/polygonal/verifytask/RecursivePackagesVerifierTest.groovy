@@ -2,12 +2,12 @@ package pl.mk5.polygonal.verifytask
 
 import spock.lang.Specification
 
-class PackagesVerifierTest extends Specification {
+class RecursivePackagesVerifierTest extends Specification {
 
     def "should throw exception when base directory doesnt exists"() {
         given:
         def dir = Mock(File)
-        def packagesVerifier = new PackagesVerifier("java")
+        def packagesVerifier = new RecursivePackagesVerifier("java")
         dir.isDirectory() >> false
 
         when:

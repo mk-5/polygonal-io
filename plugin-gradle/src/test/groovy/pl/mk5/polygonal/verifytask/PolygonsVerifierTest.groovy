@@ -3,11 +3,12 @@ package pl.mk5.polygonal.verifytask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.plugins.PluginContainer
+import org.gradle.workers.WorkerExecutor
 import pl.mk5.polygonal.plugin.Polygon
 import pl.mk5.polygonal.plugin.PolygonalArchitectureExtension
 import spock.lang.Specification
 
-class PolygonVerifyWalkerTest extends Specification {
+class PolygonsVerifierTest extends Specification {
 
     def "should throw exception when no language plugin provided"() {
         given:
@@ -28,9 +29,10 @@ class PolygonVerifyWalkerTest extends Specification {
                 return null
             }
         }
+        def verifier = new PolygonsVerifier(Mock(WorkerExecutor))
 
         when:
-        PolygonVerifyWalker.walkAndVerify(polygon, extension)
+        verifier.verifyAllPolygons(polygon, extension)
 
         then:
         thrown(IllegalStateException)

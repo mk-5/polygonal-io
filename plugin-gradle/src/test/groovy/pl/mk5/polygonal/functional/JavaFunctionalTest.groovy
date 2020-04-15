@@ -4,13 +4,13 @@
 package pl.mk5.polygonal.functional
 
 import org.gradle.testkit.runner.GradleRunner
+import org.gradle.testkit.runner.UnexpectedBuildFailure
 import spock.lang.Specification
 
 class JavaFunctionalTest extends Specification {
     def "can run task"() {
         given:
         def projectDir = new File("build/e2eTest")
-        projectDir.deleteDir()
         projectDir.mkdirs()
         new File(projectDir, "code/java/org/a/example").mkdirs()
         new File(projectDir, "code/java/org/a/example/domain1/dto").mkdirs()
@@ -54,12 +54,67 @@ class JavaFunctionalTest extends Specification {
         def runner = GradleRunner.create()
         runner.forwardOutput()
         runner.withPluginClasspath()
-        runner.withArguments("build")
+        runner.withArguments("verifyPolygons")
         runner.withProjectDir(projectDir)
         def result = runner.build()
 
         then:
         result.output.contains("Task :verifyPolygons")
         !result.output.contains("ConditionException")
+
+        cleanup:
+        projectDir.deleteDir()
+    }
+
+    def "should not allow invalid polygon"() {
+        given:
+        def projectDir = new File("build/e2eTest")
+        projectDir.mkdirs()
+        new File(projectDir, "src/main/java/org/example").mkdirs()
+        new File(projectDir, "src/main/java/org/example/domain1/dto").mkdirs()
+        new File(projectDir, "src/main/java/org/example/domain1/dto/Foo.java").write("public class Foo { }")
+        new File(projectDir, "src/main/java/org/example/domain2/dto").mkdirs()
+        new File(projectDir, "src/main/java/org/example/domain2/dto/Foo.java").write("class Foo { }")
+        new File(projectDir, "src/main/java/org/example/domain3/dto").mkdirs()
+        new File(projectDir, "src/main/java/org/example/domain3/dto/Foo.java").write("interface Foo { }")
+        new File(projectDir, "settings.gradle") << ""
+        new File(projectDir, "build.gradle") << """
+            plugins {
+                id('java')
+                id('pl.mk5.polygonal-architecture')
+            }
+            
+            polygonalArchitecture {
+                sourcesDir = file('src/main/java')
+                basePackage = 'org.example'
+                
+                polygon {
+                  packageDef {
+                    name = ''
+                    publicScope = -1
+                  }
+                
+                  packageDef {
+                    name = 'dto'
+                    types = ['class']
+                    publicScope = 0
+                  }
+                }
+            }
+        """
+
+        when:
+        def runner = GradleRunner.create()
+        runner.forwardOutput()
+        runner.withPluginClasspath()
+        runner.withArguments("verifyPolygons")
+        runner.withProjectDir(projectDir)
+        def result = runner.build()
+
+        then:
+        thrown(UnexpectedBuildFailure)
+
+        cleanup:
+        projectDir.deleteDir()
     }
 }

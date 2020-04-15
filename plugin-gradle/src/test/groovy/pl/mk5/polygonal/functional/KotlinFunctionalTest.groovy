@@ -64,5 +64,8 @@ class KotlinFunctionalTest extends Specification {
         then:
         result.output.contains("Task :verifyPolygons")
         !result.output.contains("ConditionException")
+
+        cleanup:
+        projectDir.deleteDir()
     }
 }
