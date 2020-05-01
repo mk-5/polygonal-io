@@ -63,21 +63,17 @@ The maven configuration looks as standard maven plugin configuration. Currently,
 
 ## What does polygonal mean?
 
-Let assume that every application is built with blocks. From architecture perspective the very basic block/brick in Java app is a package, right? Now imagine that  you are going to build a wall from bricks, the only way that bricks will match with each other is that they have the same shape, and the same amount of match side edges. What if the same rule can be applied to the software? Haven't you seen the projects where packaging looks more like delicious spaghetti than a good peace of software? This kind of freaky packaing structure projects are really common. Everybody was there, yep? Let stop this! I'd like to show you easy way to keep your architecture clean as a baby ass.
-
-Example: 
+Let assume that every application is built with blocks. From architecture perspective the very basic block/brick in Java app is a package, right? Now imagine that  you are going to build a wall from bricks, the only way that bricks will match with each other is that they have the same shape, and the same amount of match side edges. What if the same rule can be applied to the software? Haven't you seen the projects where packaging looks more like delicious spaghetti than a good peace of software? This kind of freaky packages structure projects are really common. Everybody was there, yep? Let stop this! I'd like to show you easy way to keep your architecture clean as a baby ass.
 
 ```
-org.example
-    domain1  // this is a polygon
-      dto
-        ImmutableDto.java
-      Object1.java
-    domain2 // this is also a polygon
-      dto
-        ImmutableDto2.java
-      Object2.java
-    App.java
+.
+├── 📂 accounts  ⬅ this is a domain (polygon)
+│   └── ...
+|   📂 customers ⬅ this is a domain (polygon)  
+│   └── ...
+|   📂 api       ⬅ this is a domain (polygon)
+│   └── ...
+└── 📄 SpringBootApp.java
 ```
 
 Maybe you heard about "hexagonal architecture" , "ports&adapters", today I'd like to make the things a little bit easier to understand. Polygon - what is the "polygon" 🤔? To build something using polygons, every peace should match. Whatever polygons you choose -> they can be triangles, quarters, hexagons, doesn't meter, but they need to match with other polygons. In software development language it means that each domain package (polygon) should have the same kind of shape as other domain packages, and the same amount of entrance/communication points (edges).
@@ -111,6 +107,47 @@ We decided to provide clean architecture here. What rules can be applied?
 - the models domain package is allowed to contain ***only public DTO objects***
 
 To make that works you need to define gradle DSL configuration or yml one.
+
+### YML configuration
+
+You'd like to keep configurations in YML files? no problem. Polygon definition can be kept in yaml file as well:
+
+```groovy
+polygonalArchitecture {
+  sourcesDir = file('src/main/java')
+  basePackage = 'org.example'
+  polygonTemplate = file('src/resources/polygon.yml')
+}
+```
+
+```yaml
+// polygon.yml
+polygon:
+  public: 0
+  packagePrivate: -1
+  types: ['interface', 'class', 'enum']
+  packages:
+    models:
+      required: true 
+      public: -1
+      packagePrivate: 0
+      types: ['class']
+    ports:
+      public: -1
+      packagePrivate: -1
+      types: ['interface']
+```
+
+#### Yaml elements
+|Element|Description|
+|--|--|
+|`polygon`| The root element. Required |
+|`polygon.public`| How many public scope objects are allowed. `-1` unlimited, `0` not allowed, `n` n allowed |
+|`polygon.packagePrivate`| How many public scope objects are allowed. `-1` unlimited, `0` not allowed, `n` n allowed |
+|`polygon.protected`| How many public scope objects are allowed. `-1` unlimited, `0` not allowed, `n` n allowed |
+|`polygon.internal`| *Kotlin only.* How many internal scope object are allowed. `-1` unlimited, `0` not allowed, `n` n allowed |
+|`polygon.types`| What types are allowed. Available values are `['interface', 'class', 'enum', 'abstract class', 'data class', 'open class']` |
+|`polygon.packages`| All packages definitions goes here. |
 
 ### Gradle DSL
 
@@ -161,49 +198,13 @@ polygonalArchitecture {
 |`polygon.packageDef.internalScope`| How many internal scope objects are allowed. `-1` unlimited, `0` not allowed, `n` n allowed | `0` |
 |`polygon.packageDef.types`| What types are allowed. Available values are `['interface', 'class', 'enum', 'abstract class', 'data class', 'open class']` | `['interface', 'class', 'enum', 'abstract class']` |
 
-### YML configuration
-
-You'd like to keep configurations in YML files? no problem. Polygon definition can be kept in yaml file as well:
-
-```groovy
-polygonalArchitecture {
-  sourcesDir = file('src/main/java')
-  basePackage = 'org.example'
-  polygonTemplate = file('src/resources/polygon.yml')
-}
-```
-
-```yaml
-// polygon.yml
-polygon:
-  public: 0
-  packagePrivate: -1
-  types: ['interface', 'class', 'enum']
-  packages:
-    models:
-      required: true 
-      public: -1
-      packagePrivate: 0
-      types: ['class']
-    ports:
-      public: -1
-      packagePrivate: -1
-      types: ['interface']
-```
-
-#### Yaml elements
-|Element|Description|
-|--|--|
-|`polygon`| The root element. Required |
-|`polygon.public`| How many public scope objects are allowed. `-1` unlimited, `0` not allowed, `n` n allowed |
-|`polygon.packagePrivate`| How many public scope objects are allowed. `-1` unlimited, `0` not allowed, `n` n allowed |
-|`polygon.protected`| How many public scope objects are allowed. `-1` unlimited, `0` not allowed, `n` n allowed |
-|`polygon.internal`| *Kotlin only.* How many internal scope object are allowed. `-1` unlimited, `0` not allowed, `n` n allowed |
-|`polygon.types`| What types are allowed. Available values are `['interface', 'class', 'enum', 'abstract class', 'data class', 'open class']` |
-|`polygon.packages`| All packages definitions goes here. |
 
 ##### YML+Gradle mix
 Mixing of gradle DSL, and yaml configuration is allowed. The one rules here is that gradle DSL has higher precedence than yaml, so you can define the base polygon schema in yaml, and then overwrite some rules by gradle configuration.
+
+#### More examples 
+
+Are you looking for more polygon examples? Here you go: [polygons gallery](https://polygonal.io/polygons-gallery)
 
 ## Usage
 
@@ -231,7 +232,6 @@ Execution failed for task ':verifyPolygons'.
 
 - package definition inheritance
 - groovy support
-- maven plug-in
 
 ## License
 
