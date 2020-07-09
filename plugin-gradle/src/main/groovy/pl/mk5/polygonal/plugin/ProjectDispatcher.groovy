@@ -8,6 +8,8 @@ import pl.mk5.polygonal.LanguageRecognizer
 import pl.mk5.polygonal.verifytask.VerifyPolygonsDefaultTask
 import pl.mk5.polygonal.verifytask.VerifyPolygonsTask
 
+import java.nio.file.Paths
+
 @PackageScope
 @TupleConstructor(includeFields = true)
 class ProjectDispatcher {
@@ -29,6 +31,10 @@ class ProjectDispatcher {
             }
             if (!extension.sourcesDir.isDirectory()) {
                 throw new IllegalStateException("given 'sourcesDir' (${extension.sourcesDir}) is not a directory. Please provide valid source directory for project ${project.name} by using polygonalArchitecture{ sourcesDir = 'xxx' }")
+            }
+            def defaultPolygonTemplate = Paths.get(extension.sourcesDir.absolutePath, "../resources/polygon.yml").toFile()
+            if (extension.polygonTemplate == null && defaultPolygonTemplate.canRead()) {
+                extension.polygonTemplate = defaultPolygonTemplate
             }
         }
         project.tasks.build.dependsOn(task)

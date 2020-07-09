@@ -37,7 +37,7 @@ class PackagesYmlParser {
     @SuppressWarnings("unchecked")
     public Polygon parseYml(File file) {
         if (file == null || !file.exists() || !Files.isReadable(file.toPath())) {
-            throw new IllegalArgumentException(Message.YML_TEMPLATE_NOT_FOUND.toString());
+            throw new IllegalArgumentException(Message.YML_TEMPLATE_NOT_FOUND.withArgs(file != null ? file.getPath() : ""));
         } else if (!file.getName().endsWith(YML_EXTENSION)) {
             throw new IllegalArgumentException(Message.TEMPLATE_IS_NOT_YML_FILE.withArgs(file.getName()));
         }
