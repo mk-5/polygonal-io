@@ -13,7 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class PolygonalArchitecture {
     /**
-     * Sources directory, required
+     * Sources directory, required. Default value based on module language
      */
     private File sourcesDir;
 

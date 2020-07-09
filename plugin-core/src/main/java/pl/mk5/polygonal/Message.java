@@ -3,7 +3,7 @@ package pl.mk5.polygonal;
 import java.text.MessageFormat;
 
 public enum Message {
-    POLYGON_OR_TEMPLATE_REQUIRED("You need to configure one of the following properties: polygonalArchitecture#polygon, polygonalArchitecture#polygonTemplate"),
+    POLYGON_OR_TEMPLATE_REQUIRED("You need to configure one of the following properties: polygonalArchitecture#polygon, polygonalArchitecture#polygonTemplate or just create polygon.yml"),
     NOT_KEYWORD_FIELD_SHOULD_BE_MAP("Field ''{0}'' suppose to be a package definition but it''s not"),
     TYPES_INVALID("''{0}'' is not a valid type. Following types are allowed: {1}"),
     TYPES_FORMAT_INVALID("Types fields suppose to be a Set<String>."),
@@ -20,9 +20,9 @@ public enum Message {
     ENUMS_ERROR("enums are not allowed in ''{0}'' package"),
     CHECK_TASK_NOT_FOUND("''check'' task have not been found for module {0}"),
     BASE_PACKAGE_DOESNT_EXIST("Given base package ''{0}'' doesn''t exist"),
-    YML_TEMPLATE_NOT_FOUND("Given yml template doesn''t exist or it''s not readable"),
+    YML_TEMPLATE_NOT_FOUND("''{0}'' yml template doesn''t exist"),
     USING_TEMPLATE("Using polygon template ''{0}''"),
-    TEMPLATE_IS_NOT_YML_FILE("Given template ''{0}'' is not a yml file"),
+    TEMPLATE_IS_NOT_YML_FILE("''{0}'' is not valid YML file"),
     TEMPLATE_CANNOT_FIND_POLYGON("Cannot find ''{0}'' definition in ''{1}''"),
     TEMPLATE_PACKAGES_SHOULD_CONTAIN_PACKAGES_DEFINITIONS("''packages'' field should contain packages definitions"),
     CANNOT_RECOGNIZE_LANGUAGE("JVM language for module ''{0}'' couldn''t be recognize for. Please check if Java, or Kotlin plugin has been applied."),

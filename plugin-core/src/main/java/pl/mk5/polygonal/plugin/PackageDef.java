@@ -35,7 +35,7 @@ public class PackageDef {
     long publicScope = 0;
 
     /**
-     * How many package-private scope object are allowed. Unlimited by default.
+     * How many package-private scope object are allowed. Unlimited on root level by default.
      * -1      | unlimited
      * 0      | 0 objects are allowed
      * n &gt; 0  | n objects are allowed

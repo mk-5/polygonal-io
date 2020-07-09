@@ -13,7 +13,9 @@ class DefaultDataDecorator {
                 .filter(p -> ROOT_PACKAGE_NAME.equals(p.getName()))
                 .findAny();
         if (!rootPackage.isPresent()) {
-            packageDefExtensions.add(new PackageDef());
+            PackageDef rootDef = new PackageDef();
+            rootDef.setPackagePrivateScope(-1);
+            packageDefExtensions.add(rootDef);
         }
         return packageDefExtensions;
     }

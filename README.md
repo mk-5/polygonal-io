@@ -2,7 +2,8 @@
 
 Plug-in which helps you implement clean architecture in your application.
 
-[![Build Status](https://travis-ci.org/mk-5/polygonal-architecture.svg?branch=master)](https://travis-ci.org/mk-5/polygonal-architecture) [ ![Download Maven](https://api.bintray.com/packages/mk-5/maven/polygonal-architecture/images/download.svg) ](https://bintray.com/mk-5/maven/polygonal-architecture/_latestVersion)
+[![Build Status](https://travis-ci.org/mk-5/polygonal-architecture.svg?branch=master)](https://travis-ci.org/mk-5/polygonal-architecture) [ ![Gradle Plugin](https://img.shields.io/badge/gradle%20-plugin-green) ](https://plugins.gradle.org/plugin/pl.mk5.polygonal-architecture) 
+[ ![Maven Plugin](https://img.shields.io/badge/maven%20-plugin-blue) ](https://bintray.com/mk-5/maven/polygonal-architecture/_latestVersion) [ ![Bintray](https://api.bintray.com/packages/mk-5/maven/polygonal-architecture/images/download.svg) ](https://bintray.com/mk-5/maven/polygonal-architecture/_latestVersion) 
 
 ## Getting started | gradle
 
@@ -11,25 +12,14 @@ To make the magic happen, you need following gradle configuration:
 
 ``` gradle
 plugins {
-  id 'pl.mk5.polygonal-architecture'
-}
-
-// or 
-
-buildscript {
-  repositories {
-    maven {
-      url "https://plugins.gradle.org/m2/"
-    }
-  }
-  dependencies {
-    classpath "pl.mk5.polygonal:plugin-gradle:$currentVersion"
-  }
+  id 'pl.mk5.polygonal-architecture' version 'X.Y.Z'
 }
 
 apply plugin: "pl.mk5.polygonal-architecture"
 
 ```
+
+Next step is to create `polygon.yml` file, and that's it.
 
 ## Getting started | maven
 
@@ -110,13 +100,13 @@ To make that works you need to define gradle DSL configuration or yml one.
 
 ### YML configuration
 
-You'd like to keep configurations in YML files? no problem. Polygon definition can be kept in yaml file as well:
+You'd like to keep configurations in YML files? no problem. Polygon definition can be kept in yaml file. Default location is `src/main/resources/polygon.yml`, but you can customize it using following parameters:
 
 ```groovy
 polygonalArchitecture {
-  sourcesDir = file('src/main/java')
   basePackage = 'org.example'
-  polygonTemplate = file('src/resources/polygon.yml')
+  sourcesDir = file('src/main/java') // default value
+  polygonTemplate = file('src/main/resources/polygon.yml')  // default value
 }
 ```
 
@@ -151,7 +141,7 @@ polygon:
 
 ### Gradle DSL
 
- You can use following configuration to specify rules which covers above architecture:
+You can define your architecture also via gradle dsl:
 
 ```groovy
 // build.gradle 
@@ -193,7 +183,7 @@ polygonalArchitecture {
 |`polygon.packageDef.name`|  The name of the package. The nested packages like `abc.defg` are allowed. | `''`, it's root level definition |
 |`polygon.packageDef.required`|  If true, definied packages is required inside polygon. | `false` |
 |`polygon.packageDef.publicScope`| How many public scope objects are allowed. `-1` unlimited, `0` not allowed, `n` n allowed | `0` |
-|`polygon.packageDef.packagePrivateScope`| How many public scope objects are allowed. `-1` unlimited, `0` not allowed, `n` n allowed | `0` |
+|`polygon.packageDef.packagePrivateScope`| How many public scope objects are allowed. `-1` unlimited, `0` not allowed, `n` n allowed | `0 (-1 for root level)` |
 |`polygon.packageDef.protectedScope`| How many public scope objects are allowed. `-1` unlimited, `0` not allowed, `n` n allowed | `0` |
 |`polygon.packageDef.internalScope`| How many internal scope objects are allowed. `-1` unlimited, `0` not allowed, `n` n allowed | `0` |
 |`polygon.packageDef.types`| What types are allowed. Available values are `['interface', 'class', 'enum', 'abstract class', 'data class', 'open class']` | `['interface', 'class', 'enum', 'abstract class']` |
@@ -231,7 +221,8 @@ Execution failed for task ':verifyPolygons'.
 ## What's next?
 
 - package definition inheritance
-- groovy support
+- groovy language support
+- improve multi-threaded processing for maven
 
 ## License
 

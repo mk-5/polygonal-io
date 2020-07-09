@@ -39,10 +39,6 @@ class VerifyPolygonsDefaultTask extends DefaultTask implements VerifyPolygonsTas
         }
         getLogger().info(Message.CHECKING_POLYGONS.withArgs(project.name))
         def polygonDef = extension.polygon
-        def defaultPolygonTemplate = new File(extension.sourcesDir, "src/main/resources/polygon.yml")
-        if (extension.polygonTemplate == null && defaultPolygonTemplate.canRead()) {
-            extension.polygonTemplate = defaultPolygonTemplate
-        }
         if (extension.polygonTemplate != null) {
             def ymlParser = new PackagesYmlParser()
             polygonDef = PolygonExtensionsMerger.merge(ymlParser.parseYml(extension.polygonTemplate), extension.polygon ? extension.polygon : new PolygonExtension())

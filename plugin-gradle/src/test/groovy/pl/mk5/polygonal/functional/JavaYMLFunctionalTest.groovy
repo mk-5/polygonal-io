@@ -8,7 +8,7 @@ import org.gradle.testkit.runner.UnexpectedBuildFailure
 import spock.lang.Specification
 
 class JavaYMLFunctionalTest extends Specification {
-    def "can run task"() {
+    def "can run task with default polygon.yml"() {
         given:
         def projectDir = new File("build/e2eTest")
         projectDir.deleteDir()
@@ -18,8 +18,9 @@ class JavaYMLFunctionalTest extends Specification {
         new File(projectDir, "code/java/org/b/example/domain2/abc/defg").mkdirs()
         new File(projectDir, "code/java/org/b/example/domain2/abc/defg/Foo.java").write("public class Foo { }")
         new File(projectDir, "code/java/org/b/example/domain2/dto").mkdirs()
+        new File(projectDir, "code/resources").mkdirs()
         new File(projectDir, "settings.gradle") << ""
-        new File(projectDir, "polygon.yml") << """
+        new File(projectDir, "code/resources/polygon.yml") << """
 polygon:
   public: -1
   packages:
@@ -39,7 +40,6 @@ polygon:
             polygonalArchitecture {
                 sourcesDir = file('code/java')
                 basePackage = 'org.b.example'
-                polygonTemplate = file('polygon.yml')
             }
         """
 
