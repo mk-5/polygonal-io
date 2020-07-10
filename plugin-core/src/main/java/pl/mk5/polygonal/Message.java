@@ -8,18 +8,18 @@ public enum Message {
     TYPES_INVALID("''{0}'' is not a valid type. Following types are allowed: {1}"),
     TYPES_FORMAT_INVALID("Types fields suppose to be a Set<String>."),
     PACKAGE_REQUIRED("Package ''{0}'' has been marked as required, and it doesn''t exist here: {1}"),
-    PUBLIC_OBJECTS_ERROR("{0} public scope objects are allowed in ''{1}'' package"),
-    PACKAGE_PRIVATE_OBJECTS_ERROR("{0} package-private scope objects are allowed in ''{1}'' package"),
-    PROTECTED_OBJECTS_ERROR("{0} protected scope objects are allowed in ''{1}'' package"),
-    INTERNAL_OBJECTS_ERROR("{0} internal scope objects are allowed in ''{1}'' package"),
-    INTERFACES_ERROR("interfaces are not allowed in ''{0}'' package"),
-    CLASSES_ERROR("classes are not allowed in ''{0}'' package"),
-    DATA_CLASSES_ERROR("data classes are not allowed in ''{0}'' package"),
-    OPEN_CLASSES_ERROR("open classes are not allowed in ''{0}'' package"),
-    ABSTRACT_CLASSES_ERROR("abstract classes are not allowed in ''{0}'' package"),
-    ENUMS_ERROR("enums are not allowed in ''{0}'' package"),
+    PUBLIC_OBJECTS_ERROR("''{1}'' package may contain up to {0} public scope objects"),
+    PACKAGE_PRIVATE_OBJECTS_ERROR("''{1}'' package may contain up to {0} package-private scope objects"),
+    PROTECTED_OBJECTS_ERROR("''{1}'' package may contain up to {0} protected scope objects"),
+    INTERNAL_OBJECTS_ERROR("''{1}'' package may contain up to {0} internal scope objects"),
+    INTERFACES_ERROR("''{0}'' package must not contain interfaces"),
+    CLASSES_ERROR("''{0}'' package must not contain classes"),
+    DATA_CLASSES_ERROR("''{0}'' package must not contain data classes"),
+    OPEN_CLASSES_ERROR("''{0}'' package must not contain open classes"),
+    ABSTRACT_CLASSES_ERROR("''{0}'' package must not contain abstract classes"),
+    ENUMS_ERROR("''{0}'' package must not contain enums"),
     CHECK_TASK_NOT_FOUND("''check'' task have not been found for module {0}"),
-    BASE_PACKAGE_DOESNT_EXIST("Given base package ''{0}'' doesn''t exist"),
+    BASE_PACKAGE_DOESNT_EXIST("Base package ''{0}'' doesn''t exist"),
     YML_TEMPLATE_NOT_FOUND("''{0}'' yml template doesn''t exist"),
     USING_TEMPLATE("Using polygon template ''{0}''"),
     TEMPLATE_IS_NOT_YML_FILE("''{0}'' is not valid YML file"),
@@ -39,6 +39,11 @@ public enum Message {
     }
 
     public String withArgs(Object... args) {
+        if (msg.contains("must not contain") && "".equals(args[0])) {
+            args[0] = "root";
+        } else if (msg.contains("may contain up to") && "".equals(args[1])) {
+            args[1] = "root";
+        }
         return MessageFormat.format(msg, args);
     }
 

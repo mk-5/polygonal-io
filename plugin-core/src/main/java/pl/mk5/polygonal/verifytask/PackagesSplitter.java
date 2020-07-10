@@ -28,7 +28,7 @@ class PackagesSplitter {
         Files.walk(rootLevel.toPath())
                 .filter(Files::isDirectory)
                 .forEach(dir -> {
-                    String baseName = DirectoryPackageConverter.convert(rootLevel, dir.toFile());
+                    String baseName = DirectoryToPackageConverter.convert(rootLevel, dir.toFile());
                     Optional<PackageDef> packageDef = sourcePackageDefExtensions.stream()
                             .filter(p -> baseName.equals(p.getName()))
                             .findAny();

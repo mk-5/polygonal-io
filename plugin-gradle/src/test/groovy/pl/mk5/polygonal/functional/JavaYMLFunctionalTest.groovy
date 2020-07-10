@@ -111,4 +111,88 @@ polygon:
         cleanup:
         projectDir.deleteDir()
     }
+
+    def "should not allow invalid root level class"() {
+        given:
+        def projectDir = new File("build/e2eTest")
+        projectDir.deleteDir()
+        projectDir.mkdirs()
+        new File(projectDir, "src/main/java/app/domain1/abc").mkdirs()
+        new File(projectDir, "src/main/resources").mkdirs()
+        new File(projectDir, "src/main/java/app/domain1/Example.java").write("public class Example { }")
+        new File(projectDir, "settings.gradle") << ""
+        new File(projectDir, "src/main/resources/polygon.yml") << """
+polygon:
+  types: ['class']
+  packages:
+    dto:
+      public: -1
+"""
+        new File(projectDir, "build.gradle") << """
+            plugins {
+                id('java')
+                id('pl.mk5.polygonal-architecture')
+            }
+            
+            polygonalArchitecture {
+                basePackage = 'app'
+            }
+        """
+
+        when:
+        def runner = GradleRunner.create()
+        runner.forwardOutput()
+        runner.withPluginClasspath()
+        runner.withArguments("verifyPolygons", "--info")
+        runner.withProjectDir(projectDir)
+        def result = runner.build()
+
+        then:
+        thrown(UnexpectedBuildFailure)
+
+        cleanup:
+        projectDir.deleteDir()
+    }
+
+    def "should not allow invalid root level class 2"() {
+        given:
+        def projectDir = new File("build/e2eTest")
+        projectDir.deleteDir()
+        projectDir.mkdirs()
+        new File(projectDir, "src/main/java/app/domain1/abc").mkdirs()
+        new File(projectDir, "src/main/resources").mkdirs()
+        new File(projectDir, "src/main/java/app/domain1/Example.java").write("interface Example { }")
+        new File(projectDir, "settings.gradle") << ""
+        new File(projectDir, "src/main/resources/polygon.yml") << """
+polygon:
+  types: ['class']
+  packages:
+    dto:
+      public: -1
+"""
+        new File(projectDir, "build.gradle") << """
+            plugins {
+                id('java')
+                id('pl.mk5.polygonal-architecture')
+            }
+            
+            polygonalArchitecture {
+                basePackage = 'app'
+            }
+        """
+
+        when:
+        def runner = GradleRunner.create()
+        runner.forwardOutput()
+        runner.withPluginClasspath()
+        runner.withArguments("verifyPolygons", "--info")
+        runner.withProjectDir(projectDir)
+        def result = runner.build()
+
+        then:
+        thrown(UnexpectedBuildFailure)
+
+        cleanup:
+        projectDir.deleteDir()
+    }
 }
