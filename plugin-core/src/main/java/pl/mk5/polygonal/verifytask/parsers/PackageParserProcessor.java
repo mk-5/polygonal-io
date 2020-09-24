@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 
 import lombok.SneakyThrows;
-import pl.mk5.polygonal.verifytask.models.PackageInformation;
+import pl.mk5.polygonal.verifytask.PackageInformation;
 
 abstract class PackageParserProcessor implements PackageParser {
 

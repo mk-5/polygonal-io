@@ -6,7 +6,7 @@ import pl.mk5.polygonal.Message;
 import pl.mk5.polygonal.plugin.ObjectType;
 import pl.mk5.polygonal.plugin.PackageDef;
 import pl.mk5.polygonal.verifytask.Conditions;
-import pl.mk5.polygonal.verifytask.models.PackageInformation;
+import pl.mk5.polygonal.verifytask.PackageInformation;
 import pl.mk5.polygonal.verifytask.parsers.PackageParser;
 
 class BasicPackageVerifier implements PackageVerifier {

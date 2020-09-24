@@ -3,7 +3,7 @@ package pl.mk5.polygonal.verifytask.verifiers
 import pl.mk5.polygonal.plugin.ObjectType
 import pl.mk5.polygonal.plugin.PackageDef
 import pl.mk5.polygonal.verifytask.ConditionException
-import pl.mk5.polygonal.verifytask.models.PackageInformation
+import pl.mk5.polygonal.verifytask.PackageInformation
 import pl.mk5.polygonal.verifytask.parsers.PackageParser
 import spock.lang.Specification
 import spock.lang.Unroll

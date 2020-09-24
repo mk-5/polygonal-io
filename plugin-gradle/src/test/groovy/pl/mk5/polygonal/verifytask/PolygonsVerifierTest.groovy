@@ -29,10 +29,10 @@ class PolygonsVerifierTest extends Specification {
                 return null
             }
         }
-        def verifier = new PolygonsVerifier(Mock(WorkerExecutor))
+        def verifier = new PolygonsVerifier(Mock(WorkerExecutor), extension)
 
         when:
-        verifier.verifyAllPolygons(polygon, extension)
+        verifier.verifyAllPolygons()
 
         then:
         thrown(IllegalStateException)

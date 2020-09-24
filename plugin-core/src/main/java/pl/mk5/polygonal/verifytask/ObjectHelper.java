@@ -9,6 +9,10 @@ import java.util.Set;
 import lombok.SneakyThrows;
 
 class ObjectHelper {
+    private ObjectHelper() {
+
+    }
+
     @SneakyThrows
     static <T> T merge(T src, T target) {
         Field[] fields = src.getClass().getDeclaredFields();

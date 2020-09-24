@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.util.regex.Pattern;
 
 import lombok.SneakyThrows;
-import pl.mk5.polygonal.verifytask.models.PackageInformation;
+import pl.mk5.polygonal.verifytask.PackageInformation;
 
 class JavaPackageParser extends PackageParserProcessor {
 
