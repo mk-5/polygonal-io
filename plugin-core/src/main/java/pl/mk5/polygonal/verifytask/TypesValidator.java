@@ -8,6 +8,10 @@ import pl.mk5.polygonal.plugin.PackageDef;
 class TypesValidator {
     private static final PackageDef emptyPackageDef = new PackageDef();
 
+    private TypesValidator() {
+
+    }
+
     @SuppressWarnings("unchecked")
     static void validate(Object types) {
         Conditions.check(types instanceof Set, Message.TYPES_FORMAT_INVALID.msg());

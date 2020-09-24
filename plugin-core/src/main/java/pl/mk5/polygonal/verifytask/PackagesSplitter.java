@@ -12,6 +12,10 @@ import lombok.SneakyThrows;
 import pl.mk5.polygonal.plugin.PackageDef;
 
 class PackagesSplitter {
+    private PackagesSplitter() {
+
+    }
+
     @SneakyThrows
     static Map<File, PackageDef> walkAndSplit(File rootLevel, List<PackageDef> packageDefExtensions) {
         Map<File, PackageDef> defExtensionMap = new HashMap<>();

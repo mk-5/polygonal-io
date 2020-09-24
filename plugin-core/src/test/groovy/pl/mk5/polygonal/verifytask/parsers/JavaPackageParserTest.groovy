@@ -1,6 +1,6 @@
 package pl.mk5.polygonal.verifytask.parsers
 
-import pl.mk5.polygonal.verifytask.models.PackageInformation
+import pl.mk5.polygonal.verifytask.PackageInformation
 import spock.lang.Specification
 import spock.lang.Unroll
 

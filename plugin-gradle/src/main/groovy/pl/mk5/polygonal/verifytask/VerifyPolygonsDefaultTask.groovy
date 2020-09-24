@@ -6,7 +6,6 @@ import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.TaskAction
 import org.gradle.workers.WorkerExecutor
 import pl.mk5.polygonal.Message
-import pl.mk5.polygonal.plugin.PolygonExtension
 import pl.mk5.polygonal.plugin.PolygonalArchitectureExtension
 
 import javax.inject.Inject
@@ -38,11 +37,6 @@ class VerifyPolygonsDefaultTask extends DefaultTask implements VerifyPolygonsTas
             throw new IllegalStateException(Message.POLYGON_OR_TEMPLATE_REQUIRED.toString())
         }
         getLogger().info(Message.CHECKING_POLYGONS.withArgs(project.name))
-        def polygonDef = extension.polygon
-        if (extension.polygonTemplate != null) {
-            def ymlParser = new PackagesYmlParser()
-            polygonDef = PolygonExtensionsMerger.merge(ymlParser.parseYml(extension.polygonTemplate), extension.polygon ? extension.polygon : new PolygonExtension())
-        }
-        new PolygonsVerifier(workerExecutor).verifyAllPolygons(polygonDef, extension)
+        new PolygonsVerifier(workerExecutor, extension).verifyAllPolygons()
     }
 }

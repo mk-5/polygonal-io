@@ -7,6 +7,10 @@ import pl.mk5.polygonal.plugin.PackageDef;
 import pl.mk5.polygonal.plugin.Polygon;
 
 class PolygonExtensionsMerger {
+    private PolygonExtensionsMerger() {
+
+    }
+
     public static Polygon merge(Polygon p1, Polygon p2) {
         List<PackageDef> p1Packages = p1.getPackagesDefs();
         List<PackageDef> p2Packages = p2.getPackagesDefs();
