@@ -1,4 +1,4 @@
-package pl.mk5.polygonal.verifytask.models;
+package pl.mk5.polygonal.verifytask;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -156,7 +156,7 @@ polygon:
 
     def "should not allow invalid root level class 2"() {
         given:
-        def projectDir = new File("build/e2eTest")
+        def projectDir = new File("build/e2eTest2")
         projectDir.deleteDir()
         projectDir.mkdirs()
         new File(projectDir, "src/main/java/app/domain1/abc").mkdirs()
