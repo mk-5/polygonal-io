@@ -51,7 +51,7 @@
             </plugin>
             <plugin>
                 <groupId>pl.mk5.polygonal</groupId>
-                <artifactId>polygonal-architecture-maven-plugin</artifactId>
+                <artifactId>polygonal-io-maven-plugin</artifactId>
                 <version>${pluginVersion}</version>
                 <configuration>
                     <basePackage>pl.mk5.polygonal.mvne2e</basePackage>

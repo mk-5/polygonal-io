@@ -3,7 +3,7 @@ apply plugin: 'groovy'
 apply plugin: 'maven-publish'
 
 ext {
-    artifactId = 'polygonal-architecture'
+    artifactId = 'polygonal-io'
 }
 
 java {
@@ -30,17 +30,17 @@ sourcesJar {
 gradlePlugin {
     plugins {
         polygonalPlugin {
-            id = 'pl.mk5.polygonal-architecture'
-            artifactId = 'polygonal-architecture'
+            id = 'io.polygonal'
+            artifactId = 'polygonal-io'
             displayName = 'Polygonal Architecture plugin'
-            description = 'A plugin that helps you to provide polygonal architecture inside your app!'
+            description = 'A plugin that helps you to provide polygonal architecture&bounded context driven inside your app!'
             implementationClass = 'pl.mk5.polygonal.plugin.PolygonalArchitecturePlugin'
         }
     }
 }
 
 pluginBundle {
-    description = "A plugin that helps you to provide polygonal architecture inside your app!"
+    description = "A plugin that helps you to provide polygonal architecture (bounded context driven) inside your app!"
     website = 'https://polygonal.io'
     vcsUrl = 'https://github.com/mk-5/polygonal-architecture'
     tags = ['java', 'gradle', 'architecture', 'polygonal architecture', 'groovy', 'clean architecture']

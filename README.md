@@ -1,6 +1,6 @@
 # Polygonal 🧱 Architecture
 
-Plug-in which helps you implement clean architecture in your application.
+Plug-in which helps you implement clean&bounded context driven architecture in your application.
 
 [![Build Status](https://travis-ci.org/mk-5/polygonal-architecture.svg?branch=master)](https://travis-ci.org/mk-5/polygonal-architecture) [ ![Gradle Plugin](https://img.shields.io/badge/gradle%20-plugin-green) ](https://plugins.gradle.org/plugin/pl.mk5.polygonal-architecture) 
 [ ![Maven Plugin](https://img.shields.io/badge/maven%20-plugin-blue) ](https://bintray.com/mk-5/maven/polygonal-architecture/_latestVersion) [ ![Bintray](https://api.bintray.com/packages/mk-5/maven/polygonal-architecture/images/download.svg) ](https://bintray.com/mk-5/maven/polygonal-architecture/_latestVersion) 
@@ -19,11 +19,11 @@ apply plugin: "pl.mk5.polygonal-architecture"
 
 ```
 
-Next step is to create `polygon.yml` file, and that's it.
+Next step is to [create](https://polygonal.io/#yml-polygon-definition) `polygon.yml` file, and that's it.
 
 ## Getting started | maven
 
-The maven configuration looks as standard maven plugin configuration. Currently, the plugin is available only via bintray repository.
+The maven configuration is really straightforward. Currently, the plugin is available only via bintray repository.
 
 ```xml
 <pluginRepositories>
@@ -51,9 +51,15 @@ The maven configuration looks as standard maven plugin configuration. Currently,
 </build>
 ```
 
-## What does polygonal mean?
 
-Let assume that every application is built with blocks. From architecture perspective the very basic block/brick in Java app is a package, right? Now imagine that  you are going to build a wall from bricks, the only way that bricks will match with each other is that they have the same shape, and the same amount of match side edges. What if the same rule can be applied to the software? Haven't you seen the projects where packaging looks more like delicious spaghetti than a good peace of software? This kind of freaky packages structure projects are really common. Everybody was there, yep? Let stop this! I'd like to show you easy way to keep your architecture clean as a baby ass.
+
+# What is Polygon?
+
+It’s a **domain-level package** which can communicate (match) with other polygons only by agreed rules. It does not matter if you are going to use triangles, hexagons, octagons, pentagons -> you can chose whatever your like
+
+## Why should I use it?
+
+Let assume for a second that every application is built with blocks. From architecture perspective the very basic block/brick in Java app is a package, right? Now imagine that  you are going to build a wall from bricks, the only way that bricks will match with each other is that they have the same shape, and the same amount of match side edges. What if the same rule can be applied to the software? Haven't you seen the projects where packaging looks more like delicious spaghetti than a good peace of software? This kind of freaky packages structure projects are really common. Everybody was there, yep? Let stop this! I'd like to show you easy way to keep your architecture clean as a baby ass.
 
 ```
 .
@@ -66,7 +72,7 @@ Let assume that every application is built with blocks. From architecture perspe
 └── 📄 SpringBootApp.java
 ```
 
-Maybe you heard about "hexagonal architecture" , "ports&adapters", today I'd like to make the things a little bit easier to understand. Polygon - what is the "polygon" 🤔? To build something using polygons, every peace should match. Whatever polygons you choose -> they can be triangles, quarters, hexagons, doesn't meter, but they need to match with other polygons. In software development language it means that each domain package (polygon) should have the same kind of shape as other domain packages, and the same amount of entrance/communication points (edges).
+Maybe you heard about "hexagonal architecture" , "ports&adapters", today I'd like to make everything a little bit easier to understand. Polygon - what is the "polygon" 🤔? To build something using polygons, every peace should match. Whatever polygons you choose -> they can be triangles, quarters, hexagons, doesn't meter, but they need to match with other polygons. In software development language it means that each domain package (polygon) should have the same kind of shape as other domain packages, and the same amount of entrance/communication points (edges).
 
 ## Plug-in configuration
 

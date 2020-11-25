@@ -3,7 +3,7 @@ apply plugin: 'maven-publish'
 apply plugin: 'com.jfrog.bintray'
 
 ext {
-    artifactId = 'polygonal-architecture-maven-plugin'
+    artifactId = 'polygonal-io-maven-plugin'
 }
 
 java {
@@ -26,8 +26,8 @@ publishing {
             version = project.version
 
             pom {
-                name = "Polygonal Architecture Maven Plugin"
-                description = "A plugin that helps you to provide polygonal architecture inside your app!"
+                name = "Polygonal.io Maven Plugin"
+                description = "A plugin that helps you to provide polygonal&bounded context driven architecture inside your app!"
                 url = "https://polygonal.io"
                 licenses {
                     license {
