@@ -4,13 +4,13 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath "pl.mk5.polygonal:plugin-gradle:${System.getenv('POLYGONAL_PLUGIN_VERSION') ? System.getenv('POLYGONAL_PLUGIN_VERSION') : 'latest'}"
+        classpath "io.polygonal:plugin-gradle:${System.getenv('POLYGONAL_PLUGIN_VERSION') ? System.getenv('POLYGONAL_PLUGIN_VERSION') : 'latest'}"
     }
 }
 
 project(":java-e2e") {
     try {
-        apply plugin: 'pl.mk5.polygonal-architecture'
+        apply plugin: 'io.polygonal'
 
         polygonalArchitecture {
             sourcesDir = file('src/main/java')
@@ -42,7 +42,7 @@ project(":java-e2e") {
 
 project(":java-yml-e2e") {
     try {
-        apply plugin: 'pl.mk5.polygonal-architecture'
+        apply plugin: 'io.polygonal'
 
         polygonalArchitecture {
             sourcesDir = file('src/main/java')
@@ -56,7 +56,7 @@ project(":java-yml-e2e") {
 
 project(":kotlin-e2e") {
     try {
-        apply plugin: 'pl.mk5.polygonal-architecture'
+        apply plugin: 'io.polygonal'
 
         polygonalArchitecture {
             basePackage = 'pl.mk5.polygonal.e2e'

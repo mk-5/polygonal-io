@@ -30,11 +30,11 @@ sourcesJar {
 gradlePlugin {
     plugins {
         polygonalPlugin {
-            id = 'pl.mk5.polygonal-architecture'
+            id = 'io.polygonal'
             artifactId = 'polygonal-architecture'
             displayName = 'Polygonal Architecture plugin'
             description = 'A plugin that helps you to provide polygonal architecture inside your app!'
-            implementationClass = 'pl.mk5.polygonal.plugin.PolygonalArchitecturePlugin'
+            implementationClass = 'io.polygonal.plugin.PolygonalArchitecturePlugin'
         }
     }
 }
