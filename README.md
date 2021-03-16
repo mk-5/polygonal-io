@@ -12,11 +12,8 @@ To make the magic happen, you need following gradle configuration:
 
 ``` gradle
 plugins {
-  id 'pl.mk5.polygonal-architecture' version 'X.Y.Z'
+  id 'io.polygonal' version 'X.Y.Z'
 }
-
-apply plugin: "pl.mk5.polygonal-architecture"
-
 ```
 
 Next step is to create `polygon.yml` file, and that's it.
@@ -40,7 +37,7 @@ The maven configuration looks as standard maven plugin configuration. Currently,
 <build>
     <plugins>
         <plugin>
-            <groupId>pl.mk5.polygonal</groupId>
+            <groupId>io.polygonal</groupId>
             <artifactId>polygonal-architecture-maven-plugin</artifactId>
             <version>latest</version>
             <configuration>
@@ -100,15 +97,7 @@ To make that works you need to define gradle DSL configuration or yml one.
 
 ### YML configuration
 
-You'd like to keep configurations in YML files? no problem. Polygon definition can be kept in yaml file. Default location is `src/main/resources/polygon.yml`, but you can customize it using following parameters:
-
-```groovy
-polygonalArchitecture {
-  basePackage = 'org.example'
-  sourcesDir = file('src/main/java') // default value
-  polygonTemplate = file('src/main/resources/polygon.yml')  // default value
-}
-```
+You'd like to keep configurations in YML files? no problem. Polygon definition can be kept in yaml file. Default location is `src/main/resources/polygon.yml`:
 
 ```yaml
 // polygon.yml
@@ -198,7 +187,7 @@ Are you looking for more polygon examples? Here you go: [polygons gallery](https
 
 ## Usage
 
-Polygons analyzing is plug into default build task. If you'd like to check your polygons explicitly you should use the following task:
+If you'd like to check your polygons explicitly you should use the following task:
 
 ```bash
 $ ./gradlew verifyPolygons
