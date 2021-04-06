@@ -1,12 +1,12 @@
 package io.polygonal.verifytask;
 
-import io.polygonal.Message;
-import io.polygonal.plugin.PackageDef;
-
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import io.polygonal.Message;
+import io.polygonal.plugin.PackageDef;
 
 class MapToPackageDefConverter {
 
@@ -16,16 +16,16 @@ class MapToPackageDefConverter {
     List<PackageDef> convert(Map<String, Object> defsMap, Map<String, String> keywordsDictionary) {
         List<PackageDef> buffer = new ArrayList<>();
         defsMap.forEach((packageName, value) -> {
-            processPackageDef(packageName, (Map<String, Object>) defsMap.get(packageName), keywordsDictionary, buffer);
+            convertToPackageDef(packageName, (Map<String, Object>) defsMap.get(packageName), keywordsDictionary, buffer);
         });
         return buffer;
     }
 
     @SuppressWarnings("unchecked")
-    private void processPackageDef(String name,
-                                   Map<String, Object> mapData,
-                                   Map<String, String> keywordsDictionary,
-                                   List<PackageDef> buffer) {
+    private void convertToPackageDef(String name,
+                                     Map<String, Object> mapData,
+                                     Map<String, String> keywordsDictionary,
+                                     List<PackageDef> buffer) {
         PackageDef packageDef = new PackageDef();
         mapData.put("name", name);
         mapData.forEach((key, value) -> {
@@ -35,7 +35,7 @@ class MapToPackageDefConverter {
             }
             if (!keywordsDictionary.containsKey(key)) {
                 Conditions.check(value instanceof Map, Message.NOT_KEYWORD_FIELD_SHOULD_BE_MAP.withArgs(key));
-                processPackageDef(MessageFormat.format("{0}.{1}", name, key).replaceAll("^\\.", ""), (Map<String, Object>) value, keywordsDictionary, buffer);
+                convertToPackageDef(MessageFormat.format("{0}.{1}", name, key).replaceAll("^\\.", ""), (Map<String, Object>) value, keywordsDictionary, buffer);
             } else {
                 ObjectHelper.set(packageDef, newKey, value);
             }

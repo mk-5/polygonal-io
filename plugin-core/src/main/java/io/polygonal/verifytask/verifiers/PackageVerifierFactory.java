@@ -6,6 +6,10 @@ public class PackageVerifierFactory {
     public static final String JAVA = "java";
     public static final String KOTLIN = "kotlin";
 
+    private PackageVerifierFactory() {
+
+    }
+
     public static PackageVerifier forLanguage(String language) {
         switch (language) {
             case JAVA:

@@ -1,14 +1,18 @@
 package io.polygonal.verifytask;
 
-import io.polygonal.plugin.PackageDef;
-
 import java.util.List;
 import java.util.Optional;
+
+import io.polygonal.plugin.PackageDef;
 
 class DefaultDataDecorator {
     private final static String ROOT_PACKAGE_NAME = "";
 
-    List<PackageDef> decorate(List<PackageDef> packageDefExtensions) {
+    private DefaultDataDecorator() {
+
+    }
+
+    static List<PackageDef> decorateWithDefaultData(List<PackageDef> packageDefExtensions) {
         Optional<PackageDef> rootPackage = packageDefExtensions.stream()
                 .filter(p -> ROOT_PACKAGE_NAME.equals(p.getName()))
                 .findAny();

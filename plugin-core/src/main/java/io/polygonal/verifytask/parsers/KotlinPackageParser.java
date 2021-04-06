@@ -1,12 +1,12 @@
 package io.polygonal.verifytask.parsers;
 
-import io.polygonal.verifytask.PackageInformation;
-import lombok.SneakyThrows;
-
 import java.io.BufferedReader;
 import java.util.regex.Pattern;
 
-class KotlinPackageParser extends PackageParserProcessor {
+import io.polygonal.verifytask.PackageInformation;
+import lombok.SneakyThrows;
+
+class KotlinPackageParser extends PackageObjectsProcessor {
 
     private static final String ALL_TYPES = "(class|interface|abstract class|enum class|data class|open class)\\s*";
     private static final String ALL_SCOPES = "(private|internal|[a]*)";
@@ -22,7 +22,7 @@ class KotlinPackageParser extends PackageParserProcessor {
 
     @Override
     @SneakyThrows
-    protected void process(BufferedReader reader, PackageInformation information) {
+    protected void processSingleFile(BufferedReader reader, PackageInformation information) {
         String text;
         boolean scopeFound = false, typeFound = false;
         while ((text = reader.readLine()) != null) {

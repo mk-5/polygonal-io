@@ -1,6 +1,7 @@
 package io.polygonal.verifytask
 
-
+import io.polygonal.Message
+import io.polygonal.plugin.PolygonalArchitectureExtension
 import org.gradle.api.DefaultTask
 import org.gradle.api.Project
 import org.gradle.api.tasks.Input
@@ -14,13 +15,13 @@ class VerifyPolygonsDefaultTask extends DefaultTask implements VerifyPolygonsTas
     Project project
 
     @Input
-    io.polygonal.plugin.PolygonalArchitectureExtension extension
+    PolygonalArchitectureExtension extension
 
     private final WorkerExecutor workerExecutor
 
     @Inject
     VerifyPolygonsDefaultTask(Project project,
-                              io.polygonal.plugin.PolygonalArchitectureExtension polygonalArchitectureExtension,
+                              PolygonalArchitectureExtension polygonalArchitectureExtension,
                               WorkerExecutor workerExecutor
     ) {
         super();
@@ -33,9 +34,9 @@ class VerifyPolygonsDefaultTask extends DefaultTask implements VerifyPolygonsTas
     @TaskAction
     void verifyPolygons() {
         if (extension.polygon == null && extension.polygonTemplate == null) {
-            throw new IllegalStateException(io.polygonal.Message.POLYGON_OR_TEMPLATE_REQUIRED.toString())
+            throw new IllegalStateException(Message.POLYGON_OR_TEMPLATE_REQUIRED.toString())
         }
-        getLogger().info(io.polygonal.Message.CHECKING_POLYGONS.withArgs(project.name))
+        getLogger().info(Message.CHECKING_POLYGONS.withArgs(project.name))
         new PolygonsVerifier(workerExecutor, extension).verifyAllPolygons()
     }
 }

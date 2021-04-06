@@ -2,6 +2,9 @@ package io.polygonal.verifytask
 
 import com.google.gson.Gson
 import groovy.transform.PackageScope
+import io.polygonal.LanguageRecognizer
+import io.polygonal.plugin.Polygon
+import io.polygonal.plugin.PolygonalArchitectureExtension
 import org.gradle.api.logging.Logger
 import org.gradle.api.logging.Logging
 import org.gradle.internal.logging.slf4j.DefaultContextAwareTaskLogger
@@ -12,10 +15,10 @@ class PolygonsVerifier {
     private static final Logger log = new DefaultContextAwareTaskLogger(Logging.getLogger(VerifyPolygonsDefaultTask))
 
     private final WorkerExecutor workerExecutor
-    private final io.polygonal.plugin.Polygon polygonDef;
-    private final io.polygonal.plugin.PolygonalArchitectureExtension extension;
+    private final Polygon polygonDef;
+    private final PolygonalArchitectureExtension extension;
 
-    PolygonsVerifier(WorkerExecutor workExecutor, io.polygonal.plugin.PolygonalArchitectureExtension extension) {
+    PolygonsVerifier(WorkerExecutor workExecutor, PolygonalArchitectureExtension extension) {
         this.workerExecutor = workExecutor
         // TODO refactor / create polygon parser
         if (extension.polygonTemplate != null) {
@@ -29,7 +32,7 @@ class PolygonsVerifier {
 
     @SuppressWarnings("UnstableApiUsage")
     void verifyAllPolygons() {
-        def language = io.polygonal.LanguageRecognizer.recognize(extension.project)
+        def language = LanguageRecognizer.recognize(extension.project)
         def packagesVerifier = new RecursivePackagesVerifier(language)
         def baseDir = new File(extension.sourcesDir, extension.basePackage.replace('.', File.separator))
         def workQueue = workerExecutor.noIsolation()

@@ -1,11 +1,15 @@
 package io.polygonal.verifytask;
 
-import io.polygonal.plugin.PackageDef;
-import lombok.SneakyThrows;
-
 import java.io.File;
 import java.nio.file.Files;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+import io.polygonal.plugin.PackageDef;
+import lombok.SneakyThrows;
 
 class PackagesSplitter {
     private PackagesSplitter() {
@@ -28,7 +32,7 @@ class PackagesSplitter {
         Files.walk(rootLevel.toPath())
                 .filter(Files::isDirectory)
                 .forEach(dir -> {
-                    String baseName = DirectoryToPackageConverter.convert(rootLevel, dir.toFile());
+                    String baseName = DirectoryToPackageNameConverter.convert(rootLevel, dir.toFile());
                     Optional<PackageDef> packageDef = sourcePackageDefExtensions.stream()
                             .filter(p -> baseName.equals(p.getName()))
                             .findAny();

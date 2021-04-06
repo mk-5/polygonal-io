@@ -2,6 +2,8 @@ package io.polygonal.verifytask
 
 import com.google.gson.Gson
 import groovy.transform.PackageScope
+import io.polygonal.Message
+import io.polygonal.plugin.Polygon
 import org.gradle.api.logging.Logger
 import org.gradle.api.logging.Logging
 import org.gradle.internal.logging.slf4j.DefaultContextAwareTaskLogger
@@ -24,8 +26,8 @@ abstract class VerifyPolygonAction implements WorkAction<PolygonWorkParameters> 
         def directory = new File(params.getDirectoryPath().get())
         assert directory.isDirectory()
         assert packagesVerifier != null
-        log.info(io.polygonal.Message.CHECK_POLYGON.withArgs(directory.name))
-        def polygon = new Gson().fromJson(params.getPolygonJson().get(), io.polygonal.plugin.Polygon)
+        log.info(Message.CHECK_POLYGON.withArgs(directory.name))
+        def polygon = new Gson().fromJson(params.getPolygonJson().get(), Polygon)
         packagesVerifier.verify(directory, polygon.packagesDefs)
     }
 }

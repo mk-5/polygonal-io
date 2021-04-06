@@ -2,8 +2,8 @@ package io.polygonal.verifytask;
 
 import java.io.File;
 
-class DirectoryToPackageConverter {
-    private DirectoryToPackageConverter() {
+class DirectoryToPackageNameConverter {
+    private DirectoryToPackageNameConverter() {
 
     }
 

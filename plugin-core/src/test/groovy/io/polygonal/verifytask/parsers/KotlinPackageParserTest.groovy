@@ -1,6 +1,6 @@
 package io.polygonal.verifytask.parsers
 
-
+import io.polygonal.verifytask.PackageInformation
 import spock.lang.Specification
 import spock.lang.Unroll
 
@@ -10,9 +10,9 @@ class KotlinPackageParserTest extends Specification {
 
     def parser = new KotlinPackageParser() {
         @Override
-        io.polygonal.verifytask.PackageInformation parse(File packageDir) {
-            def information = new io.polygonal.verifytask.PackageInformation()
-            process(Files.newBufferedReader(packageDir.toPath()), information)
+        PackageInformation parse(File packageDir) {
+            def information = new PackageInformation()
+            processSingleFile(Files.newBufferedReader(packageDir.toPath()), information)
             return information
         }
     }

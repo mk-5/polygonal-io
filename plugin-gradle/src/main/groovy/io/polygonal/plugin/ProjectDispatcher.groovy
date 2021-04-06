@@ -2,6 +2,9 @@ package io.polygonal.plugin
 
 import groovy.transform.PackageScope
 import groovy.transform.TupleConstructor
+import io.polygonal.LanguageRecognizer
+import io.polygonal.verifytask.VerifyPolygonsDefaultTask
+import io.polygonal.verifytask.VerifyPolygonsTask
 import org.gradle.api.Project
 import org.gradle.api.Task
 
@@ -17,13 +20,13 @@ class ProjectDispatcher {
     ProjectDispatcher(Project project) {
         this.project = project
         this.extension = project.extensions.create("polygonalArchitecture", PolygonalArchitectureExtension, project)
-        this.task = project.tasks.create("verifyPolygons", io.polygonal.verifytask.VerifyPolygonsDefaultTask, project, extension)
+        this.task = project.tasks.create("verifyPolygons", VerifyPolygonsDefaultTask, project, extension)
     }
 
-    io.polygonal.verifytask.VerifyPolygonsTask dispatch() {
+    VerifyPolygonsTask dispatch() {
         task.doFirst {
             if (extension.sourcesDir == null) {
-                def language = io.polygonal.LanguageRecognizer.recognize(project)
+                def language = LanguageRecognizer.recognize(project)
                 extension.sourcesDir = new File(project.projectDir, "src/main/${language}")
             }
             if (!extension.sourcesDir.isDirectory()) {
@@ -35,6 +38,6 @@ class ProjectDispatcher {
             }
         }
         project.tasks.build.dependsOn(task)
-        return task as io.polygonal.verifytask.VerifyPolygonsTask
+        return task as VerifyPolygonsTask
     }
 }
