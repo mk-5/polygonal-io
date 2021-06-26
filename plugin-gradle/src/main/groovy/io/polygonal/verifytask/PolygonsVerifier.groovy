@@ -4,6 +4,7 @@ import com.google.gson.Gson
 import groovy.transform.PackageScope
 import io.polygonal.LanguageRecognizer
 import io.polygonal.plugin.Polygon
+import io.polygonal.plugin.PolygonExtension
 import io.polygonal.plugin.PolygonalArchitectureExtension
 import org.gradle.api.logging.Logger
 import org.gradle.api.logging.Logging
@@ -22,8 +23,8 @@ class PolygonsVerifier {
         this.workerExecutor = workExecutor
         // TODO refactor / create polygon parser
         if (extension.polygonTemplate != null) {
-            def ymlParser = new PackagesYmlParser()
-            this.polygonDef = PolygonExtensionsMerger.merge(ymlParser.parseYml(extension.polygonTemplate), extension.polygon ? extension.polygon : new io.polygonal.plugin.PolygonExtension())
+            def ymlPolygon = new YmlPolygonDefinition(extension.polygonTemplate)
+            this.polygonDef = PolygonExtensionsMerger.merge(ymlPolygon.asPolygon(), extension.polygon ? extension.polygon : new PolygonExtension())
         } else {
             this.polygonDef = extension.polygon;
         }

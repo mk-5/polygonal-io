@@ -8,7 +8,6 @@ import java.util.Optional;
 
 class PolygonExtensionsMerger {
     private PolygonExtensionsMerger() {
-
     }
 
     public static Polygon merge(Polygon p1, Polygon p2) {

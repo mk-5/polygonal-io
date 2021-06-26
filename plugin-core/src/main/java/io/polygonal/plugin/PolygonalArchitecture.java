@@ -15,25 +15,25 @@ public class PolygonalArchitecture {
     /**
      * Sources directory, required. Default value based on module language
      */
-    private File sourcesDir;
+    protected File sourcesDir;
 
     /**
      * Base package, this is a package for polygon packages
      */
-    private String basePackage = "";
+    protected String basePackage = "";
 
     /**
      * Polygon definition
      */
-    private Polygon polygon;
+    protected Polygon polygon;
 
     /**
      * Polygon template, can be used instead of {@link #polygon}
      */
-    private File polygonTemplate;
+    protected File polygonTemplate;
 
     /**
      * Strict mode means that only packages from definitions are allowed
      */
-    private boolean strictMode = true;
+    protected boolean strictMode = true;
 }

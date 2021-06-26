@@ -9,11 +9,12 @@ import io.polygonal.Message;
 import io.polygonal.plugin.PackageDef;
 
 class MapToPackageDefConverter {
-
     private static final String TYPE_FIELD = "type";
 
+    private MapToPackageDefConverter(){}
+
     @SuppressWarnings("unchecked")
-    List<PackageDef> convert(Map<String, Object> defsMap, Map<String, String> keywordsDictionary) {
+    static List<PackageDef> convertToPackageDefinitions(Map<String, Object> defsMap, Map<String, String> keywordsDictionary) {
         List<PackageDef> buffer = new ArrayList<>();
         defsMap.forEach((packageName, value) -> {
             convertToPackageDef(packageName, (Map<String, Object>) defsMap.get(packageName), keywordsDictionary, buffer);
@@ -22,7 +23,7 @@ class MapToPackageDefConverter {
     }
 
     @SuppressWarnings("unchecked")
-    private void convertToPackageDef(String name,
+    private static void convertToPackageDef(String name,
                                      Map<String, Object> mapData,
                                      Map<String, String> keywordsDictionary,
                                      List<PackageDef> buffer) {

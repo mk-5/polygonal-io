@@ -1,6 +1,5 @@
 apply plugin: 'java'
 apply plugin: 'maven-publish'
-apply plugin: 'com.jfrog.bintray'
 
 ext {
     artifactId = 'polygonal-architecture-maven-plugin'
@@ -47,4 +46,4 @@ publishing {
     }
 }
 
-apply from: file('../gradle/bintray-maven.gradle')
+apply from: file('../gradle/maven-central.gradle')

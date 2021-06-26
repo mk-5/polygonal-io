@@ -26,10 +26,10 @@ class RecursivePackagesVerifier {
         }
         PackageVerifier packageVerifier = PackageVerifierFactory.forLanguage(language);
         DefaultDataDecorator.decorateWithDefaultData(defExtensions);
-        Map<File, PackageDef> definitionsMap = PackagesSplitter.walkAndSplit(basePackageDir, defExtensions);
+        Map<File, PackageDef> definitionsMap = PackagesSplitter.splitPackagesIntoMap(basePackageDir, defExtensions);
         packageVerifier.verify(basePackageDir, definitionsMap.get(basePackageDir));
         Files.list(basePackageDir.toPath()).filter(Files::isDirectory).forEach(path -> {
-            PackageDef packageDefExtension = definitionsMap.getOrDefault(path.toFile(), new PackageDef(DirectoryToPackageNameConverter.convert(basePackageDir, path.toFile())));
+            PackageDef packageDefExtension = definitionsMap.getOrDefault(path.toFile(), new PackageDef(DirectoryToPackageNameConverter.convertToPackageName(basePackageDir, path.toFile())));
             packageVerifier.verify(path.toFile(), packageDefExtension);
         });
     }

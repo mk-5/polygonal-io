@@ -5,11 +5,13 @@ import io.polygonal.plugin.PackageDef;
 
 import java.util.Set;
 
+/**
+ * Validates if types are valid {@link PackageDef#types}.
+ */
 class TypesValidator {
     private static final PackageDef emptyPackageDef = new PackageDef();
 
     private TypesValidator() {
-
     }
 
     @SuppressWarnings("unchecked")

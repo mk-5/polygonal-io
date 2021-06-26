@@ -13,14 +13,17 @@ import java.nio.file.Paths
 @PackageScope
 @TupleConstructor(includeFields = true)
 class ProjectDispatcher {
+    private static final String POLYGONAL_ARCHITECTURE = "polygonalArchitecture"
+    private static final String VERIFY_POLYGONS = "verifyPolygons"
+
     private final Project project
     private final PolygonalArchitectureExtension extension
     private final Task task
 
     ProjectDispatcher(Project project) {
         this.project = project
-        this.extension = project.extensions.create("polygonalArchitecture", PolygonalArchitectureExtension, project)
-        this.task = project.tasks.create("verifyPolygons", VerifyPolygonsDefaultTask, project, extension)
+        this.extension = project.extensions.create(POLYGONAL_ARCHITECTURE, PolygonalArchitectureExtension, project)
+        this.task = project.tasks.create(VERIFY_POLYGONS, VerifyPolygonsDefaultTask, project, extension)
     }
 
     VerifyPolygonsTask dispatch() {
