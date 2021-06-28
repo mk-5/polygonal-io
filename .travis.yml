@@ -42,7 +42,7 @@ jobs:
         - chmod +x gradlew && ./gradlew verifyPolygons --info
         - cd ..
         - cd e2e-mvn
-        - chmod +x mvnw && ./mvnw polygonal-architecture:verifyPolygons -e -f pom.xml -DpluginVersion=$POLYGONAL_PLUGIN_VERSION
+        - chmod +x mvnw && ./mvnw io.polygonal:polygonal-architecture-maven-plugin:verifyPolygons -e -f pom.xml -DpluginVersion=$POLYGONAL_PLUGIN_VERSION
     - stage: release
       script:
         - chmod +x next-version.sh && ./next-version.sh

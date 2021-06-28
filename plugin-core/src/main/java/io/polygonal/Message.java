@@ -27,7 +27,7 @@ public enum Message {
     TEMPLATE_PACKAGES_SHOULD_CONTAIN_PACKAGES_DEFINITIONS("''packages'' field should contain packages definitions"),
     CANNOT_RECOGNIZE_LANGUAGE("JVM language for module ''{0}'' couldn''t be recognize for. Please check if Java, or Kotlin plugin has been applied."),
     CHECKING_POLYGONS("> checking polygons for project ''{0}''"),
-    CHECK_POLYGON("> analyzing polygon ''{0}''..."),
+    CHECK_POLYGON("> polygon ''{0}''..."),
     PROJECT_REQUIRED("Project cannot be null");
 
     Message(String msg) {

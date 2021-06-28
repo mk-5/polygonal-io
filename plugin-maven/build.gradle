@@ -21,6 +21,7 @@ dependencies {
     annotationProcessor libs.lombok
 
     implementation libs.ymlSnake
+    implementation libs.guava
     implementation 'org.apache.maven:maven-plugin-api:3.6.3'
     implementation 'org.apache.maven:maven-model:3.6.3'
 

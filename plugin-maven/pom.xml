@@ -4,7 +4,7 @@
     xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>pl.mk5.polygonal</groupId>
+    <groupId>io.polygonal</groupId>
     <artifactId>polygonal-architecture-maven-plugin</artifactId>
     <version>latest</version>
     <packaging>maven-plugin</packaging>
@@ -76,6 +76,7 @@
                 <configuration>
                     <!-- see http://jira.codehaus.org/browse/MNG-5346 -->
                     <skipErrorNoDescriptorsFound>true</skipErrorNoDescriptorsFound>
+                    <goalPrefix>polygonal</goalPrefix>
                 </configuration>
                 <executions>
                     <execution>

@@ -41,6 +41,9 @@ publishing {
                         email = "mateusz@mk5.pl"
                     }
                 }
+                scm {
+                    url = 'https://github.com/mk-5/polygonal-architecture'
+                }
             }
         }
     }
