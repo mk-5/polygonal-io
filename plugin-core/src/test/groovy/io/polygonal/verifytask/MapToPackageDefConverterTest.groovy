@@ -12,7 +12,6 @@ class MapToPackageDefConverterTest extends Specification {
 
     def "should convert packages map to packageDefs flat list"() {
         given:
-        def converter = new MapToPackageDefConverter()
         def map = [
                 'level1': [
                         'publicScope': -1,
@@ -24,7 +23,7 @@ class MapToPackageDefConverterTest extends Specification {
                 'level2': [:]
         ]
         when:
-        def resultList = converter.convert(map, keywordsMap)
+        def resultList = MapToPackageDefConverter.convertToPackageDefinitions(map, keywordsMap)
         println(resultList)
 
         then:
@@ -36,11 +35,8 @@ class MapToPackageDefConverterTest extends Specification {
     }
 
     def "should return empty list when no packages"() {
-        given:
-        def converter = new MapToPackageDefConverter()
-
         when:
-        def resultList = converter.convert([:], keywordsMap)
+        def resultList = MapToPackageDefConverter.convertToPackageDefinitions([:], keywordsMap)
 
         then:
         resultList.isEmpty()

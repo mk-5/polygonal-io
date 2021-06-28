@@ -10,7 +10,6 @@ import java.util.Set;
 
 class ObjectHelper {
     private ObjectHelper() {
-
     }
 
     @SneakyThrows

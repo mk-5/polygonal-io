@@ -8,10 +8,10 @@ public enum Message {
     TYPES_INVALID("''{0}'' is not a valid type. Following types are allowed: {1}"),
     TYPES_FORMAT_INVALID("Types fields suppose to be a Set<String>."),
     PACKAGE_REQUIRED("Package ''{0}'' has been marked as required, and it doesn''t exist here: {1}"),
-    PUBLIC_OBJECTS_ERROR("''{1}'' package may contain up to {0} public scope objects"),
-    PACKAGE_PRIVATE_OBJECTS_ERROR("''{1}'' package may contain up to {0} package-private scope objects"),
-    PROTECTED_OBJECTS_ERROR("''{1}'' package may contain up to {0} protected scope objects"),
-    INTERNAL_OBJECTS_ERROR("''{1}'' package may contain up to {0} internal scope objects"),
+    PUBLIC_OBJECTS_ERROR("''{1}'' package may contain up to {0} public objects"),
+    PACKAGE_PRIVATE_OBJECTS_ERROR("''{1}'' package may contain up to {0} package-private objects"),
+    PROTECTED_OBJECTS_ERROR("''{1}'' package may contain up to {0} protected objects"),
+    INTERNAL_OBJECTS_ERROR("''{1}'' package may contain up to {0} internal objects"),
     INTERFACES_ERROR("''{0}'' package must not contain interfaces"),
     CLASSES_ERROR("''{0}'' package must not contain classes"),
     DATA_CLASSES_ERROR("''{0}'' package must not contain data classes"),
@@ -27,7 +27,7 @@ public enum Message {
     TEMPLATE_PACKAGES_SHOULD_CONTAIN_PACKAGES_DEFINITIONS("''packages'' field should contain packages definitions"),
     CANNOT_RECOGNIZE_LANGUAGE("JVM language for module ''{0}'' couldn''t be recognize for. Please check if Java, or Kotlin plugin has been applied."),
     CHECKING_POLYGONS("> checking polygons for project ''{0}''"),
-    CHECK_POLYGON("> analyzing polygon ''{0}''..."),
+    CHECK_POLYGON("> polygon ''{0}''..."),
     PROJECT_REQUIRED("Project cannot be null");
 
     Message(String msg) {

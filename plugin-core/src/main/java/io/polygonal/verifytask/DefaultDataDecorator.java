@@ -9,10 +9,9 @@ class DefaultDataDecorator {
     private final static String ROOT_PACKAGE_NAME = "";
 
     private DefaultDataDecorator() {
-
     }
 
-    static List<PackageDef> decorateWithDefaultData(List<PackageDef> packageDefExtensions) {
+    static void decorateWithDefaultData(List<PackageDef> packageDefExtensions) {
         Optional<PackageDef> rootPackage = packageDefExtensions.stream()
                 .filter(p -> ROOT_PACKAGE_NAME.equals(p.getName()))
                 .findAny();
@@ -21,6 +20,5 @@ class DefaultDataDecorator {
             rootDef.setPackagePrivateScope(-1);
             packageDefExtensions.add(rootDef);
         }
-        return packageDefExtensions;
     }
 }

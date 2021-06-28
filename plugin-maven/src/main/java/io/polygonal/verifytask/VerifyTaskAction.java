@@ -16,8 +16,7 @@ public class VerifyTaskAction implements BiConsumer<PolygonalArchitecture, Maven
 
     @Override
     public void accept(PolygonalArchitecture polygonalArchitecture, MavenProject mavenProject) {
-        PackagesYmlParser packagesYmlParser = new PackagesYmlParser();
-        Polygon polygon = packagesYmlParser.parseYml(polygonalArchitecture.getPolygonTemplate());
+        Polygon polygon = new YmlPolygonDefinition(polygonalArchitecture.getPolygonTemplate()).asPolygon();
         File baseDir = new File(polygonalArchitecture.getSourcesDir(),
                 polygonalArchitecture.getBasePackage().replace(".", File.separator));
         RecursivePackagesVerifier packagesVerifier = new RecursivePackagesVerifier(LanguageRecognizer.recognize(mavenProject));

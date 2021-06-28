@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'groovy'
+    id 'io.freefair.lombok'
 }
 
 targetCompatibility = JavaVersion.VERSION_1_8
@@ -19,6 +20,7 @@ dependencies {
     compileOnly libs.lombok
     annotationProcessor libs.lombok
     implementation libs.ymlSnake
+    implementation libs.guava
 
     testImplementation libs.spock
     testImplementation libs.cglib

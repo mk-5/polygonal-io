@@ -1,6 +1,7 @@
 apply plugin: 'java-gradle-plugin'
 apply plugin: 'groovy'
 apply plugin: 'maven-publish'
+apply plugin: 'io.freefair.lombok'
 
 ext {
     artifactId = 'polygonal-architecture'
@@ -23,8 +24,8 @@ jar {
 }
 
 sourcesJar {
-    from sourceSets.main.allSource
-    from project.findProject(':plugin-core').sourceSets.main.allSource
+    from delombok
+    from project.findProject(':plugin-core').delombok
 }
 
 gradlePlugin {

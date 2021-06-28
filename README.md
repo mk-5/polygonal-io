@@ -6,8 +6,8 @@ Plug-in which helps you implement clean architecture in your application.
 2. Share it between projects
 3. Keep clean-architecture between multiple micro-services 👌
 
-[![Build Status](https://travis-ci.org/mk-5/polygonal-architecture.svg?branch=master)](https://travis-ci.org/mk-5/polygonal-architecture) [ ![Gradle Plugin](https://img.shields.io/badge/gradle%20-plugin-green) ](https://plugins.gradle.org/plugin/pl.mk5.polygonal-architecture) 
-[ ![Maven Plugin](https://img.shields.io/badge/maven%20-plugin-blue) ](https://bintray.com/mk-5/maven/polygonal-architecture/_latestVersion) [ ![Bintray](https://api.bintray.com/packages/mk-5/maven/polygonal-architecture/images/download.svg) ](https://bintray.com/mk-5/maven/polygonal-architecture/_latestVersion) 
+[![Build Status](https://travis-ci.org/mk-5/polygonal-architecture.svg?branch=master)](https://travis-ci.org/mk-5/polygonal-architecture) [ ![Gradle Plugin](https://img.shields.io/badge/gradle%20-plugin-green) ](https://plugins.gradle.org/plugin/io.polygonal) 
+[ ![Maven Plugin](https://img.shields.io/badge/maven%20-plugin-blue) ](https://bintray.com/mk-5/maven/polygonal-architecture/_latestVersion) [_![Maven Central](https://img.shields.io/maven-central/v/io.polygonal/polygonal-architecture-maven-plugin)_](https://search.maven.org/search?q=g:io.polygonal)
 
 ## Getting started | gradle
 
@@ -27,23 +27,12 @@ Next step is to create `polygon.yml` file, and that's it.
 The maven configuration looks as standard maven plugin configuration. Currently, the plugin is available only via bintray repository.
 
 ```xml
-<pluginRepositories>
-    <pluginRepository>
-        <snapshots>
-            <enabled>false</enabled>
-        </snapshots>
-        <id>bintray-mk-5-maven</id>
-        <name>bintray-plugins</name>
-        <url>https://dl.bintray.com/mk-5/maven</url>
-    </pluginRepository>
-</pluginRepositories>
-
 <build>
     <plugins>
         <plugin>
             <groupId>io.polygonal</groupId>
             <artifactId>polygonal-architecture-maven-plugin</artifactId>
-            <version>latest</version>
+            <version>X.Y.Z</version>
             <configuration>
                 <basePackage>org.example</basePackage>
             </configuration>
@@ -195,6 +184,12 @@ If you'd like to check your polygons explicitly you should use the following tas
 
 ```bash
 $ ./gradlew verifyPolygons
+```
+
+or maven:
+
+```bash
+$ ./mvnw polygonal:verifyPolygons
 ```
 
 In case of any problems plugin will tell you, where is the problem. Example output:

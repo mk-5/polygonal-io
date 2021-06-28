@@ -1,6 +1,5 @@
 apply plugin: 'java'
 apply plugin: 'maven-publish'
-apply plugin: 'com.jfrog.bintray'
 
 ext {
     artifactId = 'polygonal-architecture-maven-plugin'
@@ -42,9 +41,12 @@ publishing {
                         email = "mateusz@mk5.pl"
                     }
                 }
+                scm {
+                    url = 'https://github.com/mk-5/polygonal-architecture'
+                }
             }
         }
     }
 }
 
-apply from: file('../gradle/bintray-maven.gradle')
+apply from: file('../gradle/maven-central.gradle')

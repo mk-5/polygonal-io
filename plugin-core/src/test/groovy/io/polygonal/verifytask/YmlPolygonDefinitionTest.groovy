@@ -1,13 +1,13 @@
 package io.polygonal.verifytask
 
-
+import io.polygonal.plugin.PackageDef
 import spock.lang.Specification
 
 import java.util.stream.Collectors
 
-class PackagesYmlParserTest extends Specification {
+class YmlPolygonDefinitionTest extends Specification {
 
-    def packageDef = new io.polygonal.plugin.PackageDef()
+    def packageDef = new PackageDef()
     def DEFAULT_PUBLIC = packageDef.publicScope
     def DEFAULT_PACKAGE_PRIVATE = packageDef.packagePrivateScope
     def DEFAULT_PROTECTED = packageDef.protectedScope
@@ -16,14 +16,13 @@ class PackagesYmlParserTest extends Specification {
 
     def "should parse yml"() {
         given:
-        def parser = new PackagesYmlParser()
         def file = new File(getClass()
                 .getClassLoader()
                 .getResource("polygon.yml")
                 .toURI())
 
         when:
-        def polygon = parser.parseYml(file)
+        def polygon = new YmlPolygonDefinition(file).asPolygon()
         def parsedNames = polygon.packagesDefs.stream().map({ pde -> pde.name }).collect(Collectors.toList())
 
         then:
