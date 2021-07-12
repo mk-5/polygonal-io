@@ -1,4 +1,4 @@
 rootProject.name = 'polygonal-architecture'
 findProject(':plugin-gradle')?.name = 'polygonal-architecture'
-findProject(':plugin-maven')?.name = 'polygonal-architecture-mavenó'
+findProject(':plugin-maven')?.name = 'polygonal-architecture-maven'
 include 'plugin-core', 'plugin-gradle', 'plugin-maven'
