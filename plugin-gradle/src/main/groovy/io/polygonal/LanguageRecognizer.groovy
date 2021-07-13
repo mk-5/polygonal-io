@@ -1,19 +1,17 @@
 package io.polygonal
 
+
 import org.gradle.api.Project
 
 class LanguageRecognizer {
-    static final JAVA = 'java'
-    static final KOTLIN = 'kotlin'
-
     private static final KOTLIN_PLUGIN_NAME = 'org.jetbrains.kotlin'
 
-    static String recognize(Project project) {
+    static Language recognize(Project project) {
         if (project.plugins.find { plugin -> plugin.class.name.contains(KOTLIN_PLUGIN_NAME) } != null) {
-            return KOTLIN
+            return Language.KOTLIN
         }
         if (project.plugins.find { plugin -> plugin.class.name =~ /Java(.*)Plugin$/ } != null) {
-            return JAVA
+            return Language.JAVA
         }
         throw new IllegalStateException(Message.CANNOT_RECOGNIZE_LANGUAGE.withArgs(project.name))
     }

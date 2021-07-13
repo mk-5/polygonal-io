@@ -1,4 +1,4 @@
-package io.polygonal.plugin;
+package io.polygonal.verifytask.dto;
 
 public enum ObjectType {
     INTERFACE,

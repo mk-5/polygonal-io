@@ -3,10 +3,15 @@ package io.polygonal.verifytask.parsers;
 import java.io.BufferedReader;
 import java.util.regex.Pattern;
 
-import io.polygonal.verifytask.PackageInformation;
+import com.google.common.collect.Lists;
+import io.polygonal.verifytask.dto.PackageInformation;
+import io.polygonal.Language;
+import io.polygonal.verifytask.ports.SourceCodeParser;
 import lombok.SneakyThrows;
 
-class KotlinPackageParser extends PackageObjectsProcessor {
+import javax.annotation.Nonnull;
+
+class KotlinSourceCodeParser implements SourceCodeParser {
 
     private static final String ALL_TYPES = "(class|interface|abstract class|enum class|data class|open class)\\s*";
     private static final String ALL_SCOPES = "(private|internal|[a]*)";
@@ -22,7 +27,7 @@ class KotlinPackageParser extends PackageObjectsProcessor {
 
     @Override
     @SneakyThrows
-    protected void processSingleFile(BufferedReader reader, PackageInformation information) {
+    public void processSingleFile(BufferedReader reader, PackageInformation information) {
         String text;
         boolean scopeFound = false, typeFound = false;
         while ((text = reader.readLine()) != null) {
@@ -67,5 +72,11 @@ class KotlinPackageParser extends PackageObjectsProcessor {
                 break;
             }
         }
+    }
+
+    @Override
+    public boolean test(@Nonnull Language... languages) {
+        return Lists.newArrayList(languages).stream()
+                .anyMatch(Language.KOTLIN::equals);
     }
 }

@@ -17,15 +17,13 @@ jar {
 }
 
 dependencies {
-    compileOnly libs.lombok
-    annotationProcessor libs.lombok
     implementation libs.ymlSnake
     implementation libs.guava
+    implementation libs.guice
 
     testImplementation libs.spock
     testImplementation libs.cglib
     testImplementation libs.objenesis
 
     testCompileOnly libs.lombok
-    testAnnotationProcessor libs.lombok
 }

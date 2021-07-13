@@ -1,10 +1,13 @@
-package io.polygonal.verifytask;
+package io.polygonal.verifytask.dto;
 
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.annotation.concurrent.NotThreadSafe;
+
 @Getter
 @Setter
+@NotThreadSafe
 public class PackageInformation {
     private int publicObjects;
     private int packagePrivateObjects;

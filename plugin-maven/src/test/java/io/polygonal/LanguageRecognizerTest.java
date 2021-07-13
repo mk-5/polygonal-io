@@ -22,10 +22,10 @@ class LanguageRecognizerTest {
         when(project.getBuildPlugins()).thenReturn(plugins);
 
         // When
-        String language = LanguageRecognizer.recognize(project);
+        Language language = LanguageRecognizer.recognize(project);
 
         // Then
-        assert language.equals(LanguageRecognizer.KOTLIN);
+        assert language == Language.KOTLIN;
     }
 
     @Test
@@ -34,9 +34,9 @@ class LanguageRecognizerTest {
         MavenProject project = mock(MavenProject.class);
 
         // When
-        String language = LanguageRecognizer.recognize(project);
+        Language language = LanguageRecognizer.recognize(project);
 
         // Then
-        assert language.equals(LanguageRecognizer.JAVA);
+        assert language == Language.JAVA;
     }
 }

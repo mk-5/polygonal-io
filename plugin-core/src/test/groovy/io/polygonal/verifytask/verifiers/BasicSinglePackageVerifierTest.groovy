@@ -1,23 +1,26 @@
 package io.polygonal.verifytask.verifiers
 
-
+import io.polygonal.plugin.ConditionException
+import io.polygonal.verifytask.dto.ObjectType
+import io.polygonal.verifytask.dto.PackageInformation
+import io.polygonal.verifytask.ports.PackageParser
 import spock.lang.Specification
 import spock.lang.Unroll
 
-class BasicPackageVerifierTest extends Specification {
+class BasicSinglePackageVerifierTest extends Specification {
 
-    def packageParser = null as io.polygonal.verifytask.parsers.PackageParser
-    def verifier = null as BasicPackageVerifier
+    def packageParser = null as PackageParser
+    def verifier = null as BasicSinglePackageVerifier
     def file = null as File
-    def packageInformation = null as io.polygonal.verifytask.PackageInformation
+    def packageInformation = null as PackageInformation
     def error = null
 
     void setup() {
-        packageParser = Mock(io.polygonal.verifytask.parsers.PackageParser)
-        verifier = new BasicPackageVerifier(packageParser)
+        packageParser = Mock(PackageParser)
+        verifier = new BasicSinglePackageVerifier(packageParser)
         file = GroovyMock(File, constructorArgs: ["./d.txt"])
-        packageInformation = new io.polygonal.verifytask.PackageInformation()
-        packageParser.parse(_) >> packageInformation
+        packageInformation = new PackageInformation()
+        packageParser.parseDirectory(_) >> packageInformation
         error = null
     }
 
@@ -31,7 +34,7 @@ class BasicPackageVerifierTest extends Specification {
         when:
         try {
             verifier.verify(file, packageDef)
-        } catch (io.polygonal.verifytask.ConditionException e) {
+        } catch (ConditionException e) {
             error = e
         }
 
@@ -44,7 +47,7 @@ class BasicPackageVerifierTest extends Specification {
         where:
         dirExists | dirRequired || errorThrown
         true      | true        || null
-        false | true || io.polygonal.verifytask.ConditionException
+        false | true || ConditionException
         true      | false       || null
     }
 
@@ -59,7 +62,7 @@ class BasicPackageVerifierTest extends Specification {
         when:
         try {
             verifier.verify(file, packageDef)
-        } catch (io.polygonal.verifytask.ConditionException e) {
+        } catch (ConditionException e) {
             error = e
         }
 
@@ -71,11 +74,11 @@ class BasicPackageVerifierTest extends Specification {
 
         where:
         objects | allowed || errorThrown
-        1 | 0 || io.polygonal.verifytask.ConditionException
+        1 | 0 || ConditionException
         0       | 0       || null
         40      | -1      || null
         3       | 3       || null
-        3 | 2 || io.polygonal.verifytask.ConditionException
+        3 | 2 || ConditionException
     }
 
     def "should verify packagePrivateScope attribute"(int objects, int allowed, Class errorThrown) {
@@ -88,7 +91,7 @@ class BasicPackageVerifierTest extends Specification {
         when:
         try {
             verifier.verify(file, packageDef)
-        } catch (io.polygonal.verifytask.ConditionException e) {
+        } catch (ConditionException e) {
             error = e
         }
 
@@ -100,11 +103,11 @@ class BasicPackageVerifierTest extends Specification {
 
         where:
         objects | allowed || errorThrown
-        1 | 0 || io.polygonal.verifytask.ConditionException
+        1 | 0 || ConditionException
         0       | 0       || null
         40      | -1      || null
         3       | 3       || null
-        3 | 2 || io.polygonal.verifytask.ConditionException
+        3 | 2 || ConditionException
     }
 
     def "should verify protectedScope attribute"(int objects, int allowed, Class errorThrown) {
@@ -117,7 +120,7 @@ class BasicPackageVerifierTest extends Specification {
         when:
         try {
             verifier.verify(file, packageDef)
-        } catch (io.polygonal.verifytask.ConditionException e) {
+        } catch (ConditionException e) {
             error = e
         }
 
@@ -129,11 +132,11 @@ class BasicPackageVerifierTest extends Specification {
 
         where:
         objects | allowed || errorThrown
-        1 | 0 || io.polygonal.verifytask.ConditionException
+        1 | 0 || ConditionException
         0       | 0       || null
         40      | -1      || null
         3       | 3       || null
-        3 | 2 || io.polygonal.verifytask.ConditionException
+        3 | 2 || ConditionException
     }
 
     def "should verify interfaces attribute"(int objects, Set<String> allowed, Class errorThrown) {
@@ -146,7 +149,7 @@ class BasicPackageVerifierTest extends Specification {
         when:
         try {
             verifier.verify(file, packageDef)
-        } catch (io.polygonal.verifytask.ConditionException e) {
+        } catch (ConditionException e) {
             error = e
         }
 
@@ -158,9 +161,9 @@ class BasicPackageVerifierTest extends Specification {
 
         where:
         objects | allowed                || errorThrown
-        1  | []                                         || io.polygonal.verifytask.ConditionException
+        1  | []                                         || ConditionException
         0       | []                     || null
-        40 | [io.polygonal.plugin.ObjectType.INTERFACE] || null
+        40 | [ObjectType.INTERFACE] || null
     }
 
     def "should verify classes attribute"(int objects, Set<String> allowed, Class errorThrown) {
@@ -173,7 +176,7 @@ class BasicPackageVerifierTest extends Specification {
         when:
         try {
             verifier.verify(file, packageDef)
-        } catch (io.polygonal.verifytask.ConditionException e) {
+        } catch (ConditionException e) {
             error = e
         }
 
@@ -185,9 +188,9 @@ class BasicPackageVerifierTest extends Specification {
 
         where:
         objects | allowed            || errorThrown
-        1  | []                                     || io.polygonal.verifytask.ConditionException
+        1  | []                                     || ConditionException
         0       | []                 || null
-        40 | [io.polygonal.plugin.ObjectType.CLASS] || null
+        40 | [ObjectType.CLASS] || null
     }
 
     def "should verify abstract classes attribute"(int objects, Set<String> allowed, Class errorThrown) {
@@ -200,7 +203,7 @@ class BasicPackageVerifierTest extends Specification {
         when:
         try {
             verifier.verify(file, packageDef)
-        } catch (io.polygonal.verifytask.ConditionException e) {
+        } catch (ConditionException e) {
             error = e
         }
 
@@ -212,9 +215,9 @@ class BasicPackageVerifierTest extends Specification {
 
         where:
         objects | allowed                     || errorThrown
-        1  | []                                              || io.polygonal.verifytask.ConditionException
+        1  | []                                              || ConditionException
         0       | []                          || null
-        40 | [io.polygonal.plugin.ObjectType.ABSTRACT_CLASS] || null
+        40 | [ObjectType.ABSTRACT_CLASS] || null
     }
 
     def "should verify enums attribute"(int objects, Set<String> allowed, Class errorThrown) {
@@ -227,7 +230,7 @@ class BasicPackageVerifierTest extends Specification {
         when:
         try {
             verifier.verify(file, packageDef)
-        } catch (io.polygonal.verifytask.ConditionException e) {
+        } catch (ConditionException e) {
             error = e
         }
 
@@ -239,8 +242,8 @@ class BasicPackageVerifierTest extends Specification {
 
         where:
         objects | allowed           || errorThrown
-        1  | []                                    || io.polygonal.verifytask.ConditionException
+        1  | []                                    || ConditionException
         0       | []                || null
-        40 | [io.polygonal.plugin.ObjectType.ENUM] || null
+        40 | [ObjectType.ENUM] || null
     }
 }

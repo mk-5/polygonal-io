@@ -1,6 +1,9 @@
 package io.polygonal.verifytask
 
-
+import io.polygonal.DiContainer
+import io.polygonal.Language
+import io.polygonal.plugin.Polygon
+import io.polygonal.plugin.PolygonalArchitectureExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.plugins.PluginContainer
@@ -9,13 +12,14 @@ import spock.lang.Specification
 
 class PolygonsVerifierTest extends Specification {
 
-    def "should throw exception when no language plugin provided"() {
+    def "should execute verifyAllPolygons"() {
         given:
-        def polygon = Spy(io.polygonal.plugin.Polygon)
-        def extension = Spy(io.polygonal.plugin.PolygonalArchitectureExtension)
+        def polygon = Spy(Polygon)
+        def extension = Spy(PolygonalArchitectureExtension)
         def project = Mock(Project)
         def pluginContainer = Mock(PluginContainer)
         extension.project >> project
+        extension.sourcesDir >> File.createTempDir()
         project.plugins >> pluginContainer
         pluginContainer.iterator() >> new Iterator<Plugin>() {
             @Override
@@ -31,9 +35,10 @@ class PolygonsVerifierTest extends Specification {
         def verifier = new PolygonsVerifier(Mock(WorkerExecutor), extension)
 
         when:
+        DiContainer.initialize(Language.JAVA)
         verifier.verifyAllPolygons()
 
         then:
-        thrown(IllegalStateException)
+        notThrown(Exception)
     }
 }

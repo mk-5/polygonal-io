@@ -2,9 +2,10 @@ package io.polygonal.plugin
 
 import groovy.transform.PackageScope
 import groovy.transform.TupleConstructor
+import io.polygonal.DiContainer
 import io.polygonal.LanguageRecognizer
 import io.polygonal.verifytask.VerifyPolygonsDefaultTask
-import io.polygonal.verifytask.VerifyPolygonsTask
+import io.polygonal.verifytask.ports.VerifyPolygonsTask
 import org.gradle.api.Project
 import org.gradle.api.Task
 
@@ -28,9 +29,9 @@ class ProjectDispatcher {
 
     VerifyPolygonsTask dispatch() {
         task.doFirst {
+            def language = LanguageRecognizer.recognize(project)
             if (extension.sourcesDir == null) {
-                def language = LanguageRecognizer.recognize(project)
-                extension.sourcesDir = new File(project.projectDir, "src/main/${language}")
+                extension.sourcesDir = new File(project.projectDir, "src/main/${language.name().toLowerCase()}")
             }
             if (!extension.sourcesDir.isDirectory()) {
                 throw new IllegalStateException("given 'sourcesDir' (${extension.sourcesDir}) is not a directory. Please provide valid source directory for project ${project.name} by using polygonalArchitecture{ sourcesDir = 'xxx' }")

@@ -6,12 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 import io.polygonal.Message;
+import io.polygonal.plugin.Conditions;
 import io.polygonal.plugin.PackageDef;
 
-class MapToPackageDefConverter {
+class MapToPackageDefListConverter {
     private static final String TYPE_FIELD = "type";
 
-    private MapToPackageDefConverter(){}
+    private MapToPackageDefListConverter(){}
 
     @SuppressWarnings("unchecked")
     static List<PackageDef> convertToPackageDefinitions(Map<String, Object> defsMap, Map<String, String> keywordsDictionary) {
@@ -38,7 +39,7 @@ class MapToPackageDefConverter {
                 Conditions.check(value instanceof Map, Message.NOT_KEYWORD_FIELD_SHOULD_BE_MAP.withArgs(key));
                 convertToPackageDef(MessageFormat.format("{0}.{1}", name, key).replaceAll("^\\.", ""), (Map<String, Object>) value, keywordsDictionary, buffer);
             } else {
-                ObjectHelper.set(packageDef, newKey, value);
+                ReflectionHelper.set(packageDef, newKey, value);
             }
         });
         buffer.add(packageDef);
