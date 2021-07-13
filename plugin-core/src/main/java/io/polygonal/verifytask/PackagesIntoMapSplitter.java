@@ -2,6 +2,7 @@ package io.polygonal.verifytask;
 
 import java.io.File;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,8 +12,8 @@ import java.util.Optional;
 import io.polygonal.plugin.PackageDef;
 import lombok.SneakyThrows;
 
-class PackagesSplitter {
-    private PackagesSplitter() {
+class PackagesIntoMapSplitter {
+    private PackagesIntoMapSplitter() {
     }
 
     @SneakyThrows
@@ -28,13 +29,18 @@ class PackagesSplitter {
         rootLevelDef.ifPresent(packageDef -> defExtensionMap.put(rootLevel, packageDef));
         Files.walk(rootLevel.toPath())
                 .filter(Files::isDirectory)
+                .map(Path::toFile)
                 .forEach(dir -> {
-                    String baseName = DirectoryToPackageNameConverter.convertToPackageName(rootLevel, dir.toFile());
-                    Optional<PackageDef> packageDef = sourcePackageDefExtensions.stream()
-                            .filter(p -> baseName.equals(p.getName()))
-                            .findAny();
-                    packageDef.ifPresent(def -> defExtensionMap.put(dir.toFile(), def));
+                    Optional<PackageDef> packageDef = findPackageDef(rootLevel, dir, sourcePackageDefExtensions);
+                    packageDef.ifPresent(def -> defExtensionMap.put(dir, def));
                 });
         return defExtensionMap;
+    }
+
+    private static Optional<PackageDef> findPackageDef(File rootDir, File dir, List<PackageDef> packageDefs) {
+        String dirPackageName = DirectoryToPackageNameConverter.convertToPackageName(rootDir, dir);
+        return packageDefs.stream()
+                .filter(p -> dirPackageName.equals(p.getName()))
+                .findAny();
     }
 }

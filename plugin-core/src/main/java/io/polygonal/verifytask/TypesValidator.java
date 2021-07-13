@@ -1,6 +1,7 @@
 package io.polygonal.verifytask;
 
 import io.polygonal.Message;
+import io.polygonal.plugin.Conditions;
 import io.polygonal.plugin.PackageDef;
 
 import java.util.Set;

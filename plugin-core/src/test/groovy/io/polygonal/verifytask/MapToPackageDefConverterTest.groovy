@@ -23,7 +23,7 @@ class MapToPackageDefConverterTest extends Specification {
                 'level2': [:]
         ]
         when:
-        def resultList = MapToPackageDefConverter.convertToPackageDefinitions(map, keywordsMap)
+        def resultList = MapToPackageDefListConverter.convertToPackageDefinitions(map, keywordsMap)
         println(resultList)
 
         then:
@@ -36,7 +36,7 @@ class MapToPackageDefConverterTest extends Specification {
 
     def "should return empty list when no packages"() {
         when:
-        def resultList = MapToPackageDefConverter.convertToPackageDefinitions([:], keywordsMap)
+        def resultList = MapToPackageDefListConverter.convertToPackageDefinitions([:], keywordsMap)
 
         then:
         resultList.isEmpty()

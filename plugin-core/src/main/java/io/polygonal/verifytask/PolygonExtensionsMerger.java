@@ -16,7 +16,7 @@ class PolygonExtensionsMerger {
         for (PackageDef p2PackageDef : p2Packages) {
             Optional<PackageDef> p1PackageDef = p1Packages.stream().filter(p -> p.getName().equals(p2PackageDef.getName())).findAny();
             if (p1PackageDef.isPresent()) {
-                ObjectHelper.merge(p2PackageDef, p1PackageDef.get());
+                ReflectionHelper.merge(p2PackageDef, p1PackageDef.get());
                 PackageDef ppp = p1PackageDef.get();
             } else {
                 p1Packages.add(p2PackageDef);

@@ -1,4 +1,4 @@
-package io.polygonal.verifytask;
+package io.polygonal.plugin;
 
 public class Conditions {
     private Conditions() {

@@ -1,7 +1,8 @@
 package io.polygonal.plugin;
 
+import io.polygonal.DiContainer;
+import io.polygonal.LanguageRecognizer;
 import io.polygonal.Message;
-import io.polygonal.verifytask.Conditions;
 import io.polygonal.verifytask.VerifyTaskAction;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -47,6 +48,7 @@ public class PolygonalArchitecturePlugin extends AbstractMojo {
         polygonalArchitecture.setSourcesDir(sourcesDir);
         polygonalArchitecture.setPolygonTemplate(polygonTemplate);
         polygonalArchitecture.setStrictMode(strictMode);
+        DiContainer.initialize(LanguageRecognizer.recognize(project));
         getLog().info(Message.CHECKING_POLYGONS.withArgs(project.getArtifactId()));
         new VerifyTaskAction().accept(polygonalArchitecture, project);
     }

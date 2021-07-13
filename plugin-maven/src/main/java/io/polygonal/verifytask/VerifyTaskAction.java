@@ -1,5 +1,6 @@
 package io.polygonal.verifytask;
 
+import io.polygonal.DiContainer;
 import io.polygonal.LanguageRecognizer;
 import io.polygonal.Message;
 import io.polygonal.plugin.Polygon;
@@ -19,16 +20,13 @@ public class VerifyTaskAction implements BiConsumer<PolygonalArchitecture, Maven
         Polygon polygon = new YmlPolygonDefinition(polygonalArchitecture.getPolygonTemplate()).asPolygon();
         File baseDir = new File(polygonalArchitecture.getSourcesDir(),
                 polygonalArchitecture.getBasePackage().replace(".", File.separator));
-        RecursivePackagesVerifier packagesVerifier = new RecursivePackagesVerifier(LanguageRecognizer.recognize(mavenProject));
+        RecursivePackagesVerifier packagesVerifier = DiContainer.get(RecursivePackagesVerifier.class);
         SystemStreamLog log = new SystemStreamLog();
         Stream.of(Objects.requireNonNull(baseDir.listFiles(File::isDirectory)))
                 .parallel()
-                .map(dir -> {
+                .forEach(dir -> {
                     log.info(Message.CHECK_POLYGON.withArgs(dir.getName()));
                     packagesVerifier.verify(dir, polygon.getPackagesDefs());
-                    return dir;
-                })
-                .forEach((d) -> {
                 });
     }
 }

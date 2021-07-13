@@ -1,5 +1,6 @@
 package io.polygonal.plugin;
 
+import io.polygonal.verifytask.dto.ObjectType;
 import lombok.*;
 
 import java.util.Arrays;

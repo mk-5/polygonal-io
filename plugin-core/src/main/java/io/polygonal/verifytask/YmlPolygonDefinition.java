@@ -2,6 +2,7 @@ package io.polygonal.verifytask;
 
 import com.google.common.collect.ImmutableMap;
 import io.polygonal.Message;
+import io.polygonal.plugin.Conditions;
 import io.polygonal.plugin.PackageDef;
 import io.polygonal.plugin.Polygon;
 import lombok.SneakyThrows;
@@ -48,7 +49,7 @@ class YmlPolygonDefinition {
         extensions.add(rootPackageDef);
         if (polygonMap.containsKey(PACKAGES)) {
             Conditions.check(polygonMap.get(PACKAGES) instanceof Map, Message.TEMPLATE_PACKAGES_SHOULD_CONTAIN_PACKAGES_DEFINITIONS.toString());
-            List<PackageDef> packagesDefinitions = MapToPackageDefConverter.convertToPackageDefinitions((Map) polygonMap.get(PACKAGES), KEYWORDS_MAP);
+            List<PackageDef> packagesDefinitions = MapToPackageDefListConverter.convertToPackageDefinitions((Map) polygonMap.get(PACKAGES), KEYWORDS_MAP);
             extensions.addAll(packagesDefinitions);
         }
         return new Polygon(extensions);
@@ -62,7 +63,7 @@ class YmlPolygonDefinition {
         Map<String, Object> polygonMap = (Map<String, Object>) ymlMap.get(POLYGON_EXTENSION);
         polygonMap.forEach((key, value) -> {
             if (KEYWORDS_MAP.containsKey(key)) {
-                ObjectHelper.set(rootPackageDef, KEYWORDS_MAP.get(key), value);
+                ReflectionHelper.set(rootPackageDef, KEYWORDS_MAP.get(key), value);
             }
         });
         TypesValidator.validate(rootPackageDef.getTypes());

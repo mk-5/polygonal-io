@@ -1,4 +1,4 @@
-package io.polygonal.verifytask;
+package io.polygonal.plugin;
 
 public class ConditionException extends RuntimeException {
     public ConditionException(String message) {

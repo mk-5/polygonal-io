@@ -1,7 +1,10 @@
 package io.polygonal.verifytask
 
+import io.polygonal.DiContainer
+import io.polygonal.LanguageRecognizer
 import io.polygonal.Message
 import io.polygonal.plugin.PolygonalArchitectureExtension
+import io.polygonal.verifytask.ports.VerifyPolygonsTask
 import org.gradle.api.DefaultTask
 import org.gradle.api.Project
 import org.gradle.api.tasks.Input
@@ -37,6 +40,7 @@ class VerifyPolygonsDefaultTask extends DefaultTask implements VerifyPolygonsTas
             throw new IllegalStateException(Message.POLYGON_OR_TEMPLATE_REQUIRED.toString())
         }
         getLogger().info(Message.CHECKING_POLYGONS.withArgs(project.name))
+        DiContainer.initialize(LanguageRecognizer.recognize(project))
         new PolygonsVerifier(workerExecutor, extension).verifyAllPolygons()
     }
 }

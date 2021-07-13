@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-class ObjectHelper {
-    private ObjectHelper() {
+class ReflectionHelper {
+    private ReflectionHelper() {
     }
 
     @SneakyThrows

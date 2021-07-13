@@ -2,6 +2,7 @@ package io.polygonal.verifytask
 
 import com.google.gson.Gson
 import groovy.transform.PackageScope
+import io.polygonal.DiContainer
 import io.polygonal.LanguageRecognizer
 import io.polygonal.plugin.Polygon
 import io.polygonal.plugin.PolygonExtension
@@ -21,7 +22,6 @@ class PolygonsVerifier {
 
     PolygonsVerifier(WorkerExecutor workExecutor, PolygonalArchitectureExtension extension) {
         this.workerExecutor = workExecutor
-        // TODO refactor / create polygon parser
         if (extension.polygonTemplate != null) {
             def ymlPolygon = new YmlPolygonDefinition(extension.polygonTemplate)
             this.polygonDef = PolygonExtensionsMerger.merge(ymlPolygon.asPolygon(), extension.polygon ? extension.polygon : new PolygonExtension())
@@ -33,12 +33,8 @@ class PolygonsVerifier {
 
     @SuppressWarnings("UnstableApiUsage")
     void verifyAllPolygons() {
-        def language = LanguageRecognizer.recognize(extension.project)
-        def packagesVerifier = new RecursivePackagesVerifier(language)
         def baseDir = new File(extension.sourcesDir, extension.basePackage.replace('.', File.separator))
         def workQueue = workerExecutor.noIsolation()
-        // TODO refactor/di container
-        VerifyPolygonAction.setPackagesVerifier(packagesVerifier)
         def polygonJson = new Gson().toJson(polygonDef)
         baseDir.eachDir { dir ->
             workQueue.submit(VerifyPolygonAction.class, { parameters ->

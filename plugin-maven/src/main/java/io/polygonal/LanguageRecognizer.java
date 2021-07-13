@@ -12,15 +12,15 @@ public class LanguageRecognizer {
     private static final String KOTLIN_PLUGIN_ARTIFACT_ID = "kotlin-maven-plugin";
 
     @SuppressWarnings("unchecked")
-    public static String recognize(MavenProject project) {
+    public static Language recognize(MavenProject project) {
         boolean isKotlin = project.getBuildPlugins()
                 .stream()
                 .anyMatch(p -> ((Plugin) p).getArtifactId().equals(KOTLIN_PLUGIN_ARTIFACT_ID)
                         && ((Plugin) p).getGroupId().equals(KOTLIN_PLUGIN_GROUP_ID));
         if (isKotlin) {
-            return KOTLIN;
+            return Language.KOTLIN;
         } else {
-            return JAVA;
+            return Language.JAVA;
         }
     }
 }

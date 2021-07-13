@@ -1,21 +1,14 @@
 package io.polygonal.verifytask.parsers
 
-import io.polygonal.verifytask.PackageInformation
+import io.polygonal.verifytask.dto.PackageInformation
 import spock.lang.Specification
 import spock.lang.Unroll
 
 import java.nio.file.Files
 
-class JavaPackageParserTest extends Specification {
+class JavaSourceCodeParserTest extends Specification {
 
-    def parser = new JavaPackageParser() {
-        @Override
-        PackageInformation parse(File packageDir) {
-            def information = new PackageInformation()
-            processSingleFile(Files.newBufferedReader(packageDir.toPath()), information)
-            return information
-        }
-    }
+    def parser = new JavaSourceCodeParser()
 
     @Unroll
     def "should get package information #testFile"(String testFile,
@@ -31,9 +24,9 @@ class JavaPackageParserTest extends Specification {
                 .getClassLoader()
                 .getResource("java/${testFile}")
                 .toURI())
-
+        def information = new PackageInformation()
         when:
-        def information = parser.parse(file)
+        parser.processSingleFile(Files.newBufferedReader(file.toPath()), information)
 
         then:
         information.publicObjects == publicObjects
