@@ -48,6 +48,7 @@ public class PolygonalArchitecturePlugin extends AbstractMojo {
         polygonalArchitecture.setSourcesDir(sourcesDir);
         polygonalArchitecture.setPolygonTemplate(polygonTemplate);
         polygonalArchitecture.setStrictMode(strictMode);
+        io.polygonal.Logger.setLogger(new Logger(getLog()));
         DiContainer.initialize(LanguageRecognizer.recognize(project));
         getLog().info(Message.CHECKING_POLYGONS.withArgs(project.getArtifactId()));
         new VerifyTaskAction().accept(polygonalArchitecture, project);
