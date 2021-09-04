@@ -28,7 +28,9 @@ public enum Message {
     CANNOT_RECOGNIZE_LANGUAGE("JVM language for module ''{0}'' couldn''t be recognize for. Please check if Java, or Kotlin plugin has been applied."),
     CHECKING_POLYGONS("> checking polygons for project ''{0}''"),
     CHECK_POLYGON("> polygon ''{0}''..."),
-    PROJECT_REQUIRED("Project cannot be null");
+    PROJECT_REQUIRED("Project cannot be null"),
+    PARSING_SOURCE_CODE_FOR_FILE("> checking polygon file ''{0}''..."),
+    SOURCE_CODE_PARSER_ERROR("Problem with parsing source code for ''{0}''.");
 
     Message(String msg) {
         this.msg = msg;
@@ -39,7 +41,7 @@ public enum Message {
     }
 
     public String withArgs(Object... args) {
-        if (msg.contains("must not contain") && "".equals(args[0])) {
+        if (msg.contains("shouldn't contain") && "".equals(args[0])) {
             args[0] = "root";
         } else if (msg.contains("may contain up to") && "".equals(args[1])) {
             args[1] = "root";
