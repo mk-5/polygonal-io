@@ -30,13 +30,21 @@ class ProjectDispatcher {
     VerifyPolygonsTask dispatch() {
         task.doFirst {
             def language = LanguageRecognizer.recognize(project)
+            assert project.sourceSets.main.resources != null
             if (extension.sourcesDir == null) {
-                extension.sourcesDir = new File(project.projectDir, "src/main/${language.name().toLowerCase()}")
+                assert project.sourceSets.main[language.name().toLowerCase()] != null
+                extension.sourcesDir = new File("${project.sourceSets.main[language.name().toLowerCase()].srcDirs[0]}")
             }
             if (!extension.sourcesDir.isDirectory()) {
-                throw new IllegalStateException("given 'sourcesDir' (${extension.sourcesDir}) is not a directory. Please provide valid source directory for project ${project.name} by using polygonalArchitecture{ sourcesDir = 'xxx' }")
+                throw new IllegalStateException("given 'sourcesDir' (${extension.sourcesDir}) is not a directory. Please declare valid source directory for project ${project.name}")
             }
-            def defaultPolygonTemplate = Paths.get(extension.sourcesDir.absolutePath, "../resources/polygon.yml").toFile()
+            if ( extension.resourcesDir == null && extension.sourcesDir != null) {
+                extension.resourcesDir = Paths.get(extension.sourcesDir.absolutePath, "../resources").toFile()
+            } else if ( extension.resourcesDir == null && extension.resourcesDir == null ) {
+                assert project.sourceSets.main.resources != null
+                extension.resourcesDir = new File("${project.sourceSets.main.resources.srcDirs[0]}")
+            }
+            def defaultPolygonTemplate = Paths.get(extension.resourcesDir.absolutePath, "../resources/polygon.yml").toFile()
             if (extension.polygonTemplate == null && defaultPolygonTemplate.canRead()) {
                 extension.polygonTemplate = defaultPolygonTemplate
             }

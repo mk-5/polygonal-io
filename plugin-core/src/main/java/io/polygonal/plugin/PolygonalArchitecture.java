@@ -13,9 +13,14 @@ import java.io.File;
 @AllArgsConstructor
 public class PolygonalArchitecture {
     /**
-     * Sources directory, required. Default value based on module language
+     * Sources directory. Default sourceSets.main.{language}.srcDirs[0]
      */
     protected File sourcesDir;
+
+    /**
+     * Resources directory. Default sourceSets.main.resources.srcDirs[0]
+     */
+    protected File resourcesDir;
 
     /**
      * Base package, this is a package for polygon packages
