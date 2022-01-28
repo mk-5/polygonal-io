@@ -207,7 +207,6 @@ Execution failed for task ':verifyPolygons'.
 ```
 
 
-
 ## What's next?
 
 - package definition inheritance
