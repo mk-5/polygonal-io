@@ -16,7 +16,6 @@ ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
 
 def base64Decode(String prop) {
     def value = findProperty(prop)
-    println(prop + " " + value)
     return value != null && value != "unknown" ? new String(Base64.getDecoder().decode(value.toString().getBytes(StandardCharsets.UTF_8))).trim() : ""
 }
 
