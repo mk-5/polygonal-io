@@ -58,9 +58,10 @@ Let assume that every application is built with blocks. From architecture perspe
 └── 📄 SpringBootApp.java
 ```
 
-Maybe you heard about "hexagonal architecture" , "ports&adapters", today I'd like to make the things a little bit easier to understand. Polygon - what is the "polygon" 🤔? To build something using polygons, every peace should match. Whatever polygons you choose -> they can be triangles, quarters, hexagons, doesn't meter, but they need to match with other polygons. In software development language it means that each domain package (polygon) should have the same kind of shape as other domain packages, and the same amount of entrance/communication points (edges).
+Maybe you heard about "hexagonal architecture" , "ports&adapters". Polygon architecture it's almost the same, but with additional rules. Your modules need to match with each other.
+So what is the "polygon" 🤔? To build something using polygons, every peace should match. Whatever polygons you choose -> they can be triangles, quarters, hexagons, doesn't meter, but they need to match with other polygons. In software development language it means that each domain package (polygon) should have the same kind of shape as other domain packages, and the same amount of entrance/communication points (edges).
 
-## Plug-in configuration
+### Plug-in configuration
 
 Let assume that we have following project structure:
 
