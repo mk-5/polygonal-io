@@ -14,6 +14,8 @@ def snapshotsRepoUrl = 'https://s01.oss.sonatype.org/content/repositories/snapsh
 
 ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
 
+print("Got user " + user)
+
 def base64Decode(String prop) {
     def value = findProperty(prop)
     return value != null && value != "unknown" ? new String(Base64.getDecoder().decode(value.toString().getBytes(StandardCharsets.UTF_8))).trim() : ""
