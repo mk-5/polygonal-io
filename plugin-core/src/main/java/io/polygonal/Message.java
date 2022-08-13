@@ -17,7 +17,7 @@ public enum Message {
     DATA_CLASSES_ERROR("''{0}'' package shouldn''t contain data classes"),
     OPEN_CLASSES_ERROR("''{0}'' package shouldn''t contain open classes"),
     ABSTRACT_CLASSES_ERROR("''{0}'' package shouldn''t contain abstract classes"),
-    ENUMS_ERROR("''{0}'' package must shouldn''t enums"),
+    ENUMS_ERROR("''{0}'' package shouldn''t contain enums"),
     CHECK_TASK_NOT_FOUND("''check'' task have not been found for module {0}"),
     BASE_PACKAGE_DOESNT_EXIST("Base package ''{0}'' doesn''t exist"),
     YML_TEMPLATE_NOT_FOUND("''{0}'' yml template doesn''t exist"),
