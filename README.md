@@ -6,7 +6,8 @@ Plug-in which helps you implement clean architecture in your application.
 2. Share it between projects
 3. Keep clean-architecture between multiple micro-services 👌
 
-[![Build Status](https://travis-ci.org/mk-5/polygonal-architecture.svg?branch=master)](https://travis-ci.org/mk-5/polygonal-architecture) [ ![Gradle Plugin](https://img.shields.io/badge/gradle%20-plugin-green) ](https://plugins.gradle.org/plugin/io.polygonal) 
+
+![Build](https://github.com/mk-5/polygonal-io/actions/workflows/build.yml/badge.svg) [ ![Gradle Plugin](https://img.shields.io/badge/gradle%20-plugin-green) ](https://plugins.gradle.org/plugin/io.polygonal) 
 [ ![Maven Plugin](https://img.shields.io/badge/maven%20-plugin-blue) ](https://bintray.com/mk-5/maven/polygonal-architecture/_latestVersion) [_![Maven Central](https://img.shields.io/maven-central/v/io.polygonal/polygonal-architecture-maven-plugin)_](https://search.maven.org/search?q=g:io.polygonal)
 
 [https://polygonal.io](https://polygonal.io)
