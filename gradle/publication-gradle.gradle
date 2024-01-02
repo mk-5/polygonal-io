@@ -40,7 +40,7 @@ gradlePlugin {
             displayName = 'Polygonal Architecture plugin'
             description = 'A plugin that helps you to provide polygonal architecture inside your app!'
             implementationClass = 'io.polygonal.plugin.PolygonalArchitecturePlugin'
-            tags = ['java', 'gradle', 'architecture', 'polygonal architecture', 'groovy', 'clean architecture']
+            tags = ['architecture', 'polygonal architecture', 'clean architecture']
         }
     }
 }
