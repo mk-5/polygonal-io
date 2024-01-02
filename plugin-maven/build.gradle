@@ -1,11 +1,11 @@
 plugins {
     id 'java'
     id 'io.freefair.lombok'
-    id 'com.github.dkorotych.gradle-maven-exec' version '2.2.1'
+    id 'com.github.dkorotych.gradle-maven-exec' version '3.0.1'
 }
 
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
 
 jar {
     from sourceSets.main.output
@@ -44,7 +44,7 @@ test {
     useJUnitPlatform()
 }
 
-task pluginDescriptor(type: MavenExec) {
+tasks.register('pluginDescriptor', MavenExec) {
     group 'publishing'
     goals 'org.apache.maven.plugins:maven-plugin-plugin:3.6.0:descriptor'
     options {
@@ -54,13 +54,17 @@ task pluginDescriptor(type: MavenExec) {
                 'version'   : project.version
         ]
     }
-    doFirst {
-        def pom = file('pom.xml').text
+}
+
+tasks.register('modifyPom') {
+    doLast {
+        def pom = file("${project.projectDir}/pom.xml").text
         pom = pom.replaceFirst("<version>(.*)</version>", "<version>${project.version}</version>")
         pom = pom.replaceFirst("<groupId>(.*)</groupId>", "<groupId>${project.group}</groupId>")
         pom = pom.replaceFirst("<artifactId>(.*)</artifactId>", "<artifactId>${project.artifactId}</artifactId>")
-        file('pom.xml').write(pom)
+        file("${project.projectDir}/pom.xml").write(pom)
     }
 }
 
+pluginDescriptor.dependsOn(modifyPom)
 jar.dependsOn(pluginDescriptor)

@@ -47,11 +47,11 @@ class KotlinSinglePackageVerifierTest extends Specification {
 
         where:
         objects | allowed || errorThrown
-        1 | 0 || ConditionException
+        1       | 0       || ConditionException
         0       | 0       || null
         40      | -1      || null
         3       | 3       || null
-        3 | 2 || ConditionException
+        3       | 2       || ConditionException
     }
 
     def "should verify data classes attribute"(int objects, Set<String> allowed, Class errorThrown) {
@@ -76,9 +76,9 @@ class KotlinSinglePackageVerifierTest extends Specification {
 
         where:
         objects | allowed                 || errorThrown
-        1  | []                                          || ConditionException
+        1       | []                      || ConditionException
         0       | []                      || null
-        40 | [ObjectType.DATA_CLASS] || null
+        40      | [ObjectType.DATA_CLASS] || null
     }
 
     def "should verify open classes attribute"(int objects, Set<String> allowed, Class errorThrown) {
@@ -103,8 +103,8 @@ class KotlinSinglePackageVerifierTest extends Specification {
 
         where:
         objects | allowed                 || errorThrown
-        1  | []                                          || ConditionException
+        1       | []                      || ConditionException
         0       | []                      || null
-        40 | [ObjectType.OPEN_CLASS] || null
+        40      | [ObjectType.OPEN_CLASS] || null
     }
 }
