@@ -10,7 +10,7 @@ class LanguageRecognizer {
         if (project.plugins.find { plugin -> plugin.class.name.contains(KOTLIN_PLUGIN_NAME) } != null) {
             return Language.KOTLIN
         }
-        if (project.plugins.find { plugin -> plugin.class.name =~ /Java(.*)Plugin$/ } != null) {
+        if (project.plugins.find { plugin -> plugin.class.name =~ /\.Java(.*)Plugin/ } != null) {
             return Language.JAVA
         }
         throw new IllegalStateException(Message.CANNOT_RECOGNIZE_LANGUAGE.withArgs(project.name))

@@ -4,8 +4,8 @@ plugins {
     id 'io.freefair.lombok'
 }
 
-targetCompatibility = JavaVersion.VERSION_1_8
-sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_11
+sourceCompatibility = JavaVersion.VERSION_11
 
 java {
     withJavadocJar()
@@ -13,17 +13,21 @@ java {
 }
 
 jar {
-    archiveName = 'plugin-core.jar'
+    archiveFileName = 'plugin-core.jar'
 }
 
 dependencies {
     implementation libs.ymlSnake
     implementation libs.guava
     implementation libs.guice
-
-    testImplementation libs.spock
-    testImplementation libs.cglib
-    testImplementation libs.objenesis
-
     testCompileOnly libs.lombok
+}
+
+apply from: '../gradle/dependencies-spock.gradle'
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
 }

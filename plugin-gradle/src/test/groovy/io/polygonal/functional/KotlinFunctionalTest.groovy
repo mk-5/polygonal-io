@@ -21,8 +21,8 @@ class KotlinFunctionalTest extends Specification {
         new File(projectDir, "settings.gradle") << ""
         new File(projectDir, "build.gradle") << """
             plugins {
-                id "org.jetbrains.kotlin.jvm" version "1.3.61"
-                id "org.jetbrains.kotlin.plugin.spring" version "1.3.61"
+                id "org.jetbrains.kotlin.jvm" version "1.9.22"
+                id "org.jetbrains.kotlin.plugin.spring" version "1.9.22"
                 id('io.polygonal')
             }
             

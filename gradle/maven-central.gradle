@@ -12,21 +12,21 @@ def token = System.getenv('SONATYPE_TOKEN') != null ? System.getenv('SONATYPE_TO
 def releasesRepoUrl = 'https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/'
 def snapshotsRepoUrl = 'https://s01.oss.sonatype.org/content/repositories/snapshots/'
 
-ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
-
-print("Got user " + user)
+ext.isReleaseVersion = !version.endsWith("SNAPSHOT") && version != 'latest'
 
 def base64Decode(String prop) {
     def value = findProperty(prop)
     return value != null && value != "unknown" ? new String(Base64.getDecoder().decode(value.toString().getBytes(StandardCharsets.UTF_8))).trim() : ""
 }
 
-signing {
-    required { isReleaseVersion }
-    def signingKey = base64Decode("signingKey")
-    def signingPassword = base64Decode("signingPassword")
-    useInMemoryPgpKeys(signingKey, signingPassword)
-    sign publishing.publications.maven
+if (isReleaseVersion) {
+    signing {
+        required { isReleaseVersion }
+        def signingKey = base64Decode("signingKey")
+        def signingPassword = base64Decode("signingPassword")
+        useInMemoryPgpKeys(signingKey, signingPassword)
+        sign publishing.publications.maven
+    }
 }
 
 publishing {

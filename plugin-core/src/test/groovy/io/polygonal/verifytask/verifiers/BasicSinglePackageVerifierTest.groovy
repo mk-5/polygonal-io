@@ -47,7 +47,7 @@ class BasicSinglePackageVerifierTest extends Specification {
         where:
         dirExists | dirRequired || errorThrown
         true      | true        || null
-        false | true || ConditionException
+        false     | true        || ConditionException
         true      | false       || null
     }
 
@@ -74,11 +74,11 @@ class BasicSinglePackageVerifierTest extends Specification {
 
         where:
         objects | allowed || errorThrown
-        1 | 0 || ConditionException
+        1       | 0       || ConditionException
         0       | 0       || null
         40      | -1      || null
         3       | 3       || null
-        3 | 2 || ConditionException
+        3       | 2       || ConditionException
     }
 
     def "should verify packagePrivateScope attribute"(int objects, int allowed, Class errorThrown) {
@@ -103,11 +103,11 @@ class BasicSinglePackageVerifierTest extends Specification {
 
         where:
         objects | allowed || errorThrown
-        1 | 0 || ConditionException
+        1       | 0       || ConditionException
         0       | 0       || null
         40      | -1      || null
         3       | 3       || null
-        3 | 2 || ConditionException
+        3       | 2       || ConditionException
     }
 
     def "should verify protectedScope attribute"(int objects, int allowed, Class errorThrown) {
@@ -132,11 +132,11 @@ class BasicSinglePackageVerifierTest extends Specification {
 
         where:
         objects | allowed || errorThrown
-        1 | 0 || ConditionException
+        1       | 0       || ConditionException
         0       | 0       || null
         40      | -1      || null
         3       | 3       || null
-        3 | 2 || ConditionException
+        3       | 2       || ConditionException
     }
 
     def "should verify interfaces attribute"(int objects, Set<String> allowed, Class errorThrown) {
@@ -161,9 +161,9 @@ class BasicSinglePackageVerifierTest extends Specification {
 
         where:
         objects | allowed                || errorThrown
-        1  | []                                         || ConditionException
+        1       | []                     || ConditionException
         0       | []                     || null
-        40 | [ObjectType.INTERFACE] || null
+        40      | [ObjectType.INTERFACE] || null
     }
 
     def "should verify classes attribute"(int objects, Set<String> allowed, Class errorThrown) {
@@ -188,9 +188,9 @@ class BasicSinglePackageVerifierTest extends Specification {
 
         where:
         objects | allowed            || errorThrown
-        1  | []                                     || ConditionException
+        1       | []                 || ConditionException
         0       | []                 || null
-        40 | [ObjectType.CLASS] || null
+        40      | [ObjectType.CLASS] || null
     }
 
     def "should verify abstract classes attribute"(int objects, Set<String> allowed, Class errorThrown) {
@@ -215,9 +215,9 @@ class BasicSinglePackageVerifierTest extends Specification {
 
         where:
         objects | allowed                     || errorThrown
-        1  | []                                              || ConditionException
+        1       | []                          || ConditionException
         0       | []                          || null
-        40 | [ObjectType.ABSTRACT_CLASS] || null
+        40      | [ObjectType.ABSTRACT_CLASS] || null
     }
 
     def "should verify enums attribute"(int objects, Set<String> allowed, Class errorThrown) {
@@ -242,8 +242,8 @@ class BasicSinglePackageVerifierTest extends Specification {
 
         where:
         objects | allowed           || errorThrown
-        1  | []                                    || ConditionException
+        1       | []                || ConditionException
         0       | []                || null
-        40 | [ObjectType.ENUM] || null
+        40      | [ObjectType.ENUM] || null
     }
 }
