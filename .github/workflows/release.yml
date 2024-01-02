@@ -41,7 +41,7 @@ jobs:
         uses: actions/create-release@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_REF_NAME: ${{ secrets.GITHUB_REF_NAME }}
+          GITHUB_REF_NAME: ${{ env.GITHUB_REF_NAME }}
         with:
           tag_name: ${{ env.GITHUB_REF_NAME }}
           release_name: Release ${{ env.GITHUB_REF_NAME }}
