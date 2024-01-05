@@ -27,7 +27,7 @@ dependencies {
     implementation 'org.apache.maven:maven-model:3.6.3'
 
     compileOnly 'org.apache.maven:maven-project:2.2.1'
-    compileOnly 'org.apache.maven.plugins:maven-plugin-plugin:3.6.0'
+    compileOnly 'org.apache.maven.plugins:maven-plugin-plugin:3.10.2'
     implementation 'org.apache.maven.plugin-tools:maven-plugin-tools-annotations:3.6.0'
     implementation 'org.apache.maven.plugin-tools:maven-plugin-tools-generators:3.6.0'
     annotationProcessor 'org.apache.maven.plugin-tools:maven-plugin-annotations:3.6.0'
@@ -46,7 +46,7 @@ test {
 
 tasks.register('pluginDescriptor', MavenExec) {
     group 'publishing'
-    goals 'org.apache.maven.plugins:maven-plugin-plugin:3.6.0:descriptor'
+    goals 'org.apache.maven.plugins:maven-plugin-plugin:3.10.2:descriptor'
     options {
         define = [
                 'groupId'   : project.group,
