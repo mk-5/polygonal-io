@@ -1,10 +1,16 @@
 package io.polygonal.plugin
 
+import lombok.Getter
+import lombok.Setter
 
-import org.gradle.util.ConfigureUtil
-
+@Getter
+@Setter
 class PolygonExtension extends Polygon {
-    void packageDef(Closure closure) {
-        packagesDefs.add(ConfigureUtil.configure(closure, new PackageDef()))
+    PackageDef packageDef(Closure closure) {
+        def packageDef = new PackageDef()
+        closure.setDelegate(packageDef)
+        closure.call()
+        packagesDefs.add(packageDef)
+        return packageDef
     }
 }

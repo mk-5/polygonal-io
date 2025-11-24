@@ -1,16 +1,20 @@
 package io.polygonal.plugin;
 
-import org.apache.maven.plugin.testing.AbstractMojoTestCase;
+import org.apache.maven.api.plugin.testing.InjectMojo;
+import org.apache.maven.api.plugin.testing.MojoTest;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-class PolygonalArchitecturePluginTest extends AbstractMojoTestCase {
+@MojoTest
+class PolygonalArchitecturePluginTest {
 
     @Test
-    void testMojo() throws Exception {
-        File testPom = new File(getBasedir(), "src/test/pom.xml");
-        PolygonalArchitecturePlugin mojo = (PolygonalArchitecturePlugin) lookupMojo("PolygonalArchitecturePlugin", testPom);
+    @InjectMojo(
+            goal = "verifyPolygons",
+            pom = "src/test/resources/pom.xml"
+    )
+    void testMojo(PolygonalArchitecturePlugin mojo) throws Exception {
         assertNotNull(mojo);
     }
 }

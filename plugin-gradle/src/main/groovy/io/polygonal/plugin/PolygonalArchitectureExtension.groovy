@@ -1,7 +1,7 @@
 package io.polygonal.plugin
 
+import org.gradle.api.Action
 import org.gradle.api.Project
-import org.gradle.util.ConfigureUtil
 
 class PolygonalArchitectureExtension extends PolygonalArchitecture {
 
@@ -12,7 +12,9 @@ class PolygonalArchitectureExtension extends PolygonalArchitecture {
     }
 
     PolygonExtension polygon(Closure closure) {
-        polygon = ConfigureUtil.configure(closure, new PolygonExtension())
+        polygon = new PolygonExtension()
+        closure.setDelegate(polygon)
+        closure.call()
         return polygon
     }
 

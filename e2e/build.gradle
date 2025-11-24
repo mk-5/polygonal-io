@@ -1,7 +1,7 @@
 buildscript {
     repositories {
         mavenLocal()
-        jcenter()
+        mavenCentral()
     }
     dependencies {
         classpath "io.polygonal:plugin-gradle:${System.getenv('POLYGONAL_PLUGIN_VERSION') ? System.getenv('POLYGONAL_PLUGIN_VERSION') : 'latest'}"

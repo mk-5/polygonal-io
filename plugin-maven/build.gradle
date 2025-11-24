@@ -1,11 +1,13 @@
 plugins {
     id 'java'
     id 'io.freefair.lombok'
-    id 'com.github.dkorotych.gradle-maven-exec' version '3.0.1'
+    id 'com.github.dkorotych.gradle-maven-exec' version '4.0.1'
 }
 
-sourceCompatibility = JavaVersion.VERSION_11
-targetCompatibility = JavaVersion.VERSION_11
+java.toolchain {
+    languageVersion.set(JavaLanguageVersion.of(17))
+}
+
 
 jar {
     from sourceSets.main.output
@@ -23,19 +25,19 @@ dependencies {
     implementation libs.ymlSnake
     implementation libs.guava
     implementation libs.guice
-    implementation 'org.apache.maven:maven-plugin-api:3.6.3'
-    implementation 'org.apache.maven:maven-model:3.6.3'
+    implementation 'org.apache.maven:maven-plugin-api:3.9.11'
+    implementation 'org.apache.maven:maven-model:3.9.11'
+    implementation 'org.apache.maven:maven-core:3.9.11'
+    compileOnly 'org.apache.maven.plugins:maven-plugin-plugin:3.15.2'
+    implementation 'org.apache.maven.plugin-tools:maven-plugin-tools-annotations:3.15.2'
+    implementation 'org.apache.maven.plugin-tools:maven-plugin-tools-generators:3.15.2'
+    annotationProcessor 'org.apache.maven.plugin-tools:maven-plugin-annotations:3.15.2'
 
-    compileOnly 'org.apache.maven:maven-project:2.2.1'
-    compileOnly 'org.apache.maven.plugins:maven-plugin-plugin:3.6.0'
-    implementation 'org.apache.maven.plugin-tools:maven-plugin-tools-annotations:3.6.0'
-    implementation 'org.apache.maven.plugin-tools:maven-plugin-tools-generators:3.6.0'
-    annotationProcessor 'org.apache.maven.plugin-tools:maven-plugin-annotations:3.6.0'
-
-    testImplementation 'org.apache.maven.plugin-testing:maven-plugin-testing-harness:3.3.0'
+    testImplementation 'org.apache.maven.plugin-testing:maven-plugin-testing-harness:3.4.0'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
     testImplementation 'org.mockito:mockito-junit-jupiter:3.3.3'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:6.0.1'
     testCompileOnly libs.lombok
     testAnnotationProcessor libs.lombok
 }
@@ -46,7 +48,7 @@ test {
 
 tasks.register('pluginDescriptor', MavenExec) {
     group 'publishing'
-    goals 'org.apache.maven.plugins:maven-plugin-plugin:3.6.0:descriptor'
+    goals 'org.apache.maven.plugins:maven-plugin-plugin:3.15.2:descriptor'
     options {
         define = [
                 'groupId'   : project.group,

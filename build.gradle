@@ -1,7 +1,7 @@
 plugins {
     id 'base'
     id 'idea'
-    id "io.freefair.lombok" version "8.4" apply false
+    id "io.freefair.lombok" version "9.1.0" apply false
 }
 
 allprojects {

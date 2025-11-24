@@ -19,39 +19,39 @@ public class PackageDef {
     String name = "";
 
     /**
-     * If equals true, error will be thrown when package is missing
+     * If equals true, an error will be thrown when the package is missing
      */
     boolean required = false;
 
     /**
-     * How many public scope object are allowed.
-     * -1      | unlimited
-     * 0      | 0 objects are allowed
-     * n &gt; 0  | n objects are allowed
+     * How many public scope objects are allowed
+     * -1 | unlimited
+     * 0 | 0 objects are allowed
+     * n &gt; 0 | n objects are allowed
      */
     long publicScope = 0;
 
     /**
-     * How many package-private scope object are allowed. Unlimited on root level by default.
-     * -1      | unlimited
-     * 0      | 0 objects are allowed
+     * How many package-private scope objects are allowed? Unlimited on the root level by default.
+     * -1 | unlimited
+     * 0 | 0 objects are allowed
      * n &gt; 0  | n objects are allowed
      */
     long packagePrivateScope = 0;
 
     /**
-     * How many protected scope object are allowed.
-     * -1      | unlimited
-     * 0      | 0 objects are allowed
-     * n &gt; 0  | n objects are allowed
+     * How many protected scope objects are allowed
+     * -1 | unlimited
+     * 0 | 0 objects are allowed
+     * n &gt; 0 | n objects are allowed
      */
     long protectedScope = 0;
 
     /**
-     * How many internal scope object are allowed. (kotlin)
-     * -1      | unlimited
-     * 0      | 0 objects are allowed
-     * n &gt; 0  | n objects are allowed
+     * How many internal scope objects are allowed (kotlin)
+     * -1 | unlimited
+     * 0 | 0 objects are allowed
+     * n &gt; 0 | n objects are allowed
      */
     long internalScope = 0;
 
